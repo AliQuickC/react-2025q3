@@ -1,9 +1,10 @@
 import type { IGlobalState, SetCards } from '../../Types/types';
+import { ItemsList } from '../ItemsList/ItemsList';
 import s from './Results.module.sass';
 import React from 'react';
 
 interface IProps {
-  cardsState: IGlobalState;
+  globalState: IGlobalState;
   setCards: SetCards;
 }
 
@@ -24,7 +25,12 @@ class Results extends React.Component<IProps, IState> {
 
     return (
       <main className={s.main}>
-        <div className="container"></div>
+        <div className="container">
+          <ItemsList
+            globalState={this.props.globalState}
+            setCards={this.props.setCards}
+          />
+        </div>
       </main>
     );
   }

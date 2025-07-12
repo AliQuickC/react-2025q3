@@ -1,14 +1,31 @@
 export interface IGame {
+  id: number;
   name: string;
+  released: string;
+  ratings_count: number;
 }
 
 export interface IGlobalState {
   haveData: boolean;
-  starships: IGame[];
+  games: IGame[];
+  count: number;
   responseOk: boolean;
   findWord: string;
 }
 
-export type SetCards = (starships: IGame[], responseOk: boolean) => void;
+export type SetCards = (gamesData: GamesData, responseOk: boolean) => void;
 export type setFindWord = (findWord: string) => void;
 export type switchHaveData = (haveData: boolean) => void;
+
+export type ResponseGames = {
+  count: number;
+  results: IGame[];
+  next: string;
+  description: string;
+  [propName: string]: unknown;
+};
+
+export type GamesData = {
+  count: number;
+  results: IGame[];
+};
