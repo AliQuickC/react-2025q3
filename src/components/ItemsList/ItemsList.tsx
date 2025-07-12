@@ -1,19 +1,25 @@
 import * as React from 'react';
 import { Loader } from '../Loader/Loader';
-import type { IGame, IGlobalState, SetCards } from '../../Types/types';
-import { requestGames } from '../../api/api';
+import type { IGame, IGlobalState, SetGameList } from '../../Types/types';
+import { requestFindGames, requestGames } from '../../api/api';
 import s from './ItemsList.module.sass';
 import { ItemHeader } from '../Item/ItemHeader';
 import { Item } from '../Item/Item';
 
 interface IProps {
   globalState: IGlobalState;
-  setCards: SetCards;
+  setGameList: SetGameList;
 }
 type State = object;
 export class ItemsList extends React.Component<IProps, State> {
   componentDidMount() {
-    requestGames(this.props.setCards);
+    const findWord = this.props.globalState.findWord;
+
+    if (findWord === '') {
+      requestGames(this.props.setGameList);
+    } else {
+      requestFindGames(this.props.setGameList, findWord);
+    }
   }
 
   render() {

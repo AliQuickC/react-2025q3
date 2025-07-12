@@ -35,10 +35,11 @@ class App extends React.Component<IProps, IState> {
   }
 
   setFindWord = (findWord: string) => {
+    localStorage.setItem(storeKEY, findWord);
     this.setState((prev) => ({ ...prev, findWord }));
   };
 
-  setCards = (gamesData: GamesData, responseOk: boolean) => {
+  setGameList = (gamesData: GamesData, responseOk: boolean) => {
     this.setState((prev) => ({
       ...prev,
       haveData: true,
@@ -56,12 +57,12 @@ class App extends React.Component<IProps, IState> {
     return (
       <>
         <TopControls
-          cardsState={this.state}
+          globalState={this.state}
           switchHaveData={this.switchHaveData}
           setFindWord={this.setFindWord}
-          setCards={this.setCards}
+          setGameList={this.setGameList}
         />
-        <Results globalState={this.state} setCards={this.setCards} />
+        <Results globalState={this.state} setGameList={this.setGameList} />
         <ErrorButton />
       </>
     );

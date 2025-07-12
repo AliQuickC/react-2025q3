@@ -1,11 +1,11 @@
-import type { IGlobalState, SetCards } from '../../Types/types';
+import type { IGlobalState, SetGameList } from '../../Types/types';
 import { ItemsList } from '../ItemsList/ItemsList';
 import s from './Results.module.sass';
 import React from 'react';
 
 interface IProps {
   globalState: IGlobalState;
-  setCards: SetCards;
+  setGameList: SetGameList;
 }
 
 interface IState {
@@ -28,7 +28,7 @@ class Results extends React.Component<IProps, IState> {
         <div className="container">
           <ItemsList
             globalState={this.props.globalState}
-            setCards={this.props.setCards}
+            setGameList={this.props.setGameList}
           />
         </div>
       </main>

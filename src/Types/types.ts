@@ -13,7 +13,7 @@ export interface IGlobalState {
   findWord: string;
 }
 
-export type SetCards = (gamesData: GamesData, responseOk: boolean) => void;
+export type SetGameList = (gamesData: GamesData, responseOk: boolean) => void;
 export type setFindWord = (findWord: string) => void;
 export type switchHaveData = (haveData: boolean) => void;
 

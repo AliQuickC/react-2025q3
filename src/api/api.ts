@@ -1,4 +1,9 @@
-import type { GamesData, IGame, ResponseGames, SetCards } from '../Types/types';
+import type {
+  GamesData,
+  IGame,
+  ResponseGames,
+  SetGameList,
+} from '../Types/types';
 
 const API_KEY = '85dcaeb171a84c298fef338bfc441a17';
 
@@ -15,33 +20,14 @@ function convertResponse(response: ResponseGames): GamesData {
   const results: IGame[] = response.results.map((item) => ({
     id: item.id,
     name: item.name,
-    released: item.released,
+    released: item.released || '',
     ratings_count: item.ratings_count,
   }));
   return { count: response.count, results };
 }
 
-export const gamesAPI = {
-  getGames(page: string | null = null) {
-    const url = base_games_url + `${page ? '&page=' + page : ''}`;
-    return fetch(url);
-  },
-  getSearchGames(find_word: string = '', page: string | null = null) {
-    const url =
-      base_games_url +
-      `${page ? '&page=' + page : ''}` +
-      '&search=' +
-      find_word;
-    return fetch(url).then();
-  },
-};
-
-export const requestGames = async (
-  callback: SetCards,
-  page: string | null = null
-) => {
-  gamesAPI
-    .getGames(page)
+function responseHandler(param: Promise<Response>, callback: SetGameList) {
+  param
     .then((response: Response) => {
       if (response.ok) {
         return response.json();
@@ -56,4 +42,34 @@ export const requestGames = async (
       callback(errorGamesData, false);
       console.error('error, failed to get data from server');
     });
+}
+
+const gamesAPI = {
+  getGames(page: string | null = null) {
+    const url = base_games_url + `${page ? '&page=' + page : ''}`;
+    return fetch(url);
+  },
+  getSearchGames(find_word: string = '', page: string | null = null) {
+    const url =
+      base_games_url +
+      `${page ? '&page=' + page : ''}` +
+      '&search=' +
+      find_word;
+    return fetch(url);
+  },
+};
+
+export const requestGames = async (
+  callback: SetGameList,
+  page: string | null = null
+) => {
+  responseHandler(gamesAPI.getGames(page), callback);
+};
+
+export const requestFindGames = (
+  callback: SetGameList,
+  word: string,
+  page: string | null = null
+) => {
+  responseHandler(gamesAPI.getSearchGames(word, page), callback);
 };

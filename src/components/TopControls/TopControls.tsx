@@ -3,16 +3,16 @@ import s from './TopControls.module.sass';
 import Search from '../Search/Search';
 import type {
   IGlobalState,
-  SetCards,
   setFindWord,
+  SetGameList,
   switchHaveData,
 } from '../../Types/types';
 
 interface IProps {
   switchHaveData: switchHaveData;
-  setCards: SetCards;
+  setGameList: SetGameList;
   setFindWord: setFindWord;
-  cardsState: IGlobalState;
+  globalState: IGlobalState;
 }
 
 class TopControls extends React.Component<IProps> {
@@ -21,10 +21,10 @@ class TopControls extends React.Component<IProps> {
       <header className={s.header}>
         <div className={`container ${s.headerContainer} `}>
           <Search
-            cardsState={this.props.cardsState}
+            globalState={this.props.globalState}
             switchHaveData={this.props.switchHaveData}
             setFindWord={this.props.setFindWord}
-            setCards={this.props.setCards}
+            setGameList={this.props.setGameList}
           />
         </div>
       </header>

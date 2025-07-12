@@ -2,16 +2,17 @@ import React from 'react';
 import s from './Search.module.sass';
 import type {
   IGlobalState,
-  SetCards,
   setFindWord,
+  SetGameList,
   switchHaveData,
 } from '../../Types/types';
+import { requestFindGames, requestGames } from '../../api/api';
 
 interface IProps {
   switchHaveData: switchHaveData;
-  setCards: SetCards;
+  setGameList: SetGameList;
   setFindWord: setFindWord;
-  cardsState: IGlobalState;
+  globalState: IGlobalState;
 }
 
 interface IState {
@@ -25,8 +26,20 @@ class Search extends React.Component<IProps, IState> {
   }
 
   componentDidMount() {
-    this.setState({ findWord: this.props.cardsState.findWord });
+    this.setState({ findWord: this.props.globalState.findWord });
   }
+
+  findHandler = () => {
+    const findWord = this.state.findWord.trim();
+    this.props.setFindWord(findWord);
+    this.props.switchHaveData(false);
+
+    if (findWord === '') {
+      requestGames(this.props.setGameList);
+    } else {
+      requestFindGames(this.props.setGameList, findWord);
+    }
+  };
 
   render() {
     return (
@@ -37,10 +50,9 @@ class Search extends React.Component<IProps, IState> {
           value={this.state.findWord}
           onChange={(event) => {
             this.setState({ findWord: event.target.value });
-            this.props.setFindWord(this.state.findWord);
           }}
         />
-        <button className={s.findButton}></button>
+        <button className={s.findButton} onClick={this.findHandler}></button>
       </div>
     );
   }
