@@ -4,29 +4,10 @@ import type { GamesData, IGlobalState } from './Types/types';
 import TopControls from './components/TopControls/TopControls';
 import Results from './components/Results/Results';
 import { ErrorButton } from './components/ErrorButton/ErrorButton';
-
-export const storeKEY = 'module1';
+import { initialState, storeKEY } from './const/const';
 
 type IProps = object;
 type IState = IGlobalState;
-
-const getFromLSFindWord = (): string => {
-  const LocStor = localStorage.getItem(storeKEY);
-  if (!LocStor) {
-    localStorage.setItem(storeKEY, '');
-  }
-
-  const word = localStorage.getItem(storeKEY) as string;
-  return word;
-};
-
-const initialState: IGlobalState = {
-  haveData: false,
-  games: [],
-  count: 0,
-  responseOk: false,
-  findWord: getFromLSFindWord(),
-};
 
 class App extends React.Component<IProps, IState> {
   constructor(props: IProps) {
