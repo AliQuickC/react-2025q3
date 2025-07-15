@@ -27,8 +27,8 @@ export class ItemsList extends React.Component<IProps, State> {
       let gameItems: React.JSX.Element[] | React.JSX.Element;
 
       if (this.props.globalState.responseOk) {
-        gameItems = this.props.globalState.games.map((game: IGame, index) => {
-          return <Item key={index} itemData={game} />;
+        gameItems = this.props.globalState.games.map((game: IGame) => {
+          return <Item key={game.id} itemData={game} />;
         });
       } else {
         gameItems = (
