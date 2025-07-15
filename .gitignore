@@ -16,6 +16,7 @@ build
 .env
 package-lock.json
 *.lnk
+coverage
 
 # Editor directories and files
 .vscode/*
