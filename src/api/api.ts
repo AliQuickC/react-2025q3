@@ -5,12 +5,12 @@ import type {
   SetGameList,
 } from '../Types/types';
 
-const API_KEY = '85dcaeb171a84c298fef338bfc441a17';
+const apiKey: string = import.meta.env.VITE_API_KEY;
 
 const base_url = 'https://api.rawg.io/api';
 const PAGE_SIZE = '20';
 const base_games_url =
-  base_url + '/games' + '?key=' + API_KEY + '&page_size=' + PAGE_SIZE;
+  base_url + '/games' + '?key=' + apiKey + '&page_size=' + PAGE_SIZE;
 const errorGamesData = {
   count: 0,
   results: [],
