@@ -43,7 +43,7 @@ class Search extends React.Component<IProps, IState> {
 
   render() {
     return (
-      <div className={s.search}>
+      <div className={s.search} data-testid="search-element">
         <input
           className={s.searchInput}
           type="text"

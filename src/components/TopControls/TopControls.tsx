@@ -18,7 +18,7 @@ interface IProps {
 class TopControls extends React.Component<IProps> {
   render() {
     return (
-      <header className={s.header}>
+      <header className={s.header} data-testid="header-element">
         <div className={`container ${s.headerContainer} `}>
           <Search
             globalState={this.props.globalState}
