@@ -10,3 +10,5 @@ export const initialState: IGlobalState = {
   responseOk: false,
   findWord: getFromLSFindWord(),
 };
+
+export const responseErrorMessage = 'Error, failed to get data from server !';

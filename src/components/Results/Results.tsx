@@ -13,18 +13,9 @@ interface IState {
 }
 
 class Results extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-    this.state = { isError: false };
-  }
-
   render() {
-    if (this.state.isError) {
-      throw new Error('Wrong!!!');
-    }
-
     return (
-      <main className={s.main}>
+      <main className={s.main} data-testid="results-element">
         <div className="container">
           <ItemsList
             globalState={this.props.globalState}
