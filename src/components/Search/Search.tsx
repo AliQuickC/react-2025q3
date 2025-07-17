@@ -47,6 +47,7 @@ class Search extends React.Component<IProps, IState> {
         <input
           className={s.searchInput}
           type="text"
+          placeholder="find..."
           value={this.state.findWord}
           onChange={(event) => {
             this.setState({ findWord: event.target.value });
