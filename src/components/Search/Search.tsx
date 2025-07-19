@@ -53,7 +53,11 @@ class Search extends React.Component<IProps, IState> {
             this.setState({ findWord: event.target.value });
           }}
         />
-        <button className={s.findButton} onClick={this.findHandler}></button>
+        <button
+          className={s.findButton}
+          onClick={this.findHandler}
+          aria-label="find"
+        ></button>
       </div>
     );
   }
