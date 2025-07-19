@@ -43,16 +43,21 @@ class Search extends React.Component<IProps, IState> {
 
   render() {
     return (
-      <div className={s.search}>
+      <div className={s.search} data-testid="search-element">
         <input
           className={s.searchInput}
           type="text"
+          placeholder="find..."
           value={this.state.findWord}
           onChange={(event) => {
             this.setState({ findWord: event.target.value });
           }}
         />
-        <button className={s.findButton} onClick={this.findHandler}></button>
+        <button
+          className={s.findButton}
+          onClick={this.findHandler}
+          aria-label="find"
+        ></button>
       </div>
     );
   }
