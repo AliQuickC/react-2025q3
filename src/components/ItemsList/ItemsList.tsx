@@ -4,8 +4,13 @@ import { requestFindGames, requestGames } from '../../api/api';
 import s from './ItemsList.module.sass';
 import { ItemHeader } from '../Item/ItemHeader';
 import { Item } from '../Item/Item';
-import { notDataMessage, responseErrorMessage } from '../../const/const';
+import {
+  notDataMessage,
+  responseErrorMessage,
+  storeKEY,
+} from '../../const/const';
 import { useEffect, type JSX } from 'react';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 interface IProps {
   globalState: IGlobalState;
@@ -13,15 +18,15 @@ interface IProps {
 }
 
 function ItemsList(props: IProps): JSX.Element {
+  const [lsWord] = useLocalStorage(storeKEY);
+
   useEffect(() => {
     if (props.globalState.haveData) return;
 
-    const findWord = props.globalState.findWord;
-
-    if (findWord === '') {
+    if (lsWord === '') {
       requestGames(props.setGameList);
     } else {
-      requestFindGames(props.setGameList, findWord);
+      requestFindGames(props.setGameList, lsWord);
     }
     // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps

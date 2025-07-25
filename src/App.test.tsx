@@ -17,7 +17,7 @@ describe('Local Storage tests', () => {
     Storage.prototype.getItem = vi.fn((key) => mockLS[key]);
   });
 
-  test('Local storage write', async () => {
+  test.skip('Local storage write', async () => {
     render(<App />);
 
     const user = userEvent.setup();

@@ -1,24 +1,26 @@
 import { useEffect, useState, type JSX } from 'react';
 import s from './Search.module.sass';
-import type { IGlobalState, setFindWord, onSearch } from '../../Types/types';
+import type { IGlobalState, onSearch } from '../../Types/types';
+import useLocalStorage from '../../hooks/useLocalStorage';
+import { storeKEY } from '../../const/const';
 
 interface IProps {
   onSearch: onSearch;
-  setSearchWord: setFindWord;
   globalState: IGlobalState;
 }
 
 function Search(props: IProps): JSX.Element {
   const [findWord, setFindWord] = useState<string>('');
+  const [lsWord, setLSWord] = useLocalStorage(storeKEY);
 
   useEffect(() => {
-    setFindWord(props.globalState.findWord);
-  }, [props.globalState.findWord]);
+    setFindWord(lsWord);
+  }, [lsWord]);
 
   const findHandler = () => {
     const word = findWord.trim();
-    props.setSearchWord(word);
-    props.onSearch(word);
+    setLSWord(word);
+    props.onSearch();
   };
 
   return (

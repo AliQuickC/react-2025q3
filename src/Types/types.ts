@@ -10,12 +10,11 @@ export interface IGlobalState {
   games: IGame[];
   count: number;
   responseOk: boolean;
-  findWord: string;
 }
 
 export type SetGameList = (gamesData: GamesData, responseOk: boolean) => void;
 export type setFindWord = (findWord: string) => void;
-export type onSearch = (findWord: string) => void;
+export type onSearch = () => void;
 
 export type ResponseGames = {
   count: number;

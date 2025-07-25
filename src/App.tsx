@@ -4,14 +4,10 @@ import type { GamesData, IGlobalState } from './Types/types';
 import TopControls from './components/TopControls/TopControls';
 import Results from './components/Results/Results';
 import ErrorButton from './components/ErrorButton/ErrorButton';
-import { initialState, storeKEY } from './const/const';
+import { initialState } from './const/const';
 
 function App(): JSX.Element {
   const [state, setState] = useState<IGlobalState>(initialState);
-
-  const setFindWord = (findWord: string) => {
-    localStorage.setItem(storeKEY, findWord);
-  };
 
   const setGameList = (gamesData: GamesData, responseOk: boolean) => {
     setState((prev) => ({
@@ -23,17 +19,13 @@ function App(): JSX.Element {
     }));
   };
 
-  const onSearch = (findWord: string = '') => {
-    setState((prev) => ({ ...prev, haveData: false, findWord }));
+  const onSearch = () => {
+    setState((prev) => ({ ...prev, haveData: false }));
   };
 
   return (
     <>
-      <TopControls
-        globalState={state}
-        onSearch={onSearch}
-        setFindWord={setFindWord}
-      />
+      <TopControls globalState={state} onSearch={onSearch} />
       <Results globalState={state} setGameList={setGameList} />
       <ErrorButton />
     </>
