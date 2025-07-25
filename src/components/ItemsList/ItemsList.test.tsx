@@ -2,7 +2,11 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 import ItemsList from './ItemsList';
 import type { IGame } from '../../Types/types';
-import { initialState, responseErrorMessage } from '../../const/const';
+import {
+  initialState,
+  notDataMessage,
+  responseErrorMessage,
+} from '../../const/const';
 import {
   mocGlobalState,
   mocRequestFindGames,
@@ -223,7 +227,7 @@ describe('Rendering Tests', () => {
       />
     );
 
-    expect(screen.queryAllByTestId('card-element')).toHaveLength(20);
+    expect(screen.getAllByTestId('card-element')).toHaveLength(20);
 
     rerender(
       <ItemsList
@@ -232,15 +236,17 @@ describe('Rendering Tests', () => {
       />
     );
 
-    expect(screen.queryAllByTestId('card-element')).toHaveLength(12);
+    expect(screen.getAllByTestId('card-element')).toHaveLength(12);
   });
 
-  test('Displays "no results" message when data array is empty', () => {
-    const testMessage = 'no results';
+  test('displayed, "no results" message when data array is empty', () => {
     render(
-      <ItemsList globalState={mocGlobalState} setGameList={mocSetGameList} />
+      <ItemsList
+        globalState={{ ...mocGlobalState, games: [] }}
+        setGameList={mocSetGameList}
+      />
     );
-    expect(screen.queryByText(new RegExp(testMessage))).not.toBeInTheDocument();
+    expect(screen.queryByText(new RegExp(notDataMessage))).toBeInTheDocument();
   });
 
   test('Shows loading state while fetching data', () => {
@@ -248,11 +254,10 @@ describe('Rendering Tests', () => {
       <ItemsList globalState={initialState} setGameList={mocSetGameList} />
     );
 
-    const cardDetailLoader = screen.getByAltText('loader...');
-    expect(cardDetailLoader).toBeInTheDocument();
+    expect(screen.queryByAltText('loader...')).toBeInTheDocument();
 
     waitFor(() => {
-      expect(() => screen.getByAltText('loader...')).toThrow();
+      expect(screen.queryByAltText('loader...')).not.toBeInTheDocument();
     });
   });
 
@@ -297,8 +302,7 @@ describe('Rendering Tests', () => {
     );
 
     waitFor(() => {
-      const errorMessage = screen.queryByAltText(responseErrorMessage);
-      expect(errorMessage).toBeInTheDocument();
+      expect(screen.queryByAltText(responseErrorMessage)).toBeInTheDocument();
     });
   });
 });

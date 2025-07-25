@@ -22,6 +22,6 @@ describe('Rendering Tests', () => {
       />
     );
 
-    expect(screen.getByAltText('loader...')).toBeInTheDocument();
+    expect(screen.queryByAltText('loader...')).toBeInTheDocument();
   });
 });

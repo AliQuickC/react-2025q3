@@ -12,3 +12,4 @@ export const initialState: IGlobalState = {
 };
 
 export const responseErrorMessage = 'Error, failed to get data from server !';
+export const notDataMessage = 'no results';

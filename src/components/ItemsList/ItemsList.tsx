@@ -4,7 +4,7 @@ import { requestFindGames, requestGames } from '../../api/api';
 import s from './ItemsList.module.sass';
 import { ItemHeader } from '../Item/ItemHeader';
 import { Item } from '../Item/Item';
-import { responseErrorMessage } from '../../const/const';
+import { notDataMessage, responseErrorMessage } from '../../const/const';
 import { useEffect, type JSX } from 'react';
 
 interface IProps {
@@ -31,9 +31,13 @@ function ItemsList(props: IProps): JSX.Element {
     let gameItems: React.JSX.Element[] | React.JSX.Element;
 
     if (props.globalState.responseOk) {
-      gameItems = props.globalState.games.map((game: IGame) => {
-        return <Item key={game.id} itemData={game} />;
-      });
+      if (props.globalState.games.length === 0) {
+        gameItems = <div className={s.ErrorData}>{notDataMessage}</div>;
+      } else {
+        gameItems = props.globalState.games.map((game: IGame) => {
+          return <Item key={game.id} itemData={game} />;
+        });
+      }
     } else {
       gameItems = <div className={s.ErrorData}>{responseErrorMessage}</div>;
     }

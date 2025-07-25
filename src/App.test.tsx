@@ -23,9 +23,9 @@ describe('Local Storage tests', () => {
     const user = userEvent.setup();
     const searchInput: HTMLInputElement =
       screen.getByPlaceholderText(/find.../i);
-    const searchButton: HTMLButtonElement = screen.queryByRole('button', {
+    const searchButton: HTMLButtonElement = screen.getByRole('button', {
       name: 'find',
-    }) as HTMLButtonElement;
+    });
 
     expect(searchInput.value).toBe('');
 

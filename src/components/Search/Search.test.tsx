@@ -26,7 +26,7 @@ describe('Rendering Tests', () => {
     expect(searchButton).toBeInTheDocument();
   });
 
-  test('Displays previously saved search term from localStorage on mount', () => {
+  test('Displays search term', () => {
     render(
       <Search
         globalState={{ ...initialState, findWord: mockWord1 }}
@@ -59,8 +59,6 @@ describe('Rendering Tests', () => {
 
 describe('User Interaction Tests', () => {
   beforeEach(() => {
-    // mocRequestFindGames.mockClear();
-    // mocSetGameList.mockClear();
     mocSetSearchWord.mockClear();
     moconSearch.mockClear();
   });
@@ -94,7 +92,7 @@ describe('User Interaction Tests', () => {
     const user = userEvent.setup();
     const searchInput: HTMLInputElement =
       screen.getByPlaceholderText(/find.../i);
-    const searchButton: HTMLButtonElement = screen.queryByRole(
+    const searchButton: HTMLButtonElement = screen.getByRole(
       'button'
     ) as HTMLButtonElement;
 
@@ -121,7 +119,7 @@ describe('User Interaction Tests', () => {
     const user = userEvent.setup();
     const searchInput: HTMLInputElement =
       screen.getByPlaceholderText(/find.../i);
-    const searchButton: HTMLButtonElement = screen.queryByRole(
+    const searchButton: HTMLButtonElement = screen.getByRole(
       'button'
     ) as HTMLButtonElement;
 
@@ -148,7 +146,7 @@ describe('User Interaction Tests', () => {
     const user = userEvent.setup();
     const searchInput: HTMLInputElement =
       screen.getByPlaceholderText(/find.../i);
-    const searchButton: HTMLButtonElement = screen.queryByRole(
+    const searchButton: HTMLButtonElement = screen.getByRole(
       'button'
     ) as HTMLButtonElement;
 
@@ -175,7 +173,7 @@ describe('User Interaction Tests', () => {
     const user = userEvent.setup();
     const searchInput: HTMLInputElement =
       screen.getByPlaceholderText(/find.../i);
-    const searchButton: HTMLButtonElement = screen.queryByRole(
+    const searchButton: HTMLButtonElement = screen.getByRole(
       'button'
     ) as HTMLButtonElement;
 
