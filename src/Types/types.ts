@@ -15,7 +15,7 @@ export interface IGlobalState {
 
 export type SetGameList = (gamesData: GamesData, responseOk: boolean) => void;
 export type setFindWord = (findWord: string) => void;
-export type switchHaveData = (haveData: boolean) => void;
+export type onSearch = (findWord: string) => void;
 
 export type ResponseGames = {
   count: number;

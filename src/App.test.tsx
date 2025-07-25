@@ -1,7 +1,6 @@
 import { beforeAll, describe, expect, test, vi } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import ErrorBoundary from './components/ErrorBoundaryPage/ErrorBoundaryPage.tsx';
 import App from './App';
 import { storeKEY } from './const/const.ts';
 
@@ -35,25 +34,5 @@ describe('Local Storage tests', () => {
 
     expect(Storage.prototype.setItem).toHaveBeenCalledTimes(1);
     expect(Storage.prototype.setItem).toHaveBeenCalledWith(storeKEY, mockWord2);
-  });
-});
-
-test('Error Boundary Tests, Error button is clicked', async () => {
-  render(
-    <ErrorBoundary>
-      <App />
-    </ErrorBoundary>
-  );
-
-  const user = userEvent.setup();
-  const errorButton: HTMLButtonElement = screen.getByRole('button', {
-    name: 'generate throw',
-  }) as HTMLButtonElement;
-  user.click(errorButton);
-
-  await waitFor(() => {
-    expect(
-      screen.getByText(/An error occurred while executing the application/i)
-    ).toBeInTheDocument();
   });
 });

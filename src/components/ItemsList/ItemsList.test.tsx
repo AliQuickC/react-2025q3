@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { ItemsList } from './ItemsList';
+import ItemsList from './ItemsList';
 import type { IGame } from '../../Types/types';
 import { initialState, responseErrorMessage } from '../../const/const';
 import {
@@ -265,8 +265,8 @@ describe('Rendering Tests', () => {
     );
 
     waitFor(() => {
-      expect(mocRequestGames).toHaveBeenCalled();
       expect(mocRequestGames).toHaveBeenCalledTimes(1);
+      expect(mocRequestGames).toHaveBeenCalledWith(mocSetGameList, null);
     });
   });
 
@@ -279,8 +279,12 @@ describe('Rendering Tests', () => {
     );
 
     waitFor(() => {
-      expect(mocRequestFindGames).toHaveBeenCalled();
       expect(mocRequestFindGames).toHaveBeenCalledTimes(1);
+      expect(mocRequestFindGames).toHaveBeenCalledWith(
+        mocSetGameList,
+        'star wars',
+        null
+      );
     });
   });
 

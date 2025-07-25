@@ -3,8 +3,7 @@ import { describe, expect, test, vi } from 'vitest';
 import { mocGlobalState } from '../../../__tests__/mock';
 import TopControls from './TopControls';
 
-const mocSwitchHaveData = vi.fn();
-const mocSetGameList = vi.fn();
+const moconSearch = vi.fn();
 const mocSetFindWord = vi.fn();
 
 describe('Rendering Tests', () => {
@@ -12,9 +11,8 @@ describe('Rendering Tests', () => {
     render(
       <TopControls
         globalState={mocGlobalState}
-        switchHaveData={mocSwitchHaveData}
+        onSearch={moconSearch}
         setFindWord={mocSetFindWord}
-        setGameList={mocSetGameList}
       />
     );
 

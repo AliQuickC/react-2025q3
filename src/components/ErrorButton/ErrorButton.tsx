@@ -1,30 +1,25 @@
 import s from './ErrorButton.module.sass';
-import * as React from 'react';
-type Props = object;
-type State = { isError: boolean };
+import React, { useState } from 'react';
 
-export class ErrorButton extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = { isError: false };
+function ErrorButton(): React.JSX.Element {
+  const [isError, setIsError] = useState<boolean>(false);
+
+  if (isError) {
+    throw new Error('Wrong!!!');
   }
 
-  render() {
-    if (this.state.isError) {
-      throw new Error('Wrong!!!');
-    }
-
-    return (
-      <div className={s.ErrorButton}>
-        <button
-          className={s.trowButton}
-          onClick={() => {
-            this.setState({ isError: true });
-          }}
-        >
-          generate throw
-        </button>
-      </div>
-    );
-  }
+  return (
+    <div className={s.ErrorButton}>
+      <button
+        className={s.trowButton}
+        onClick={() => {
+          setIsError(true);
+        }}
+      >
+        generate throw
+      </button>
+    </div>
+  );
 }
+
+export default ErrorButton;
