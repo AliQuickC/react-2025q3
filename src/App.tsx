@@ -3,8 +3,8 @@ import { useState, type JSX } from 'react';
 import type { GamesData, IGlobalState } from './Types/types';
 import TopControls from './components/TopControls/TopControls';
 import Results from './components/Results/Results';
-import ErrorButton from './components/ErrorButton/ErrorButton';
 import { initialState } from './const/const';
+import Footer from './components/Footer/Footer';
 
 function App(): JSX.Element {
   const [state, setState] = useState<IGlobalState>(initialState);
@@ -27,7 +27,7 @@ function App(): JSX.Element {
     <>
       <TopControls globalState={state} onSearch={onSearch} />
       <Results globalState={state} setGameList={setGameList} />
-      <ErrorButton />
+      <Footer />
     </>
   );
 }
