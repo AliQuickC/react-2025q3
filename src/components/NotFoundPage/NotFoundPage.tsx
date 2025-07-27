@@ -1,7 +1,6 @@
 import type { JSX } from 'react';
 import s from './NotFoundPage.module.sass';
 import { NavLink } from 'react-router-dom';
-// import { NavLink } from 'react-router';
 
 export default function NotFoundPage(): JSX.Element {
   return (

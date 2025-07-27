@@ -10,7 +10,11 @@ describe('Rendering Tests', () => {
   test('Render, have data', () => {
     render(
       <BrowserRouter>
-        <Results globalState={mocGlobalState} setGameList={mocSetGameList} />
+        <Results
+          globalState={mocGlobalState}
+          setGameList={mocSetGameList}
+          lsWord={''}
+        />
       </BrowserRouter>
     );
 
@@ -23,6 +27,7 @@ describe('Rendering Tests', () => {
         <Results
           globalState={{ ...mocGlobalState, haveData: false }}
           setGameList={mocSetGameList}
+          lsWord={''}
         />
       </BrowserRouter>
     );
