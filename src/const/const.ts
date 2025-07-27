@@ -2,6 +2,7 @@ import type { IGlobalState } from '../Types/types';
 
 export const storeKEY = 'module3';
 
+export const FIRST_PAGE = '1';
 export const MAX_CARDS_ON_PAGE: number = 20;
 
 export const initialState: IGlobalState = {

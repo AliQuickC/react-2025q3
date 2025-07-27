@@ -1,3 +1,4 @@
+import { FIRST_PAGE } from '../../const/const';
 import type { IGlobalState, SetGameList } from '../../Types/types';
 import ItemsList from '../ItemsList/ItemsList';
 import Pagination from '../Pagination/Pagination';
@@ -7,6 +8,7 @@ import { type JSX } from 'react';
 interface IProps {
   globalState: IGlobalState;
   setGameList: SetGameList;
+  lsWord: string;
 }
 
 function Results(props: IProps): JSX.Element {
@@ -16,11 +18,12 @@ function Results(props: IProps): JSX.Element {
         <ItemsList
           globalState={props.globalState}
           setGameList={props.setGameList}
+          lsWord={props.lsWord}
         />
         {props.globalState.haveData ? (
           <Pagination
             cardsTotal={props.globalState.count}
-            currentPage={props.globalState.currentPage}
+            currentPage={props.globalState.currentPage || FIRST_PAGE}
             haveData={props.globalState.haveData}
           />
         ) : (

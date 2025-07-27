@@ -7,7 +7,7 @@ export const mocGlobalState: IGlobalState = {
   games: [],
   count: 0,
   responseOk: true,
-  findWord: '',
+  currentPage: '1',
 };
 
 export const mocRequestGames = vi.spyOn(api, 'requestGames');

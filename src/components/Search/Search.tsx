@@ -1,17 +1,13 @@
 import { useEffect, useState, type JSX } from 'react';
 import s from './Search.module.sass';
-import type { IGlobalState, onSearch } from '../../Types/types';
 import useLocalStorage from '../../hooks/useLocalStorage';
-import { storeKEY } from '../../const/const';
+import { FIRST_PAGE, storeKEY } from '../../const/const';
+import { useSearchParams } from 'react-router-dom';
 
-interface IProps {
-  onSearch: onSearch;
-  globalState: IGlobalState;
-}
-
-function Search(props: IProps): JSX.Element {
+function Search(): JSX.Element {
+  const [, setSearchParams] = useSearchParams();
   const [findWord, setFindWord] = useState<string>('');
-  const [lsWord, setLSWord] = useLocalStorage(storeKEY);
+  const [lsWord] = useLocalStorage(storeKEY);
 
   useEffect(() => {
     setFindWord(lsWord);
@@ -19,8 +15,12 @@ function Search(props: IProps): JSX.Element {
 
   const findHandler = () => {
     const word = findWord.trim();
-    setLSWord(word);
-    props.onSearch();
+
+    if (word) {
+      setSearchParams({ page: '' + FIRST_PAGE, search: word });
+    } else {
+      setSearchParams({ page: '' + FIRST_PAGE });
+    }
   };
 
   return (

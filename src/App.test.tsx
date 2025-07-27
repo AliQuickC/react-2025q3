@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from './App';
 import { storeKEY } from './const/const.ts';
+import { BrowserRouter } from 'react-router-dom';
 
 const mockWord2 = 'find word';
 
@@ -18,7 +19,11 @@ describe('Local Storage tests', () => {
   });
 
   test.skip('Local storage write', async () => {
-    render(<App />);
+    render(
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    );
 
     const user = userEvent.setup();
     const searchInput: HTMLInputElement =
