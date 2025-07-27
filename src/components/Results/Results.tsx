@@ -1,5 +1,6 @@
 import type { IGlobalState, SetGameList } from '../../Types/types';
 import ItemsList from '../ItemsList/ItemsList';
+import Pagination from '../Pagination/Pagination';
 import s from './Results.module.sass';
 import { type JSX } from 'react';
 
@@ -16,6 +17,15 @@ function Results(props: IProps): JSX.Element {
           globalState={props.globalState}
           setGameList={props.setGameList}
         />
+        {props.globalState.haveData ? (
+          <Pagination
+            cardsTotal={props.globalState.count}
+            currentPage={props.globalState.currentPage}
+            haveData={props.globalState.haveData}
+          />
+        ) : (
+          ''
+        )}
       </div>
     </main>
   );

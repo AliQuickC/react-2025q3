@@ -10,6 +10,7 @@ export interface IGlobalState {
   games: IGame[];
   count: number;
   responseOk: boolean;
+  currentPage: '1';
 }
 
 export type SetGameList = (gamesData: GamesData, responseOk: boolean) => void;
