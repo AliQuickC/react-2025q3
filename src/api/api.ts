@@ -1,3 +1,4 @@
+import { MAX_CARDS_ON_PAGE } from '../const/const';
 import type {
   GamesData,
   IGame,
@@ -8,9 +9,14 @@ import type {
 const apiKey: string = import.meta.env.VITE_API_KEY;
 
 const base_url = 'https://api.rawg.io/api';
-const PAGE_SIZE = '20';
+
 const base_games_url =
-  base_url + '/games' + '?key=' + apiKey + '&page_size=' + PAGE_SIZE;
+  base_url +
+  '/games' +
+  '?key=' +
+  apiKey +
+  '&page_size=' +
+  MAX_CARDS_ON_PAGE.toString();
 const errorGamesData = {
   count: 0,
   results: [],

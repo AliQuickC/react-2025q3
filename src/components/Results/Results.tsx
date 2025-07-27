@@ -1,30 +1,37 @@
+import { FIRST_PAGE } from '../../const/const';
 import type { IGlobalState, SetGameList } from '../../Types/types';
-import { ItemsList } from '../ItemsList/ItemsList';
+import ItemsList from '../ItemsList/ItemsList';
+import Pagination from '../Pagination/Pagination';
 import s from './Results.module.sass';
-import React from 'react';
+import { type JSX } from 'react';
 
 interface IProps {
   globalState: IGlobalState;
   setGameList: SetGameList;
+  lsWord: string;
 }
 
-interface IState {
-  isError: boolean;
-}
-
-class Results extends React.Component<IProps, IState> {
-  render() {
-    return (
-      <main className={s.main} data-testid="results-element">
-        <div className="container">
-          <ItemsList
-            globalState={this.props.globalState}
-            setGameList={this.props.setGameList}
+function Results(props: IProps): JSX.Element {
+  return (
+    <main className={s.main} data-testid="results-element">
+      <div className="container">
+        <ItemsList
+          globalState={props.globalState}
+          setGameList={props.setGameList}
+          lsWord={props.lsWord}
+        />
+        {props.globalState.haveData ? (
+          <Pagination
+            cardsTotal={props.globalState.count}
+            currentPage={props.globalState.currentPage || FIRST_PAGE}
+            haveData={props.globalState.haveData}
           />
-        </div>
-      </main>
-    );
-  }
+        ) : (
+          ''
+        )}
+      </div>
+    </main>
+  );
 }
 
 export default Results;

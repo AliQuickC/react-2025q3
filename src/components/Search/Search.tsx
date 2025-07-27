@@ -1,66 +1,46 @@
-import React from 'react';
+import { useEffect, useState, type JSX } from 'react';
 import s from './Search.module.sass';
-import type {
-  IGlobalState,
-  setFindWord,
-  SetGameList,
-  switchHaveData,
-} from '../../Types/types';
-import { requestFindGames, requestGames } from '../../api/api';
+import useLocalStorage from '../../hooks/useLocalStorage';
+import { FIRST_PAGE, storeKEY } from '../../const/const';
+import { useSearchParams } from 'react-router-dom';
 
-interface IProps {
-  switchHaveData: switchHaveData;
-  setGameList: SetGameList;
-  setFindWord: setFindWord;
-  globalState: IGlobalState;
-}
+function Search(): JSX.Element {
+  const [, setSearchParams] = useSearchParams();
+  const [findWord, setFindWord] = useState<string>('');
+  const [lsWord] = useLocalStorage(storeKEY);
 
-interface IState {
-  findWord: string;
-}
+  useEffect(() => {
+    setFindWord(lsWord);
+  }, [lsWord]);
 
-class Search extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-    this.state = { findWord: '' };
-  }
+  const findHandler = () => {
+    const word = findWord.trim();
 
-  componentDidMount() {
-    this.setState({ findWord: this.props.globalState.findWord });
-  }
-
-  findHandler = () => {
-    const findWord = this.state.findWord.trim();
-    this.props.setFindWord(findWord);
-    this.props.switchHaveData(false);
-
-    if (findWord === '') {
-      requestGames(this.props.setGameList);
+    if (word) {
+      setSearchParams({ page: '' + FIRST_PAGE, search: word });
     } else {
-      requestFindGames(this.props.setGameList, findWord);
+      setSearchParams({ page: '' + FIRST_PAGE });
     }
   };
 
-  render() {
-    return (
-      <div className={s.search} data-testid="search-element">
-        <input
-          className={s.searchInput}
-          type="text"
-          placeholder="find..."
-          value={this.state.findWord}
-          onChange={(event) => {
-            this.setState({ findWord: event.target.value });
-          }}
-        />
-        <button
-          className={s.findButton}
-          onClick={this.findHandler}
-          aria-label="find"
-        ></button>
-      </div>
-    );
-  }
+  return (
+    <div className={s.search} data-testid="search-element">
+      <input
+        className={s.searchInput}
+        type="text"
+        placeholder="find..."
+        value={findWord}
+        onChange={(event) => {
+          setFindWord(event.target.value);
+        }}
+      />
+      <button
+        className={s.findButton}
+        onClick={findHandler}
+        aria-label="find"
+      ></button>
+    </div>
+  );
 }
 
 export default Search;
