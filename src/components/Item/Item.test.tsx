@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
 import type { IGame } from '../../Types/types';
 import { Item } from './Item';
+import { BrowserRouter } from 'react-router-dom';
 
 const mockGames: IGame[] = [
   {
@@ -33,7 +34,9 @@ const mockGames: IGame[] = [
 describe('Rendering Tests', () => {
   test('Renders correct number of items when data is provided, loading states', () => {
     const { rerender } = render(
-      <Item key={mockGames[0].id} itemData={mockGames[0]} />
+      <BrowserRouter>
+        <Item key={mockGames[0].id} itemData={mockGames[0]} />
+      </BrowserRouter>
     );
 
     let name = mockGames[0].name;
@@ -41,7 +44,11 @@ describe('Rendering Tests', () => {
     expect(screen.queryByText(new RegExp(name))).toBeInTheDocument();
     expect(screen.queryByText(new RegExp(released))).toBeInTheDocument();
 
-    rerender(<Item key={mockGames[1].id} itemData={mockGames[1]} />);
+    rerender(
+      <BrowserRouter>
+        <Item key={mockGames[1].id} itemData={mockGames[1]} />
+      </BrowserRouter>
+    );
 
     name = mockGames[1].name;
     released = mockGames[1].released;
