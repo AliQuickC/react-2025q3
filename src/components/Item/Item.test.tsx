@@ -32,7 +32,7 @@ const mockGames: IGame[] = [
 ];
 
 describe('Rendering Tests', () => {
-  test('Renders correct number of items when data is provided, loading states', () => {
+  test('Renders correct number of item when data is provided, loading states', () => {
     const { rerender } = render(
       <BrowserRouter>
         <Item key={mockGames[0].id} itemData={mockGames[0]} />

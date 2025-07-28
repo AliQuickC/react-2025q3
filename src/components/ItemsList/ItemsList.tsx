@@ -6,7 +6,6 @@ import { ItemHeader } from '../Item/ItemHeader';
 import { Item } from '../Item/Item';
 import { notDataMessage, responseErrorMessage } from '../../const/const';
 import { useEffect, type JSX } from 'react';
-import { useSearchParams } from 'react-router-dom';
 
 interface IProps {
   globalState: IGlobalState;
@@ -15,8 +14,6 @@ interface IProps {
 }
 
 function ItemsList(props: IProps): JSX.Element {
-  const [searchParams, setSearchParams] = useSearchParams();
-
   useEffect(() => {
     if (props.globalState.haveData) return;
 
@@ -49,18 +46,7 @@ function ItemsList(props: IProps): JSX.Element {
     }
 
     return (
-      <div
-        className={s.ItemsList}
-        data-testid="item-list-element"
-        onClick={() => {
-          if (props.globalState.haveData && searchParams.get('item')) {
-            setSearchParams((params) => {
-              params.delete('item');
-              return params;
-            });
-          }
-        }}
-      >
+      <div className={s.ItemsList} data-testid="item-list-element">
         <ItemHeader
           itemData={{ description: 'Game', released: 'Release date' }}
         />

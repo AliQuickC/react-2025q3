@@ -11,6 +11,7 @@ export interface IGlobalState {
   count: number;
   responseOk: boolean;
   currentPage: string | null;
+  item: string | null;
 }
 
 export type SetGameList = (gamesData: GamesData, responseOk: boolean) => void;
@@ -25,7 +26,29 @@ export type ResponseGames = {
   [propName: string]: unknown;
 };
 
+type Genre = { id: number; name: string; [propName: string]: unknown };
+
+export type ResponseGameDetail = {
+  id: number;
+  name: string;
+  background_image: string;
+  genres: Genre[];
+  [propName: string]: unknown;
+};
+
 export type GamesData = {
   count: number;
   results: IGame[];
+};
+
+export type GamesDetailData = {
+  id: number;
+  name: string;
+  background_image: string;
+  genres: string;
+};
+
+export type GameDetail = {
+  detailData: GamesDetailData | null;
+  haveData: boolean;
 };

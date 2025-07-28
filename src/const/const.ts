@@ -11,6 +11,7 @@ export const initialState: IGlobalState = {
   count: 0,
   responseOk: false,
   currentPage: '1',
+  item: null,
 };
 
 export const responseErrorMessage = 'Error, failed to get data from server !';

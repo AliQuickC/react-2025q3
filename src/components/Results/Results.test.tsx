@@ -25,7 +25,7 @@ describe('Rendering Tests', () => {
     render(
       <BrowserRouter>
         <Results
-          globalState={{ ...mocGlobalState, haveData: false }}
+          globalState={{ ...mocGlobalState, item: null, haveData: false }}
           setGameList={mocSetGameList}
           lsWord={''}
         />

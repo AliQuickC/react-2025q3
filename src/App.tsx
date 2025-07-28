@@ -29,6 +29,16 @@ function App(): JSX.Element {
   const [searchParams] = useSearchParams();
   const page = searchParams.get('page');
   const search = searchParams.get('search');
+  const item = searchParams.get('item');
+
+  useEffect(() => {
+    setState((prev) => {
+      return {
+        ...prev,
+        item,
+      };
+    });
+  }, [item]);
 
   useEffect(() => {
     if (lsWord !== (search || '')) {
