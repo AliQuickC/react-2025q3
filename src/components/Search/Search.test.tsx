@@ -10,7 +10,7 @@ describe('Rendering Tests', () => {
   test('Renders search input and search button', () => {
     render(
       <BrowserRouter>
-        <Search />
+        <Search lsWord={''} />
       </BrowserRouter>
     );
 
@@ -24,7 +24,7 @@ describe('Rendering Tests', () => {
   test('Shows empty input when no saved term exists', () => {
     render(
       <BrowserRouter>
-        <Search />
+        <Search lsWord={''} />
       </BrowserRouter>
     );
 
@@ -41,7 +41,7 @@ describe('User Interaction Tests', () => {
 
     render(
       <BrowserRouter>
-        <Search />
+        <Search lsWord={''} />
       </BrowserRouter>
     );
 
@@ -64,7 +64,7 @@ describe('User Interaction Tests', () => {
   test('Triggers search callback with correct parameters, search word missing', async () => {
     render(
       <BrowserRouter>
-        <Search />
+        <Search lsWord={''} />
       </BrowserRouter>
     );
 

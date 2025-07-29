@@ -6,7 +6,7 @@ import Results from './components/Results/Results';
 import { FIRST_PAGE, initialState, storeKEY } from './const/const';
 import Footer from './components/Footer/Footer';
 import { useSearchParams } from 'react-router-dom';
-import useLocalStorage from './hooks/useLocalStorage';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 function App(): JSX.Element {
   const [state, setState] = useState<IGlobalState>(initialState);
@@ -20,10 +20,6 @@ function App(): JSX.Element {
       games: gamesData.results,
       responseOk,
     }));
-  };
-
-  const onSearch = () => {
-    setState((prev) => ({ ...prev, haveData: false }));
   };
 
   const [searchParams] = useSearchParams();
@@ -60,7 +56,7 @@ function App(): JSX.Element {
 
   return (
     <>
-      <TopControls globalState={state} onSearch={onSearch} />
+      <TopControls lsWord={lsWord} />
       <Results globalState={state} setGameList={setGameList} lsWord={lsWord} />
       <Footer />
     </>
