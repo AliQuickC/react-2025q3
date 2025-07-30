@@ -1,8 +1,8 @@
-import s from './About.module.sass';
+import s from './AboutPage.module.sass';
 import { type JSX } from 'react';
 import { NavLink } from 'react-router-dom';
 
-function About(): JSX.Element {
+function AboutPage(): JSX.Element {
   return (
     <div>
       <div className={`container `}>
@@ -29,4 +29,4 @@ function About(): JSX.Element {
   );
 }
 
-export default About;
+export default AboutPage;

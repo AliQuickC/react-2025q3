@@ -1,9 +1,9 @@
 import { beforeAll, describe, expect, test, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import App from './App';
-import { storeKEY } from './const/const.ts';
+import { storeKEY } from '../../../const/const.ts';
 import { BrowserRouter } from 'react-router-dom';
+import GamesPage from './GamesPage.tsx';
 
 const mockWord2 = 'find word';
 
@@ -21,7 +21,7 @@ describe('Local Storage tests', () => {
   test.skip('Local storage write', async () => {
     render(
       <BrowserRouter>
-        <App />
+        <GamesPage />
       </BrowserRouter>
     );
 
