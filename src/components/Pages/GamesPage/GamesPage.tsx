@@ -1,24 +1,26 @@
-import { useEffect, useState, type JSX } from 'react';
+import { useEffect, type JSX } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useLocalStorage } from '../../../hooks/useLocalStorage';
-import type { GamesData, IGlobalState } from '../../../Types/types';
-import { FIRST_PAGE, initialState, storeKEY } from '../../../const/const';
+import type { GamesData } from '../../../Types/types';
+import { FIRST_PAGE, storeKEY } from '../../../const/const';
 import TopControls from '../../TopControls/TopControls';
 import Results from '../../Results/Results';
 import Footer from '../../Footer/Footer';
+import { useActions } from '../../../redux/useActions';
 
-function GamesPage(): JSX.Element {
-  const [state, setState] = useState<IGlobalState>(initialState);
+export default function GamesPage(): JSX.Element {
   const [lsWord, setLSWord] = useLocalStorage(storeKEY);
 
-  const setGameList = (gamesData: GamesData, responseOk: boolean) => {
-    setState((prev) => ({
-      ...prev,
-      haveData: true,
-      count: gamesData.count,
-      games: gamesData.results,
-      responseOk,
-    }));
+  const { setCardDetails, SetFindParams, setCardList } = useActions();
+
+  const setGameList = (listData: {
+    gamesData: GamesData;
+    responseOk: boolean;
+  }) => {
+    setCardList({
+      gamesData: listData.gamesData,
+      responseOk: listData.responseOk,
+    });
   };
 
   const [searchParams] = useSearchParams();
@@ -27,28 +29,22 @@ function GamesPage(): JSX.Element {
   const item = searchParams.get('item');
 
   useEffect(() => {
-    setState((prev) => {
-      return {
-        ...prev,
-        item,
-      };
-    });
-  }, [item]);
+    setCardDetails(item);
+  }, [item, setCardDetails]);
 
   useEffect(() => {
     if (lsWord !== (search || '')) {
       setLSWord(search || '');
-    }
-    setState((prev) => {
-      return {
-        ...prev,
+      SetFindParams({
         currentPage: FIRST_PAGE,
         haveData: false,
-      };
-    });
-    setState((prev) => {
-      return { ...prev, currentPage: page, haveData: false };
-    });
+      });
+    } else {
+      SetFindParams({
+        currentPage: page,
+        haveData: false,
+      });
+    }
     // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, search]);
@@ -56,10 +52,8 @@ function GamesPage(): JSX.Element {
   return (
     <>
       <TopControls lsWord={lsWord} />
-      <Results globalState={state} setGameList={setGameList} lsWord={lsWord} />
+      <Results setGameList={setGameList} lsWord={lsWord} />
       <Footer />
     </>
   );
 }
-
-export default GamesPage;

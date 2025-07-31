@@ -21,7 +21,7 @@ const base_games_url =
   '&page_size=' +
   MAX_CARDS_ON_PAGE.toString();
 
-const base_game_detail_url = base_url + '/games/'; // +  + '?key=' + apiKey;
+const base_game_detail_url = base_url + '/games/';
 
 const errorGamesData = {
   count: 0,
@@ -60,9 +60,17 @@ function responseHandler(param: Promise<Response>, callback: SetGameList) {
       }
     })
     .then((data: ResponseGames) => convertResponse(data))
-    .then((data: GamesData) => callback(data, true))
+    .then((data: GamesData) =>
+      callback({
+        gamesData: data,
+        responseOk: true,
+      })
+    )
     .catch(() => {
-      callback(errorGamesData, false);
+      callback({
+        gamesData: errorGamesData,
+        responseOk: false,
+      });
       console.error('error, failed to get data from server');
     });
 }

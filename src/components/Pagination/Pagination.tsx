@@ -9,7 +9,6 @@ const MAX_PAGINATION = 150;
 interface IProps {
   cardsTotal: number;
   currentPage: string;
-  haveData: boolean;
 }
 
 export default function Pagination(props: IProps): JSX.Element {

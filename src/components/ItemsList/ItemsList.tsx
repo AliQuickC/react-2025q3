@@ -1,5 +1,5 @@
 import { Loader } from '../Loader/Loader';
-import type { IGame, IGlobalState, SetGameList } from '../../Types/types';
+import type { IGame, SetGameList, ICardListData } from '../../Types/types';
 import { requestFindGames, requestGames } from '../../api/api';
 import s from './ItemsList.module.sass';
 import { ItemHeader } from '../Item/ItemHeader';
@@ -8,36 +8,36 @@ import { notDataMessage, responseErrorMessage } from '../../const/const';
 import { useEffect, type JSX } from 'react';
 
 interface IProps {
-  globalState: IGlobalState;
+  cardListData: ICardListData;
   setGameList: SetGameList;
   lsWord: string;
 }
 
 function ItemsList(props: IProps): JSX.Element {
   useEffect(() => {
-    if (props.globalState.haveData) return;
+    if (props.cardListData.haveData) return;
 
     if (props.lsWord === '') {
-      requestGames(props.setGameList, props.globalState.currentPage);
+      requestGames(props.setGameList, props.cardListData.currentPage);
     } else {
       requestFindGames(
         props.setGameList,
         props.lsWord,
-        props.globalState.currentPage
+        props.cardListData.currentPage
       );
     }
     // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.globalState.haveData]);
+  }, [props.cardListData.haveData]);
 
-  if (props.globalState.haveData) {
+  if (props.cardListData.haveData) {
     let gameItems: React.JSX.Element[] | React.JSX.Element;
 
-    if (props.globalState.responseOk) {
-      if (props.globalState.games.length === 0) {
+    if (props.cardListData.responseOk) {
+      if (props.cardListData.games.length === 0) {
         gameItems = <div className={s.ErrorData}>{notDataMessage}</div>;
       } else {
-        gameItems = props.globalState.games.map((game: IGame) => {
+        gameItems = props.cardListData.games.map((game: IGame) => {
           return <Item key={game.id} itemData={game} />;
         });
       }

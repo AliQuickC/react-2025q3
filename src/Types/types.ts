@@ -5,16 +5,19 @@ export interface IGame {
   ratings_count: number;
 }
 
-export interface IGlobalState {
+export interface ICardListData {
   haveData: boolean;
   games: IGame[];
   count: number;
   responseOk: boolean;
   currentPage: string | null;
+}
+
+export interface ICardListState {
+  cardListData: ICardListData;
   item: string | null;
 }
 
-export type SetGameList = (gamesData: GamesData, responseOk: boolean) => void;
 export type setFindWord = (findWord: string) => void;
 export type onSearch = () => void;
 
@@ -40,6 +43,11 @@ export type GamesData = {
   count: number;
   results: IGame[];
 };
+
+export type SetGameList = (listData: {
+  gamesData: GamesData;
+  responseOk: boolean;
+}) => void;
 
 export type GamesDetailData = {
   id: number;
