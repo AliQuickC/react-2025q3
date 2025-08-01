@@ -38,7 +38,9 @@ function ItemsList(props: IProps): JSX.Element {
         gameItems = <div className={s.ErrorData}>{notDataMessage}</div>;
       } else {
         gameItems = props.cardListData.games.map((game: IGame) => {
-          return <Item key={game.id} itemData={game} />;
+          return (
+            <Item key={game.id} itemData={game} isSelect={game.id % 2 === 0} />
+          );
         });
       }
     } else {
