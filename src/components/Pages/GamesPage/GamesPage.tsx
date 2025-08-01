@@ -11,7 +11,7 @@ import { useActions } from '../../../redux/useActions';
 export default function GamesPage(): JSX.Element {
   const [lsWord, setLSWord] = useLocalStorage(storeKEY);
 
-  const { setCardDetails, SetFindParams, setCardList } = useActions();
+  const { setCardDetails, cardListRequestOn, setCardList } = useActions();
 
   const setGameList = (listData: {
     gamesData: GamesData;
@@ -35,15 +35,9 @@ export default function GamesPage(): JSX.Element {
   useEffect(() => {
     if (lsWord !== (search || '')) {
       setLSWord(search || '');
-      SetFindParams({
-        currentPage: FIRST_PAGE,
-        haveData: false,
-      });
+      cardListRequestOn(FIRST_PAGE);
     } else {
-      SetFindParams({
-        currentPage: page,
-        haveData: false,
-      });
+      cardListRequestOn(page);
     }
     // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps

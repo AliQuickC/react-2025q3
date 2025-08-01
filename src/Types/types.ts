@@ -50,7 +50,6 @@ export type SetGameList = (listData: {
 }) => void;
 
 export type GamesDetailData = {
-  id: number;
   name: string;
   background_image: string;
   genres: string;
@@ -58,5 +57,6 @@ export type GamesDetailData = {
 
 export type GameDetail = {
   detailData: GamesDetailData | null;
+  id: number | null;
   haveData: boolean;
 };

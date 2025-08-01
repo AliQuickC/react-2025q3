@@ -2,7 +2,6 @@ import { MAX_CARDS_ON_PAGE } from '../const/const';
 import type {
   GameDetail,
   GamesData,
-  GamesDetailData,
   IGame,
   ResponseGameDetail,
   ResponseGames,
@@ -38,14 +37,15 @@ function convertResponse(response: ResponseGames): GamesData {
   return { count: response.count, results };
 }
 
-function convertGameDetailResponse(
-  response: ResponseGameDetail
-): GamesDetailData {
+function convertGameDetailResponse(response: ResponseGameDetail): GameDetail {
   return {
     id: response.id,
-    name: response.name,
-    background_image: response.background_image,
-    genres: response.genres.map((genre) => genre.name).join(', '),
+    haveData: true,
+    detailData: {
+      name: response.name,
+      background_image: response.background_image,
+      genres: response.genres.map((genre) => genre.name).join(', '),
+    },
   };
 }
 
@@ -124,7 +124,11 @@ export const requestDetail = (
       }
     })
     .then((data: ResponseGameDetail) => convertGameDetailResponse(data))
-    .then((data: GamesDetailData) => {
-      callback({ detailData: data, haveData: true });
+    .then((data: GameDetail) => {
+      callback({
+        detailData: data.detailData,
+        id: data.id,
+        haveData: data.haveData,
+      });
     });
 };

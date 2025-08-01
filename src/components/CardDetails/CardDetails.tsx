@@ -1,9 +1,10 @@
 import { useSearchParams } from 'react-router-dom';
 import s from './CardDetails.module.sass';
 import { Loader } from '../Loader/Loader';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { requestDetail } from '../../api/api';
-import type { GameDetail } from '../../Types/types';
+import { useDetails } from '../../redux/useAppSelector';
+import { useActions } from '../../redux/useActions';
 
 type Props = {
   item: string | null;
@@ -11,28 +12,20 @@ type Props = {
 
 export default function CardDetails(props: Props) {
   const [, setDetailsParam] = useSearchParams();
-  const [details, setDetails] = useState<GameDetail>({
-    detailData: null,
-    haveData: false,
-  });
+  const { detailsRequestOn, setDetails } = useActions();
+  const { detailData, haveData } = useDetails();
 
   useEffect(() => {
     if (props.item !== null) {
-      setDetails({
-        detailData: null,
-        haveData: false,
-      });
+      detailsRequestOn(Number(props.item));
     }
-  }, [props.item]);
+  }, [detailsRequestOn, props.item]);
 
   useEffect(() => {
-    if (!details.haveData && props.item) {
+    if (!haveData && props.item) {
       requestDetail(props.item, setDetails);
     }
-
-    // eslint-disable-next-line react-compiler/react-compiler
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [details.haveData]);
+  }, [haveData, props.item, setDetails]);
 
   return (
     <>
@@ -49,20 +42,20 @@ export default function CardDetails(props: Props) {
           close
         </button>
         <div className={s.DetailsDataPanel}>
-          {details.haveData && details.detailData ? (
+          {haveData && detailData ? (
             <div className={s.DetailsData}>
               <img
                 className={s.GameImage}
-                src={details.detailData.background_image}
+                src={detailData.background_image}
                 alt="game image"
               />
               <p>
                 <span>Name: </span>
-                <span>{details.detailData.name}</span>
+                <span>{detailData.name}</span>
               </p>
               <p>
                 <span>Ganres: </span>
-                <span>{details.detailData.genres}</span>
+                <span>{detailData.genres}</span>
               </p>
             </div>
           ) : (

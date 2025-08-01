@@ -11,3 +11,13 @@ export const useCardList = () => {
     item,
   };
 };
+
+export const useDetails = () => {
+  const { detailData, haveData, id } = useAppSelector((state) => state.details);
+
+  return {
+    detailData,
+    haveData,
+    id,
+  };
+};

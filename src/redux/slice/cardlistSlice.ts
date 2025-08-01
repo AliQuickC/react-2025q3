@@ -29,15 +29,12 @@ export const cardListSlice = createSlice({
       state.cardListData.responseOk = action.payload.responseOk;
       state.cardListData.haveData = true;
     },
-    SetFindParams: (
+    cardListRequestOn: (
       state: ICardListState,
-      action: PayloadAction<{
-        currentPage: string | null;
-        haveData: boolean;
-      }>
+      action: PayloadAction<string | null>
     ) => {
-      state.cardListData.currentPage = action.payload.currentPage;
-      state.cardListData.haveData = action.payload.haveData;
+      state.cardListData.currentPage = action.payload;
+      state.cardListData.haveData = false;
     },
     setCardDetails: (
       state: ICardListState,
