@@ -19,9 +19,9 @@ function Search(props: Props): JSX.Element {
     const word = findWord.trim();
 
     if (word) {
-      setSearchParams({ page: '' + FIRST_PAGE, search: word });
+      setSearchParams({ page: FIRST_PAGE, search: word });
     } else {
-      setSearchParams({ page: '' + FIRST_PAGE });
+      setSearchParams({ page: FIRST_PAGE });
     }
   };
 

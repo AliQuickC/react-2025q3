@@ -4,15 +4,13 @@ export function useLocalStorage(
   key: string,
   initialValue: string = ''
 ): [string, (value: string) => void] {
-  const [lsKey] = useState<string>(key);
-
   const [lsWord, setLSWord] = useState<string>(
-    () => localStorage.getItem(lsKey) || initialValue
+    () => localStorage.getItem(key) || initialValue
   );
 
   useEffect(() => {
-    localStorage.setItem(lsKey, lsWord);
-  }, [lsWord, lsKey]);
+    localStorage.setItem(key, lsWord);
+  }, [key, lsWord]);
 
   return [lsWord, setLSWord];
 }
