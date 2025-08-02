@@ -29,7 +29,7 @@ export default function CardDetails(props: Props) {
 
   return (
     <>
-      <div className={s.CardDetails} data-testid="detail-element">
+      <div className={s.cardDetails} data-testid="detail-element">
         <button
           className={s.closeButton + ' app-button'}
           onClick={() => {
@@ -41,11 +41,11 @@ export default function CardDetails(props: Props) {
         >
           close
         </button>
-        <div className={s.DetailsDataPanel}>
+        <div className={s.detailsDataPanel}>
           {haveData && detailData ? (
-            <div className={s.DetailsData}>
+            <div className={s.detailsData}>
               <img
-                className={s.GameImage}
+                className={s.gameImage}
                 src={detailData.background_image}
                 alt="game image"
               />

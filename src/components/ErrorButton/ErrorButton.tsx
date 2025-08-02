@@ -9,7 +9,7 @@ function ErrorButton(): React.JSX.Element {
   }
 
   return (
-    <div className={s.ErrorButton}>
+    <div className={s.errorButton}>
       <button
         className={s.trowButton}
         onClick={() => {

@@ -54,7 +54,7 @@ export function Item(props: Props): JSX.Element {
 
   return (
     <div
-      className={s.Item + ' unselectable'}
+      className={s.item + ' unselectable'}
       data-testid="card-element"
       onClick={() => {
         const starShipId = searchParams.get('item');
@@ -66,10 +66,10 @@ export function Item(props: Props): JSX.Element {
         }
       }}
     >
-      <div className={s.GameName}>{props.itemData.name}</div>
-      <div className={s.ReleaseDate}>{props.itemData.released}</div>
+      <div className={s.gameName}>{props.itemData.name}</div>
+      <div className={s.releaseDate}>{props.itemData.released}</div>
       <button
-        className={s.SelectItemButton}
+        className={s.selectItemButton}
         onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
           event.stopPropagation();
           if (props.isSelect) {
@@ -80,7 +80,7 @@ export function Item(props: Props): JSX.Element {
         }}
       >
         <svg
-          className={s.ButtonIcon}
+          className={s.buttonIcon}
           xmlns="http://www.w3.org/2000/svg"
           height="48"
           width="48"

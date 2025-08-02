@@ -9,7 +9,7 @@ function AboutPage(): JSX.Element {
         <h2>About</h2>
         <p>
           <span>Author: </span>
-          <span className={s.AuthorName}>Alekhin Aleksandr</span>
+          <span className={s.authorName}>Alekhin Aleksandr</span>
         </p>
         <p>
           <span>Course: </span>
@@ -21,7 +21,7 @@ function AboutPage(): JSX.Element {
             RS School React
           </a>
         </p>
-        <NavLink className={`${s.HomeButton} app-button`} to="/">
+        <NavLink className={`${s.homeButton} app-button`} to="/">
           Home page
         </NavLink>
       </div>

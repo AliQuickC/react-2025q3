@@ -38,7 +38,7 @@ function ItemsList(props: IProps): JSX.Element {
 
     if (props.cardListData.responseOk) {
       if (props.cardListData.games.length === 0) {
-        gameItems = <div className={s.ErrorData}>{notDataMessage}</div>;
+        gameItems = <div className={s.errorData}>{notDataMessage}</div>;
       } else {
         gameItems = props.cardListData.games.map((game: IGame) => {
           return (
@@ -51,11 +51,11 @@ function ItemsList(props: IProps): JSX.Element {
         });
       }
     } else {
-      gameItems = <div className={s.ErrorData}>{responseErrorMessage}</div>;
+      gameItems = <div className={s.errorData}>{responseErrorMessage}</div>;
     }
 
     return (
-      <div className={s.ItemsList} data-testid="item-list-element">
+      <div className={s.itemsList} data-testid="item-list-element">
         <ItemHeader
           itemData={{ description: 'Game', released: 'Release date' }}
         />

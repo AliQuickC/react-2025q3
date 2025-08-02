@@ -17,7 +17,7 @@ function Results(props: IProps): JSX.Element {
 
   return (
     <main className={s.main} data-testid="results-element">
-      <div className={'container ' + s.ResultConteqner}>
+      <div className={'container ' + s.resultConteiner}>
         <div>
           <ItemsList
             cardListData={cardListData}
