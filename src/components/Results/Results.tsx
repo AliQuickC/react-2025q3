@@ -4,6 +4,7 @@ import type { SetGameList } from '../../Types/types';
 import CardDetails from '../CardDetails/CardDetails';
 import ItemsList from '../ItemsList/ItemsList';
 import Pagination from '../Pagination/Pagination';
+import { SelectedItems } from '../SelectedItems/SelectedItems';
 import s from './Results.module.sass';
 import { type JSX } from 'react';
 
@@ -13,17 +14,20 @@ interface IProps {
 }
 
 function Results(props: IProps): JSX.Element {
-  const { cardListData, item } = useCardList();
+  const { cardListData, item, selectItems } = useCardList();
 
   return (
     <main className={s.main} data-testid="results-element">
       <div className={'container ' + s.resultConteiner}>
         <div>
-          <ItemsList
-            cardListData={cardListData}
-            setGameList={props.setGameList}
-            lsWord={props.lsWord}
-          />
+          <div className={s.rezultWrap}>
+            <ItemsList
+              cardListData={cardListData}
+              setGameList={props.setGameList}
+              lsWord={props.lsWord}
+            />
+            {item === null ? '' : <CardDetails item={item} />}
+          </div>
           {cardListData.haveData ? (
             <Pagination
               cardsTotal={cardListData.count}
@@ -33,7 +37,12 @@ function Results(props: IProps): JSX.Element {
             ''
           )}
         </div>
-        {item === null ? '' : <CardDetails item={item} />}
+
+        {selectItems.length > 0 ? (
+          <SelectedItems selectedElements={selectItems.length} />
+        ) : (
+          ''
+        )}
       </div>
     </main>
   );

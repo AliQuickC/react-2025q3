@@ -52,6 +52,9 @@ export const cardListSlice = createSlice({
         state.selectItems.splice(findItem, 1);
       }
     },
+    unSelectAllItems: (state: ICardListState) => {
+      state.selectItems = [];
+    },
   },
 });
 
