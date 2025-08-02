@@ -3,6 +3,7 @@ import type { IGame } from '../../Types/types';
 import s from './Item.module.sass';
 import { useSearchParams } from 'react-router-dom';
 import React from 'react';
+import { useActions } from '../../redux/useActions';
 
 function UnSelectIcon() {
   return (
@@ -49,6 +50,8 @@ type Props = {
 export function Item(props: Props): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const { selectItem, unSelectItem } = useActions();
+
   return (
     <div
       className={s.Item + ' unselectable'}
@@ -69,6 +72,11 @@ export function Item(props: Props): JSX.Element {
         className={s.SelectItemButton}
         onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
           event.stopPropagation();
+          if (props.isSelect) {
+            unSelectItem(props.itemData.id);
+          } else {
+            selectItem(props.itemData.id);
+          }
         }}
       >
         <svg

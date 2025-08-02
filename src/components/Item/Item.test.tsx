@@ -3,6 +3,8 @@ import { describe, expect, test } from 'vitest';
 import type { IGame } from '../../Types/types';
 import { Item } from './Item';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from '../../redux/store';
 
 const mockGames: IGame[] = [
   {
@@ -35,7 +37,13 @@ describe('Rendering Tests', () => {
   test('Renders correct number of item when data is provided, loading states', () => {
     const { rerender } = render(
       <BrowserRouter>
-        <Item key={mockGames[0].id} itemData={mockGames[0]} />
+        <Provider store={store}>
+          <Item
+            key={mockGames[0].id}
+            itemData={mockGames[0]}
+            isSelect={false}
+          />
+        </Provider>
       </BrowserRouter>
     );
 
@@ -46,7 +54,13 @@ describe('Rendering Tests', () => {
 
     rerender(
       <BrowserRouter>
-        <Item key={mockGames[1].id} itemData={mockGames[1]} />
+        <Provider store={store}>
+          <Item
+            key={mockGames[1].id}
+            itemData={mockGames[1]}
+            isSelect={false}
+          />
+        </Provider>
       </BrowserRouter>
     );
 

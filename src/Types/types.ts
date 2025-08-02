@@ -16,6 +16,7 @@ export interface ICardListData {
 export interface ICardListState {
   cardListData: ICardListData;
   item: string | null;
+  selectItems: number[];
 }
 
 export type setFindWord = (findWord: string) => void;

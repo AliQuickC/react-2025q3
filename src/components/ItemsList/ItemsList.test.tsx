@@ -9,6 +9,8 @@ import {
   mocRequestGames,
 } from '../../../__tests__/mock';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from '../../redux/store';
 
 const mocSetGameList = vi.fn();
 
@@ -219,11 +221,13 @@ describe('Rendering Tests', () => {
   test('Renders correct number of items when data is provided, loading states', () => {
     const { rerender } = render(
       <BrowserRouter>
-        <ItemsList
-          cardListData={{ ...mockCardListData, games: games20 }}
-          setGameList={mocSetGameList}
-          lsWord={''}
-        />
+        <Provider store={store}>
+          <ItemsList
+            cardListData={{ ...mockCardListData, games: games20 }}
+            setGameList={mocSetGameList}
+            lsWord={''}
+          />
+        </Provider>
       </BrowserRouter>
     );
 
@@ -231,11 +235,13 @@ describe('Rendering Tests', () => {
 
     rerender(
       <BrowserRouter>
-        <ItemsList
-          cardListData={{ ...mockCardListData, games: games12 }}
-          setGameList={mocSetGameList}
-          lsWord={''}
-        />
+        <Provider store={store}>
+          <ItemsList
+            cardListData={{ ...mockCardListData, games: games12 }}
+            setGameList={mocSetGameList}
+            lsWord={''}
+          />
+        </Provider>
       </BrowserRouter>
     );
 
@@ -245,11 +251,13 @@ describe('Rendering Tests', () => {
   test('displayed, "no results" message when data array is empty', () => {
     render(
       <BrowserRouter>
-        <ItemsList
-          cardListData={{ ...mockCardListData, games: [] }}
-          setGameList={mocSetGameList}
-          lsWord={''}
-        />
+        <Provider store={store}>
+          <ItemsList
+            cardListData={{ ...mockCardListData, games: [] }}
+            setGameList={mocSetGameList}
+            lsWord={''}
+          />
+        </Provider>
       </BrowserRouter>
     );
     expect(screen.queryByText(new RegExp(notDataMessage))).toBeInTheDocument();
@@ -258,11 +266,13 @@ describe('Rendering Tests', () => {
   test.skip('Shows loading state while fetching data', () => {
     render(
       <BrowserRouter>
-        <ItemsList
-          cardListData={mockCardListData}
-          setGameList={mocSetGameList}
-          lsWord={''}
-        />
+        <Provider store={store}>
+          <ItemsList
+            cardListData={mockCardListData}
+            setGameList={mocSetGameList}
+            lsWord={''}
+          />
+        </Provider>
       </BrowserRouter>
     );
 
@@ -276,11 +286,13 @@ describe('Rendering Tests', () => {
   test('running api with correct parameters, search word missing', async () => {
     render(
       <BrowserRouter>
-        <ItemsList
-          cardListData={{ ...mockCardListData }}
-          setGameList={mocSetGameList}
-          lsWord={''}
-        />
+        <Provider store={store}>
+          <ItemsList
+            cardListData={{ ...mockCardListData }}
+            setGameList={mocSetGameList}
+            lsWord={''}
+          />
+        </Provider>
       </BrowserRouter>
     );
 
@@ -293,11 +305,13 @@ describe('Rendering Tests', () => {
   test('running api with correct parameters, search word present', async () => {
     render(
       <BrowserRouter>
-        <ItemsList
-          cardListData={{ ...mockCardListData }}
-          setGameList={mocSetGameList}
-          lsWord={''}
-        />
+        <Provider store={store}>
+          <ItemsList
+            cardListData={{ ...mockCardListData }}
+            setGameList={mocSetGameList}
+            lsWord={''}
+          />
+        </Provider>
       </BrowserRouter>
     );
 
@@ -314,11 +328,13 @@ describe('Rendering Tests', () => {
   test('response fail', async () => {
     render(
       <BrowserRouter>
-        <ItemsList
-          cardListData={{ ...mockCardListData, responseOk: false }}
-          setGameList={mocSetGameList}
-          lsWord={''}
-        />
+        <Provider store={store}>
+          <ItemsList
+            cardListData={{ ...mockCardListData, responseOk: false }}
+            setGameList={mocSetGameList}
+            lsWord={''}
+          />
+        </Provider>
       </BrowserRouter>
     );
 

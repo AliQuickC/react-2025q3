@@ -6,6 +6,7 @@ import { ItemHeader } from '../Item/ItemHeader';
 import { Item } from '../Item/Item';
 import { notDataMessage, responseErrorMessage } from '../../const/const';
 import { useEffect, type JSX } from 'react';
+import { useCardList } from '../../redux/useAppSelector';
 
 interface IProps {
   cardListData: ICardListData;
@@ -14,6 +15,8 @@ interface IProps {
 }
 
 function ItemsList(props: IProps): JSX.Element {
+  const { selectItems } = useCardList();
+
   useEffect(() => {
     if (props.cardListData.haveData) return;
 
@@ -39,7 +42,11 @@ function ItemsList(props: IProps): JSX.Element {
       } else {
         gameItems = props.cardListData.games.map((game: IGame) => {
           return (
-            <Item key={game.id} itemData={game} isSelect={game.id % 2 === 0} />
+            <Item
+              key={game.id}
+              itemData={game}
+              isSelect={selectItems.includes(game.id)}
+            />
           );
         });
       }

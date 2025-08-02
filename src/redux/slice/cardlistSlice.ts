@@ -4,13 +4,14 @@ import { FIRST_PAGE } from '../../const/const';
 
 export const initialState: ICardListState = {
   cardListData: {
-    haveData: false,
+    haveData: true,
     games: [],
     count: 0,
     responseOk: false,
     currentPage: FIRST_PAGE,
   },
   item: null,
+  selectItems: [],
 };
 
 export const cardListSlice = createSlice({
@@ -41,6 +42,15 @@ export const cardListSlice = createSlice({
       action: PayloadAction<string | null>
     ) => {
       state.item = action.payload;
+    },
+    selectItem: (state: ICardListState, action: PayloadAction<number>) => {
+      state.selectItems.push(action.payload);
+    },
+    unSelectItem: (state: ICardListState, action: PayloadAction<number>) => {
+      const findItem = state.selectItems.indexOf(action.payload);
+      if (findItem !== -1) {
+        state.selectItems.splice(findItem, 1);
+      }
     },
   },
 });
