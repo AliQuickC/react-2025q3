@@ -1,43 +1,22 @@
-import { beforeAll, describe, expect, test, vi } from 'vitest';
+import { describe, expect, test } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { storeKEY } from '../../../const/const.ts';
 import { BrowserRouter } from 'react-router-dom';
 import GamesPage from './GamesPage.tsx';
+import { Provider } from 'react-redux';
+import store from '../../../redux/store.ts';
 
-const mockWord2 = 'find word';
-
-describe('Local Storage tests', () => {
-  const mockLS: { [key: string]: string } = {};
-  mockLS[storeKEY] = 'asd';
-
-  beforeAll(() => {
-    Storage.prototype.setItem = vi.fn((key, value) => {
-      mockLS[key] = value;
-    });
-    Storage.prototype.getItem = vi.fn((key) => mockLS[key]);
-  });
-
-  test.skip('Local storage write', async () => {
+describe('Rendering Tests', () => {
+  test('Render, have data', () => {
     render(
       <BrowserRouter>
-        <GamesPage />
+        <Provider store={store}>
+          <GamesPage />
+        </Provider>
       </BrowserRouter>
     );
 
-    const user = userEvent.setup();
-    const searchInput: HTMLInputElement =
-      screen.getByPlaceholderText(/find.../i);
-    const searchButton: HTMLButtonElement = screen.getByRole('button', {
-      name: 'find',
-    });
-
-    expect(searchInput.value).toBe('');
-
-    await user.type(searchInput, mockWord2);
-    await user.click(searchButton);
-
-    expect(Storage.prototype.setItem).toHaveBeenCalledTimes(1);
-    expect(Storage.prototype.setItem).toHaveBeenCalledWith(storeKEY, mockWord2);
+    expect(screen.queryByTestId('header-element')).toBeInTheDocument();
+    expect(screen.queryByTestId('results-element')).toBeInTheDocument();
+    expect(screen.queryByTestId('footer-element')).toBeInTheDocument();
   });
 });

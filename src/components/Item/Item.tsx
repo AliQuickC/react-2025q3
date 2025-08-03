@@ -8,7 +8,7 @@ import { useActions } from '../../redux/useActions';
 function UnSelectIcon() {
   return (
     <>
-      <title>bookmark</title>
+      <title>no select bookmark</title>
       <g
         strokeLinejoin="miter"
         fill="#212121"
@@ -31,7 +31,7 @@ function UnSelectIcon() {
 function SelectIcon() {
   return (
     <>
-      <title>bookmark</title>
+      <title>is select bookmark</title>
       <g fill="#212121" className="nc-icon-wrapper">
         <path
           d="M37,1H11A5.006,5.006,0,0,0,6,6V46a1,1,0,0,0,1.507.862L24,37.16l16.493,9.7A1,1,0,0,0,42,46V6A5.006,5.006,0,0,0,37,1Z"

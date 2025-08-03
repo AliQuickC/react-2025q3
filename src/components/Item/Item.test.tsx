@@ -69,4 +69,34 @@ describe('Rendering Tests', () => {
     expect(screen.queryByText(new RegExp(name))).toBeInTheDocument();
     expect(screen.queryByText(new RegExp(released))).toBeInTheDocument();
   });
+
+  test('Renders correct unselect icon', () => {
+    render(
+      <BrowserRouter>
+        <Provider store={store}>
+          <Item
+            key={mockGames[0].id}
+            itemData={mockGames[0]}
+            isSelect={false}
+          />
+        </Provider>
+      </BrowserRouter>
+    );
+
+    const icon = screen.queryByText(/no select bookmark/i);
+    expect(icon).toBeInTheDocument();
+  });
+
+  test('Renders correct select icon', () => {
+    render(
+      <BrowserRouter>
+        <Provider store={store}>
+          <Item key={mockGames[0].id} itemData={mockGames[0]} isSelect={true} />
+        </Provider>
+      </BrowserRouter>
+    );
+
+    const icon = screen.queryByText(/is select bookmark/i);
+    expect(icon).toBeInTheDocument();
+  });
 });

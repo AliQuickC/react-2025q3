@@ -13,11 +13,7 @@ const startPage = FIRST_PAGE;
 test('presence of element Pagination elements', () => {
   render(
     <BrowserRouter>
-      <Pagination
-        cardsTotal={cardsTotal}
-        currentPage={startPage}
-        haveData={true}
-      />
+      <Pagination cardsTotal={cardsTotal} currentPage={startPage} />
     </BrowserRouter>
   );
 
@@ -34,11 +30,7 @@ test('presence of element Pagination elements', () => {
 test('Trims whitespace from search input before saving', async () => {
   render(
     <BrowserRouter>
-      <Pagination
-        cardsTotal={cardsTotal}
-        currentPage={startPage}
-        haveData={true}
-      />
+      <Pagination cardsTotal={cardsTotal} currentPage={startPage} />
     </BrowserRouter>
   );
 

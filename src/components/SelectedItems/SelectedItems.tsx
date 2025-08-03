@@ -23,7 +23,7 @@ export function SelectedItems(props: Props) {
       </button>
       <p>
         <span>Selected elements: </span>
-        <span>{props.selectedElements}</span>
+        <span data-testid="select-item-count">{props.selectedElements}</span>
       </p>
       <button
         className={'app-button'}
