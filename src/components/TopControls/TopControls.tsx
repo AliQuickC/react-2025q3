@@ -1,18 +1,16 @@
 import s from './TopControls.module.sass';
 import Search from '../Search/Search';
-import type { IGlobalState, onSearch } from '../../Types/types';
 import type { JSX } from 'react';
 
 interface IProps {
-  onSearch: onSearch;
-  globalState: IGlobalState;
+  lsWord: string;
 }
 
 function TopControls(props: IProps): JSX.Element {
   return (
     <header className={s.header} data-testid="header-element">
       <div className={`container ${s.headerContainer} `}>
-        <Search globalState={props.globalState} onSearch={props.onSearch} />
+        <Search lsWord={props.lsWord} />
       </div>
     </header>
   );

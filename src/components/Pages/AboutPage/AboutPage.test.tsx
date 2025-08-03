@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import { expect, test } from 'vitest';
-import About from './About';
+import AboutPage from './AboutPage';
 import { BrowserRouter } from 'react-router-dom';
 
 test('About page Render', () => {
   render(
     <BrowserRouter>
-      <About />
+      <AboutPage />
     </BrowserRouter>
   );
 

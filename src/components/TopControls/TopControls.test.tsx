@@ -1,16 +1,13 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, test, vi } from 'vitest';
-import { mocGlobalState } from '../../../__tests__/mock';
+import { describe, expect, test } from 'vitest';
 import TopControls from './TopControls';
 import { BrowserRouter } from 'react-router-dom';
-
-const moconSearch = vi.fn();
 
 describe('Rendering Tests', () => {
   test('Render', () => {
     render(
       <BrowserRouter>
-        <TopControls globalState={mocGlobalState} onSearch={moconSearch} />
+        <TopControls lsWord={''} />
       </BrowserRouter>
     );
 

@@ -1,25 +1,27 @@
 import { useEffect, useState, type JSX } from 'react';
 import s from './Search.module.sass';
-import useLocalStorage from '../../hooks/useLocalStorage';
-import { FIRST_PAGE, storeKEY } from '../../const/const';
+import { FIRST_PAGE } from '../../const/const';
 import { useSearchParams } from 'react-router-dom';
 
-function Search(): JSX.Element {
+interface Props {
+  lsWord: string;
+}
+
+function Search(props: Props): JSX.Element {
   const [, setSearchParams] = useSearchParams();
   const [findWord, setFindWord] = useState<string>('');
-  const [lsWord] = useLocalStorage(storeKEY);
 
   useEffect(() => {
-    setFindWord(lsWord);
-  }, [lsWord]);
+    setFindWord(props.lsWord);
+  }, [props.lsWord]);
 
   const findHandler = () => {
     const word = findWord.trim();
 
     if (word) {
-      setSearchParams({ page: '' + FIRST_PAGE, search: word });
+      setSearchParams({ page: FIRST_PAGE, search: word });
     } else {
-      setSearchParams({ page: '' + FIRST_PAGE });
+      setSearchParams({ page: FIRST_PAGE });
     }
   };
 

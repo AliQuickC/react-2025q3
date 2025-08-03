@@ -9,7 +9,6 @@ const MAX_PAGINATION = 150;
 interface IProps {
   cardsTotal: number;
   currentPage: string;
-  haveData: boolean;
 }
 
 export default function Pagination(props: IProps): JSX.Element {
@@ -36,25 +35,28 @@ export default function Pagination(props: IProps): JSX.Element {
     pagesCount > MAX_PAGINATION ? MAX_PAGINATION : pagesCount
   )
     .fill(null)
-    .map((_, index) => (
-      <span
-        className={
-          (+props.currentPage === index + 1 ? s.selectedPage : '') +
-          ' ' +
-          s.pageNumber
-        }
-        key={index + 1}
-        onClick={(event) => {
-          if (+props.currentPage !== index + 1) {
-            event.stopPropagation();
+    .map((_, index) => {
+      const pageNumber = index + 1;
+      return (
+        <span
+          className={
+            (+props.currentPage === pageNumber ? s.selectedPage : '') +
+            ' ' +
+            s.pageNumber
           }
-          paginationNumberHandler(index + 1, props.currentPage);
-        }}
-        data-testid="pagination-element"
-      >
-        {index + 1}
-      </span>
-    ));
+          key={pageNumber}
+          onClick={(event) => {
+            if (+props.currentPage !== pageNumber) {
+              event.stopPropagation();
+            }
+            paginationNumberHandler(pageNumber, props.currentPage);
+          }}
+          data-testid="pagination-element"
+        >
+          {pageNumber}
+        </span>
+      );
+    });
 
   return <div className={s.numbersList}>{pages}</div>;
 }

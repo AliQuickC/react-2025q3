@@ -5,15 +5,20 @@ export interface IGame {
   ratings_count: number;
 }
 
-export interface IGlobalState {
-  haveData: boolean;
+export interface ICardListData {
+  isLoading: boolean;
   games: IGame[];
   count: number;
   responseOk: boolean;
   currentPage: string | null;
 }
 
-export type SetGameList = (gamesData: GamesData, responseOk: boolean) => void;
+export interface ICardListState {
+  cardListData: ICardListData;
+  item: string | null;
+  selectItems: IGame[];
+}
+
 export type setFindWord = (findWord: string) => void;
 export type onSearch = () => void;
 
@@ -25,7 +30,34 @@ export type ResponseGames = {
   [propName: string]: unknown;
 };
 
+type Genre = { id: number; name: string; [propName: string]: unknown };
+
+export type ResponseGameDetail = {
+  id: number;
+  name: string;
+  background_image: string;
+  genres: Genre[];
+  [propName: string]: unknown;
+};
+
 export type GamesData = {
   count: number;
   results: IGame[];
+};
+
+export type SetGameList = (listData: {
+  gamesData: GamesData;
+  responseOk: boolean;
+}) => void;
+
+export type GamesDetailData = {
+  name: string;
+  background_image: string;
+  genres: string;
+};
+
+export type GameDetail = {
+  detailData: GamesDetailData | null;
+  id: number | null;
+  isLoading: boolean;
 };

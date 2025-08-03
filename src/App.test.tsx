@@ -1,43 +1,51 @@
-import { beforeAll, describe, expect, test, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { describe, expect, test, vi } from 'vitest';
+import { MemoryRouter } from 'react-router-dom';
 import App from './App';
-import { storeKEY } from './const/const.ts';
-import { BrowserRouter } from 'react-router-dom';
 
-const mockWord2 = 'find word';
+describe('Routing Tests', () => {
+  vi.mock('./components/Pages/GamesPage/GamesPage', () => ({
+    __esModule: true,
+    default: () => <div data-testid="GamesPageMock" />,
+  }));
 
-describe('Local Storage tests', () => {
-  const mockLS: { [key: string]: string } = {};
-  mockLS[storeKEY] = 'asd';
+  vi.mock('./components/Pages/AboutPage/AboutPage', () => ({
+    __esModule: true,
+    default: () => <div data-testid="AboutPageMock" />,
+  }));
 
-  beforeAll(() => {
-    Storage.prototype.setItem = vi.fn((key, value) => {
-      mockLS[key] = value;
-    });
-    Storage.prototype.getItem = vi.fn((key) => mockLS[key]);
-  });
+  vi.mock('./components/Pages/NotFoundPage/NotFoundPage', () => ({
+    __esModule: true,
+    default: () => <div data-testid="NotFoundPageMock" />,
+  }));
 
-  test.skip('Local storage write', async () => {
+  test('Render page GamesPage', () => {
     render(
-      <BrowserRouter>
+      <MemoryRouter>
         <App />
-      </BrowserRouter>
+      </MemoryRouter>
     );
 
-    const user = userEvent.setup();
-    const searchInput: HTMLInputElement =
-      screen.getByPlaceholderText(/find.../i);
-    const searchButton: HTMLButtonElement = screen.getByRole('button', {
-      name: 'find',
-    });
+    expect(screen.getByTestId('GamesPageMock')).toBeInTheDocument();
+  });
 
-    expect(searchInput.value).toBe('');
+  test('Render page AboutPage', () => {
+    render(
+      <MemoryRouter initialEntries={['/about']}>
+        <App />
+      </MemoryRouter>
+    );
 
-    await user.type(searchInput, mockWord2);
-    await user.click(searchButton);
+    expect(screen.getByTestId('AboutPageMock')).toBeInTheDocument();
+  });
 
-    expect(Storage.prototype.setItem).toHaveBeenCalledTimes(1);
-    expect(Storage.prototype.setItem).toHaveBeenCalledWith(storeKEY, mockWord2);
+  test('Render page NotFoundPage', () => {
+    render(
+      <MemoryRouter initialEntries={['/sfg']}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByTestId('NotFoundPageMock')).toBeInTheDocument();
   });
 });

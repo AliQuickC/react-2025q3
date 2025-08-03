@@ -10,9 +10,9 @@ type Props = {
 
 export function ItemHeader(props: Props): JSX.Element {
   return (
-    <div className={s.Item + ' unselectable'}>
-      <div className={s.GameName}>{props.itemData.description}</div>
-      <div className={s.ReleaseDate}>{props.itemData.released}</div>
+    <div className={s.item + ' unselectable'}>
+      <div className={s.gameName}>{props.itemData.description}</div>
+      <div className={s.releaseDate}>{props.itemData.released}</div>
     </div>
   );
 }

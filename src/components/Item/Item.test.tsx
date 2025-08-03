@@ -2,6 +2,9 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
 import type { IGame } from '../../Types/types';
 import { Item } from './Item';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from '../../redux/store';
 
 const mockGames: IGame[] = [
   {
@@ -31,9 +34,17 @@ const mockGames: IGame[] = [
 ];
 
 describe('Rendering Tests', () => {
-  test('Renders correct number of items when data is provided, loading states', () => {
+  test('Renders correct number of item when data is provided, loading states', () => {
     const { rerender } = render(
-      <Item key={mockGames[0].id} itemData={mockGames[0]} />
+      <BrowserRouter>
+        <Provider store={store}>
+          <Item
+            key={mockGames[0].id}
+            itemData={mockGames[0]}
+            isSelect={false}
+          />
+        </Provider>
+      </BrowserRouter>
     );
 
     let name = mockGames[0].name;
@@ -41,11 +52,51 @@ describe('Rendering Tests', () => {
     expect(screen.queryByText(new RegExp(name))).toBeInTheDocument();
     expect(screen.queryByText(new RegExp(released))).toBeInTheDocument();
 
-    rerender(<Item key={mockGames[1].id} itemData={mockGames[1]} />);
+    rerender(
+      <BrowserRouter>
+        <Provider store={store}>
+          <Item
+            key={mockGames[1].id}
+            itemData={mockGames[1]}
+            isSelect={false}
+          />
+        </Provider>
+      </BrowserRouter>
+    );
 
     name = mockGames[1].name;
     released = mockGames[1].released;
     expect(screen.queryByText(new RegExp(name))).toBeInTheDocument();
     expect(screen.queryByText(new RegExp(released))).toBeInTheDocument();
+  });
+
+  test('Renders correct unselect icon', () => {
+    render(
+      <BrowserRouter>
+        <Provider store={store}>
+          <Item
+            key={mockGames[0].id}
+            itemData={mockGames[0]}
+            isSelect={false}
+          />
+        </Provider>
+      </BrowserRouter>
+    );
+
+    const icon = screen.queryByText(/no select bookmark/i);
+    expect(icon).toBeInTheDocument();
+  });
+
+  test('Renders correct select icon', () => {
+    render(
+      <BrowserRouter>
+        <Provider store={store}>
+          <Item key={mockGames[0].id} itemData={mockGames[0]} isSelect={true} />
+        </Provider>
+      </BrowserRouter>
+    );
+
+    const icon = screen.queryByText(/is select bookmark/i);
+    expect(icon).toBeInTheDocument();
   });
 });

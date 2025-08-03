@@ -1,7 +1,9 @@
 import { MAX_CARDS_ON_PAGE } from '../const/const';
 import type {
+  GameDetail,
   GamesData,
   IGame,
+  ResponseGameDetail,
   ResponseGames,
   SetGameList,
 } from '../Types/types';
@@ -17,6 +19,9 @@ const base_games_url =
   apiKey +
   '&page_size=' +
   MAX_CARDS_ON_PAGE.toString();
+
+const base_game_detail_url = base_url + '/games/';
+
 const errorGamesData = {
   count: 0,
   results: [],
@@ -32,6 +37,18 @@ function convertResponse(response: ResponseGames): GamesData {
   return { count: response.count, results };
 }
 
+function convertGameDetailResponse(response: ResponseGameDetail): GameDetail {
+  return {
+    id: response.id,
+    isLoading: true,
+    detailData: {
+      name: response.name,
+      background_image: response.background_image,
+      genres: response.genres.map((genre) => genre.name).join(', '),
+    },
+  };
+}
+
 function responseHandler(param: Promise<Response>, callback: SetGameList) {
   param
     .then((response: Response) => {
@@ -43,9 +60,17 @@ function responseHandler(param: Promise<Response>, callback: SetGameList) {
       }
     })
     .then((data: ResponseGames) => convertResponse(data))
-    .then((data: GamesData) => callback(data, true))
+    .then((data: GamesData) =>
+      callback({
+        gamesData: data,
+        responseOk: true,
+      })
+    )
     .catch(() => {
-      callback(errorGamesData, false);
+      callback({
+        gamesData: errorGamesData,
+        responseOk: false,
+      });
       console.error('error, failed to get data from server');
     });
 }
@@ -63,6 +88,10 @@ const gamesAPI = {
       find_word;
     return fetch(url);
   },
+  getGamDetail(id: string) {
+    const url = base_game_detail_url + id + '?key=' + apiKey;
+    return fetch(url);
+  },
 };
 
 export const requestGames = async (
@@ -78,4 +107,28 @@ export const requestFindGames = (
   page: string | null = null
 ) => {
   responseHandler(gamesAPI.getSearchGames(word, page), callback);
+};
+
+export const requestDetail = (
+  id: string,
+  callback: (gameDetail: GameDetail) => void
+): void => {
+  gamesAPI
+    .getGamDetail(id)
+    .then((response: Response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        const status = Math.floor(response.status / 100);
+        if (status === 4 || status === 5) throw new Error('Request Errror');
+      }
+    })
+    .then((data: ResponseGameDetail) => convertGameDetailResponse(data))
+    .then((data: GameDetail) => {
+      callback({
+        detailData: data.detailData,
+        id: data.id,
+        isLoading: data.isLoading,
+      });
+    });
 };

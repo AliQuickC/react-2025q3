@@ -5,8 +5,8 @@ import { NavLink } from 'react-router-dom';
 
 function Footer(): JSX.Element {
   return (
-    <footer className={'footer'} data-testid="header-element">
-      <div className={`container ${s.FooterConteiner}`}>
+    <footer className={'footer'} data-testid="footer-element">
+      <div className={`container ${s.footerConteiner}`}>
         <ErrorButton />
         <NavLink className={'app-button'} to="/about">
           {' '}
