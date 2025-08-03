@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { GamesData, ICardListState } from '../../Types/types';
+import type { GamesData, ICardListState, IGame } from '../../Types/types';
 import { FIRST_PAGE } from '../../const/const';
 
 export const initialState: ICardListState = {
@@ -43,11 +43,13 @@ export const cardListSlice = createSlice({
     ) => {
       state.item = action.payload;
     },
-    selectItem: (state: ICardListState, action: PayloadAction<number>) => {
+    selectItem: (state: ICardListState, action: PayloadAction<IGame>) => {
       state.selectItems.push(action.payload);
     },
     unSelectItem: (state: ICardListState, action: PayloadAction<number>) => {
-      const findItem = state.selectItems.indexOf(action.payload);
+      const findItem: number = state.selectItems.findIndex(
+        (element) => element.id === action.payload
+      );
       if (findItem !== -1) {
         state.selectItems.splice(findItem, 1);
       }

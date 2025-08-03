@@ -45,7 +45,10 @@ function ItemsList(props: IProps): JSX.Element {
             <Item
               key={game.id}
               itemData={game}
-              isSelect={selectItems.includes(game.id)}
+              isSelect={
+                selectItems.findIndex((element) => element.id === game.id) !==
+                -1
+              }
             />
           );
         });

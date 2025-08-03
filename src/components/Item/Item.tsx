@@ -49,8 +49,18 @@ type Props = {
 
 export function Item(props: Props): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
-
   const { selectItem, unSelectItem } = useActions();
+
+  const selectItemHandler = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    event.stopPropagation();
+    if (props.isSelect) {
+      unSelectItem(props.itemData.id);
+    } else {
+      selectItem(props.itemData);
+    }
+  };
 
   return (
     <div
@@ -68,17 +78,7 @@ export function Item(props: Props): JSX.Element {
     >
       <div className={s.gameName}>{props.itemData.name}</div>
       <div className={s.releaseDate}>{props.itemData.released}</div>
-      <button
-        className={s.selectItemButton}
-        onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-          event.stopPropagation();
-          if (props.isSelect) {
-            unSelectItem(props.itemData.id);
-          } else {
-            selectItem(props.itemData.id);
-          }
-        }}
-      >
+      <button className={s.selectItemButton} onClick={selectItemHandler}>
         <svg
           className={s.buttonIcon}
           xmlns="http://www.w3.org/2000/svg"
