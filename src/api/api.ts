@@ -40,7 +40,7 @@ function convertResponse(response: ResponseGames): GamesData {
 function convertGameDetailResponse(response: ResponseGameDetail): GameDetail {
   return {
     id: response.id,
-    haveData: true,
+    isLoading: true,
     detailData: {
       name: response.name,
       background_image: response.background_image,
@@ -128,7 +128,7 @@ export const requestDetail = (
       callback({
         detailData: data.detailData,
         id: data.id,
-        haveData: data.haveData,
+        isLoading: data.isLoading,
       });
     });
 };

@@ -6,7 +6,7 @@ export interface IGame {
 }
 
 export interface ICardListData {
-  haveData: boolean;
+  isLoading: boolean;
   games: IGame[];
   count: number;
   responseOk: boolean;
@@ -59,5 +59,5 @@ export type GamesDetailData = {
 export type GameDetail = {
   detailData: GamesDetailData | null;
   id: number | null;
-  haveData: boolean;
+  isLoading: boolean;
 };

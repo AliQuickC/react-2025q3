@@ -18,7 +18,7 @@ function ItemsList(props: IProps): JSX.Element {
   const { selectItems } = useCardList();
 
   useEffect(() => {
-    if (props.cardListData.haveData) return;
+    if (props.cardListData.isLoading) return;
 
     if (props.lsWord === '') {
       requestGames(props.setGameList, props.cardListData.currentPage);
@@ -31,9 +31,9 @@ function ItemsList(props: IProps): JSX.Element {
     }
     // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.cardListData.haveData]);
+  }, [props.cardListData.isLoading]);
 
-  if (props.cardListData.haveData) {
+  if (props.cardListData.isLoading) {
     let gameItems: React.JSX.Element[] | React.JSX.Element;
 
     if (props.cardListData.responseOk) {

@@ -4,7 +4,7 @@ import type { GameDetail, GamesDetailData } from '../../Types/types';
 export const initialState: GameDetail = {
   detailData: null,
   id: null,
-  haveData: false,
+  isLoading: false,
 };
 
 export const detailsSlice = createSlice({
@@ -16,16 +16,16 @@ export const detailsSlice = createSlice({
       action: PayloadAction<{
         detailData: GamesDetailData | null;
         id: number | null;
-        haveData: boolean;
+        isLoading: boolean;
       }>
     ) => {
       state.detailData = action.payload.detailData;
       state.id = action.payload.id;
-      state.haveData = true;
+      state.isLoading = true;
     },
     detailsRequestOn: (state: GameDetail, action: PayloadAction<number>) => {
       state.id = action.payload;
-      state.haveData = false;
+      state.isLoading = false;
     },
   },
 });

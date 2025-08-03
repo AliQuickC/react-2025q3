@@ -4,7 +4,7 @@ import { FIRST_PAGE } from '../../const/const';
 
 export const initialState: ICardListState = {
   cardListData: {
-    haveData: true,
+    isLoading: true,
     games: [],
     count: 0,
     responseOk: false,
@@ -28,14 +28,14 @@ export const cardListSlice = createSlice({
       state.cardListData.count = action.payload.gamesData.count;
       state.cardListData.games = action.payload.gamesData.results;
       state.cardListData.responseOk = action.payload.responseOk;
-      state.cardListData.haveData = true;
+      state.cardListData.isLoading = true;
     },
     cardListRequestOn: (
       state: ICardListState,
       action: PayloadAction<string | null>
     ) => {
       state.cardListData.currentPage = action.payload;
-      state.cardListData.haveData = false;
+      state.cardListData.isLoading = false;
     },
     setCardDetails: (
       state: ICardListState,

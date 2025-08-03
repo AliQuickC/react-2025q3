@@ -13,7 +13,7 @@ type Props = {
 export default function CardDetails(props: Props) {
   const [, setDetailsParam] = useSearchParams();
   const { detailsRequestOn, setDetails } = useActions();
-  const { detailData, haveData } = useDetails();
+  const { detailData, isLoading } = useDetails();
 
   useEffect(() => {
     if (props.item !== null) {
@@ -22,10 +22,10 @@ export default function CardDetails(props: Props) {
   }, [detailsRequestOn, props.item]);
 
   useEffect(() => {
-    if (!haveData && props.item) {
+    if (!isLoading && props.item) {
       requestDetail(props.item, setDetails);
     }
-  }, [haveData, props.item, setDetails]);
+  }, [isLoading, props.item, setDetails]);
 
   return (
     <>
@@ -42,7 +42,7 @@ export default function CardDetails(props: Props) {
           close
         </button>
         <div className={s.detailsDataPanel}>
-          {haveData && detailData ? (
+          {isLoading && detailData ? (
             <div className={s.detailsData}>
               <img
                 className={s.gameImage}

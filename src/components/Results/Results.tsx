@@ -28,7 +28,7 @@ function Results(props: IProps): JSX.Element {
             />
             {item === null ? '' : <CardDetails item={item} />}
           </div>
-          {cardListData.haveData ? (
+          {cardListData.isLoading ? (
             <Pagination
               cardsTotal={cardListData.count}
               currentPage={cardListData.currentPage || FIRST_PAGE}

@@ -16,11 +16,13 @@ export const useCardList = () => {
 };
 
 export const useDetails = () => {
-  const { detailData, haveData, id } = useAppSelector((state) => state.details);
+  const { detailData, isLoading, id } = useAppSelector(
+    (state) => state.details
+  );
 
   return {
     detailData,
-    haveData,
+    isLoading,
     id,
   };
 };

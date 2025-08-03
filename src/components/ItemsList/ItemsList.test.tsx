@@ -71,7 +71,7 @@ describe('Rendering Tests', () => {
       <BrowserRouter>
         <Provider store={store}>
           <ItemsList
-            cardListData={{ ...mockCardListData, haveData: false }}
+            cardListData={{ ...mockCardListData, isLoading: false }}
             setGameList={mocSetGameList}
             lsWord={''}
           />
