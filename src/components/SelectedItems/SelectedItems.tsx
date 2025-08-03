@@ -1,5 +1,7 @@
-import { useActions } from '../../redux/useActions';
 import s from './SelectedItems.module.sass';
+import { useActions } from '../../redux/useActions';
+import { useCardList } from '../../redux/useAppSelector';
+import { downloadHandler } from './downloadHandler';
 
 type Props = {
   selectedElements: number;
@@ -7,6 +9,7 @@ type Props = {
 
 export function SelectedItems(props: Props) {
   const { unSelectAllItems } = useActions();
+  const { selectItems } = useCardList();
 
   return (
     <div className={s.selectedItems}>
@@ -22,7 +25,14 @@ export function SelectedItems(props: Props) {
         <span>Selected elements: </span>
         <span>{props.selectedElements}</span>
       </p>
-      <button className={'app-button'}>Download</button>
+      <button
+        className={'app-button'}
+        onClick={() => {
+          downloadHandler(selectItems);
+        }}
+      >
+        Download
+      </button>
     </div>
   );
 }
