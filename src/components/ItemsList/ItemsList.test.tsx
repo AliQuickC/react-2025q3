@@ -63,7 +63,7 @@ describe('Rendering Tests', () => {
         </Provider>
       </BrowserRouter>
     );
-    expect(screen.queryByText(new RegExp(notDataMessage))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(notDataMessage))).toBeInTheDocument();
   });
 
   test('Shows loading state while fetching data', () => {
@@ -79,7 +79,7 @@ describe('Rendering Tests', () => {
       </BrowserRouter>
     );
 
-    expect(screen.queryByAltText(/loader.../i)).toBeInTheDocument();
+    expect(screen.getByAltText(/loader.../i)).toBeInTheDocument();
     waitFor(() => {
       expect(screen.queryByAltText('loader...')).not.toBeInTheDocument();
     });
@@ -141,7 +141,7 @@ describe('Rendering Tests', () => {
     );
 
     waitFor(() => {
-      expect(screen.queryByAltText(responseErrorMessage)).toBeInTheDocument();
+      expect(screen.getByAltText(responseErrorMessage)).toBeInTheDocument();
     });
   });
 });

@@ -14,10 +14,9 @@ test('Render selected items info panel', () => {
     </BrowserRouter>
   );
 
-  const selectedItemsComponent = screen.queryByText(/Selected elements:/i);
-  const countOutputElement = screen.queryByTestId('select-item-count');
+  const countOutputElement = screen.getByTestId('select-item-count');
 
-  expect(selectedItemsComponent).toBeInTheDocument();
+  expect(screen.getByText(/Selected elements:/i)).toBeInTheDocument();
   expect(countOutputElement).toBeInTheDocument();
   expect(countOutputElement?.textContent).toBe('5');
 });

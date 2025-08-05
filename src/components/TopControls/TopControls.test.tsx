@@ -11,7 +11,7 @@ describe('Rendering Tests', () => {
       </BrowserRouter>
     );
 
-    expect(screen.queryByTestId('header-element')).toBeInTheDocument();
-    expect(screen.queryByTestId('search-element')).toBeInTheDocument();
+    expect(screen.getByTestId('header-element')).toBeInTheDocument();
+    expect(screen.getByTestId('search-element')).toBeInTheDocument();
   });
 });

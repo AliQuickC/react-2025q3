@@ -49,8 +49,8 @@ describe('Rendering Tests', () => {
 
     let name = mockGames[0].name;
     let released = mockGames[0].released;
-    expect(screen.queryByText(new RegExp(name))).toBeInTheDocument();
-    expect(screen.queryByText(new RegExp(released))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(name))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(released))).toBeInTheDocument();
 
     rerender(
       <BrowserRouter>
@@ -66,8 +66,8 @@ describe('Rendering Tests', () => {
 
     name = mockGames[1].name;
     released = mockGames[1].released;
-    expect(screen.queryByText(new RegExp(name))).toBeInTheDocument();
-    expect(screen.queryByText(new RegExp(released))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(name))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(released))).toBeInTheDocument();
   });
 
   test('Renders correct unselect icon', () => {
@@ -83,7 +83,7 @@ describe('Rendering Tests', () => {
       </BrowserRouter>
     );
 
-    const icon = screen.queryByText(/no select bookmark/i);
+    const icon = screen.getByText(/no select bookmark/i);
     expect(icon).toBeInTheDocument();
   });
 
@@ -96,7 +96,7 @@ describe('Rendering Tests', () => {
       </BrowserRouter>
     );
 
-    const icon = screen.queryByText(/is select bookmark/i);
+    const icon = screen.getByText(/is select bookmark/i);
     expect(icon).toBeInTheDocument();
   });
 });

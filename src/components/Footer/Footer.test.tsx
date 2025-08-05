@@ -10,10 +10,8 @@ test('Footer Render', () => {
     </BrowserRouter>
   );
 
+  expect(screen.getByRole('link', { name: 'About page' })).toBeInTheDocument();
   expect(
-    screen.queryByRole('link', { name: 'About page' })
-  ).toBeInTheDocument();
-  expect(
-    screen.queryByRole('button', { name: 'generate throw' })
+    screen.getByRole('button', { name: 'generate throw' })
   ).toBeInTheDocument();
 });

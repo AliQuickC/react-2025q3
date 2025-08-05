@@ -17,6 +17,6 @@ describe('Rendering Tests', () => {
       </BrowserRouter>
     );
 
-    expect(screen.queryByTestId('item-list-element')).toBeInTheDocument();
+    expect(screen.getByTestId('item-list-element')).toBeInTheDocument();
   });
 });

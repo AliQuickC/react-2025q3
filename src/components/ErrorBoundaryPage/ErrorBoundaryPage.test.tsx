@@ -7,7 +7,7 @@ test('ErrorBoundary page Render', () => {
 
   waitFor(() => {
     expect(
-      screen.queryByText(/An error occurred while executing the application/i)
+      screen.getByText(/An error occurred while executing the application/i)
     ).toBeInTheDocument();
   });
 });

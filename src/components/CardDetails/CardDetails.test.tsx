@@ -15,7 +15,7 @@ describe('Rendering Tests', () => {
       </BrowserRouter>
     );
 
-    expect(screen.queryByRole('button', { name: 'close' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'close' })).toBeInTheDocument();
   });
 
   test("Render, don't have data", () => {
@@ -27,6 +27,6 @@ describe('Rendering Tests', () => {
       </BrowserRouter>
     );
 
-    expect(screen.queryByAltText('loader...')).toBeInTheDocument();
+    expect(screen.getByAltText('loader...')).toBeInTheDocument();
   });
 });
