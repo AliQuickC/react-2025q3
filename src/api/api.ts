@@ -1,4 +1,8 @@
-import { MAX_CARDS_ON_PAGE } from '../const/const';
+import {
+  apiKey,
+  base_game_detail_url,
+  base_gamelist_url,
+} from '../const/const';
 import type {
   GameDetail,
   GamesData,
@@ -7,20 +11,6 @@ import type {
   ResponseGames,
   SetGameList,
 } from '../Types/types';
-
-const apiKey: string = import.meta.env.VITE_API_KEY;
-
-const base_url = 'https://api.rawg.io/api';
-
-const base_games_url =
-  base_url +
-  '/games' +
-  '?key=' +
-  apiKey +
-  '&page_size=' +
-  MAX_CARDS_ON_PAGE.toString();
-
-const base_game_detail_url = base_url + '/games/';
 
 const errorGamesData = {
   count: 0,
@@ -77,12 +67,12 @@ function responseHandler(param: Promise<Response>, callback: SetGameList) {
 
 const gamesAPI = {
   getGames(page: string | null = null) {
-    const url = base_games_url + `${page ? '&page=' + page : ''}`;
+    const url = base_gamelist_url + `${page ? '&page=' + page : ''}`;
     return fetch(url);
   },
   getSearchGames(find_word: string = '', page: string | null = null) {
     const url =
-      base_games_url +
+      base_gamelist_url +
       `${page ? '&page=' + page : ''}` +
       '&search=' +
       find_word;
