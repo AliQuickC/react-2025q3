@@ -14,7 +14,6 @@ export interface ICardListData {
 }
 
 export interface ICardListState {
-  cardListData: ICardListData;
   item: string | null;
   selectItems: IGame[];
 }

@@ -6,38 +6,16 @@ import {
 import type {
   GameDetail,
   GamesData,
-  IGame,
   ResponseGameDetail,
   ResponseGames,
   SetGameList,
 } from '../Types/types';
+import { convertGameDetailResponse, convertResponse } from '../utils/utils';
 
 const errorGamesData = {
   count: 0,
   results: [],
 };
-
-function convertResponse(response: ResponseGames): GamesData {
-  const results: IGame[] = response.results.map((item) => ({
-    id: item.id,
-    name: item.name,
-    released: item.released || '',
-    ratings_count: item.ratings_count,
-  }));
-  return { count: response.count, results };
-}
-
-function convertGameDetailResponse(response: ResponseGameDetail): GameDetail {
-  return {
-    id: response.id,
-    isLoading: true,
-    detailData: {
-      name: response.name,
-      background_image: response.background_image,
-      genres: response.genres.map((genre) => genre.name).join(', '),
-    },
-  };
-}
 
 function responseHandler(param: Promise<Response>, callback: SetGameList) {
   param

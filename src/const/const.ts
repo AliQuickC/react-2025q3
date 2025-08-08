@@ -13,5 +13,6 @@ export const base_gamelist_url =
   MAX_CARDS_ON_PAGE.toString();
 export const base_game_detail_url = base_games_url + '/';
 
-export const responseErrorMessage = 'Error, failed to get data from server !';
+export const responseErrorMessage =
+  'Unknow error, failed to get data from server !';
 export const notDataMessage = 'no results';
