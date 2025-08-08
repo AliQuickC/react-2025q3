@@ -47,10 +47,13 @@ export const getErrorInfo = (
     return responseErrorMessage;
   }
 
-  const errCode = 'code' in error ? `Code: ${error.code} ` : '';
-  const errStatus = 'status' in error ? `Status: ${error.status} ` : '';
-  const errorString = 'error' in error ? `Error: ${error.error} ` : '';
-  const errorMessage = 'message' in error ? `Error: ${error.message} ` : '';
+  const errCode = 'code' in error && error.code ? `Code: ${error.code} ` : '';
+  const errStatus =
+    'status' in error && error.status ? `Status: ${error.status} ` : '';
+  const errorString =
+    'error' in error && error.error ? `Error about: ${error.error} ` : '';
+  const errorMessage =
+    'message' in error && error.message ? `Message: ${error.message} ` : '';
   const errorTotal = errCode + errStatus + errorString + errorMessage;
 
   if (errorTotal.length === 0) {

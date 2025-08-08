@@ -12,7 +12,6 @@ export default function GamesPage(): JSX.Element {
   const { setCardDetails } = useActions();
 
   const [searchParams] = useSearchParams();
-  // const page = searchParams.get('page');
   const search = searchParams.get('search');
   const item = searchParams.get('item');
 
@@ -24,9 +23,7 @@ export default function GamesPage(): JSX.Element {
     if (lsWord !== (search || '')) {
       setLSWord(search || '');
     }
-    // eslint-disable-next-line react-compiler/react-compiler
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
+  }, [lsWord, search, setLSWord]);
 
   return (
     <>

@@ -14,6 +14,7 @@ interface Props {
   data: GamesData | undefined;
   status: QueryStatus;
   error: FetchBaseQueryError | SerializedError | undefined;
+  isLoading: boolean;
 }
 
 function ItemsList(props: Props): JSX.Element {
@@ -22,7 +23,7 @@ function ItemsList(props: Props): JSX.Element {
   let gameItems: React.JSX.Element[] | React.JSX.Element;
 
   if (props.error) {
-    gameItems = <div className={s.errorData}>{getErrorInfo(props.error)}</div>;
+    gameItems = <div className={'error-data'}>{getErrorInfo(props.error)}</div>;
   } else if (props.status === QueryStatus.pending) {
     return <Loader />;
   } else if (QueryStatus.fulfilled && props.data) {
@@ -42,7 +43,7 @@ function ItemsList(props: Props): JSX.Element {
       });
     }
   } else {
-    gameItems = <div className={s.errorData}>{responseErrorMessage}</div>;
+    gameItems = <div className={'error-data'}>{responseErrorMessage}</div>;
   }
 
   return (

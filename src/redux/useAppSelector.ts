@@ -11,15 +11,3 @@ export const useCardList = () => {
     selectItems,
   };
 };
-
-export const useDetails = () => {
-  const { detailData, isLoading, id } = useAppSelector(
-    (state) => state.details
-  );
-
-  return {
-    detailData,
-    isLoading,
-    id,
-  };
-};

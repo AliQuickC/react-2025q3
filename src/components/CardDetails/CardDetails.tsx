@@ -1,31 +1,18 @@
 import { useSearchParams } from 'react-router-dom';
 import s from './CardDetails.module.sass';
 import { Loader } from '../Loader/Loader';
-import { useEffect } from 'react';
-import { requestDetail } from '../../api/api';
-import { useDetails } from '../../redux/useAppSelector';
-import { useActions } from '../../redux/useActions';
+import { useGetGemeDetailsQuery } from '../../redux/gameApi';
+import { getErrorInfo } from '../../utils/utils';
+import { notDataMessage } from '../../const/const';
 
 type Props = {
-  item: string | null;
+  item: string;
 };
 
 export default function CardDetails(props: Props) {
   const [, setDetailsParam] = useSearchParams();
-  const { detailsRequestOn, setDetails } = useActions();
-  const { detailData, isLoading } = useDetails();
 
-  useEffect(() => {
-    if (props.item !== null) {
-      detailsRequestOn(Number(props.item));
-    }
-  }, [detailsRequestOn, props.item]);
-
-  useEffect(() => {
-    if (!isLoading && props.item) {
-      requestDetail(props.item, setDetails);
-    }
-  }, [isLoading, props.item, setDetails]);
+  const { data, error, isLoading } = useGetGemeDetailsQuery(props.item);
 
   return (
     <>
@@ -42,24 +29,28 @@ export default function CardDetails(props: Props) {
           close
         </button>
         <div className={s.detailsDataPanel}>
-          {isLoading && detailData ? (
+          {error ? (
+            <div className={'error-data'}>{getErrorInfo(error)}</div>
+          ) : isLoading ? (
+            <Loader />
+          ) : data ? (
             <div className={s.detailsData}>
               <img
                 className={s.gameImage}
-                src={detailData.background_image}
+                src={data.detailData?.background_image}
                 alt="game image"
               />
               <p>
                 <span>Name: </span>
-                <span>{detailData.name}</span>
+                <span>{data.detailData?.name}</span>
               </p>
               <p>
                 <span>Ganres: </span>
-                <span>{detailData.genres}</span>
+                <span>{data.detailData?.genres}</span>
               </p>
             </div>
           ) : (
-            <Loader />
+            <div className={'error-data'}>{notDataMessage}</div>
           )}
         </div>
       </div>

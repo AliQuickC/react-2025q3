@@ -1,7 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { base_gamelist_url, base_games_url } from '../const/const';
-import type { GamesData, ResponseGames } from '../Types/types';
-import { convertResponse } from '../utils/utils';
+import { apiKey, base_gamelist_url, base_games_url } from '../const/const';
+import type {
+  GameDetail,
+  GamesData,
+  ResponseGameDetail,
+  ResponseGames,
+} from '../Types/types';
+import { convertGameDetailResponse, convertResponse } from '../utils/utils';
 
 export const gamesApi = createApi({
   reducerPath: 'gamesApi',
@@ -20,7 +25,12 @@ export const gamesApi = createApi({
         (params.searchTerm ? '&search=' + params.searchTerm : ''),
       transformResponse: (response: ResponseGames) => convertResponse(response),
     }),
+    getGemeDetails: builder.query<GameDetail, string>({
+      query: (id: string) => '/' + id + '?key=' + apiKey,
+      transformResponse: (response: ResponseGameDetail) =>
+        convertGameDetailResponse(response),
+    }),
   }),
 });
 
-export const { useGetGemesListQuery } = gamesApi;
+export const { useGetGemesListQuery, useGetGemeDetailsQuery } = gamesApi;

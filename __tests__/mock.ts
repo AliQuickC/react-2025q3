@@ -1,5 +1,3 @@
-import { vi } from 'vitest';
-import * as api from '../src/api/api';
 import type { ICardListData, ICardListState, IGame } from '../src/Types/types';
 
 export const mockCardListData: ICardListData = {
@@ -11,13 +9,6 @@ export const mockCardListData: ICardListData = {
 };
 
 export const mocCardListState: ICardListState = {
-  cardListData: {
-    isLoading: true,
-    games: [],
-    count: 0,
-    responseOk: true,
-    currentPage: '1',
-  },
   item: null,
   selectItems: [],
 };
@@ -219,6 +210,3 @@ export const games12: IGame[] = [
     ratings_count: 152,
   },
 ];
-
-export const mocRequestGames = vi.spyOn(api, 'requestGames');
-export const mocRequestFindGames = vi.spyOn(api, 'requestFindGames');

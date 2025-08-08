@@ -17,7 +17,7 @@ function Results(): JSX.Element {
   const page = searchParams.get('page') || '';
   const search = searchParams.get('search') || '';
 
-  const { data, status, error } = useGetGemesListQuery({
+  const { data, status, isLoading, error } = useGetGemesListQuery({
     searchTerm: search,
     pageNumber: page,
   });
@@ -27,7 +27,12 @@ function Results(): JSX.Element {
       <div className={'container ' + s.resultConteiner}>
         <div>
           <div className={s.rezultWrap}>
-            <ItemsList data={data} status={status} error={error} />
+            <ItemsList
+              data={data}
+              status={status}
+              error={error}
+              isLoading={isLoading}
+            />
             {item === null ? '' : <CardDetails item={item} />}
           </div>
           {status === QueryStatus.fulfilled ? (
