@@ -17,7 +17,7 @@ function Results(): JSX.Element {
   const page = searchParams.get('page') || '';
   const search = searchParams.get('search') || '';
 
-  const { data, status, isLoading, error } = useGetGemesListQuery({
+  const { data, status, isFetching, error } = useGetGemesListQuery({
     searchTerm: search,
     pageNumber: page,
   });
@@ -31,7 +31,7 @@ function Results(): JSX.Element {
               data={data}
               status={status}
               error={error}
-              isLoading={isLoading}
+              isFetching={isFetching}
             />
             {item === null ? '' : <CardDetails item={item} />}
           </div>

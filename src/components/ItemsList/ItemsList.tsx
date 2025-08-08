@@ -14,7 +14,7 @@ interface Props {
   data: GamesData | undefined;
   status: QueryStatus;
   error: FetchBaseQueryError | SerializedError | undefined;
-  isLoading: boolean;
+  isFetching: boolean;
 }
 
 function ItemsList(props: Props): JSX.Element {
@@ -24,9 +24,9 @@ function ItemsList(props: Props): JSX.Element {
 
   if (props.error) {
     gameItems = <div className={'error-data'}>{getErrorInfo(props.error)}</div>;
-  } else if (props.status === QueryStatus.pending) {
+  } else if (props.isFetching) {
     return <Loader />;
-  } else if (QueryStatus.fulfilled && props.data) {
+  } else if (props.data) {
     if (props.data.results.length === 0) {
       gameItems = <div className={s.errorData}>{notDataMessage}</div>;
     } else {
