@@ -5,7 +5,7 @@ import GamesPage from './GamesPage.tsx';
 import { Provider } from 'react-redux';
 import store from '../../../redux/store.ts';
 
-describe.skip('Rendering Tests', () => {
+describe('Rendering Tests', () => {
   test('Render, have data', () => {
     render(
       <BrowserRouter>

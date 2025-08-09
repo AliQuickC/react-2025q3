@@ -1,34 +1,21 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { beforeEach, describe, expect, test, vi } from 'vitest';
+import { describe, expect, test } from 'vitest';
 import ItemsList from './ItemsList';
 import { notDataMessage, responseErrorMessage } from '../../const/const';
-import {
-  games12,
-  games20,
-  mockCardListData,
-  mocRequestFindGames,
-  mocRequestGames,
-} from '../../../__tests__/mock';
+import { games12, games20 } from '../../../__tests__/mock';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from '../../redux/store';
 
-const mocSetGameList = vi.fn();
-
-describe.skip('Rendering Tests', () => {
-  beforeEach(() => {
-    mocRequestFindGames.mockClear();
-    mocSetGameList.mockClear();
-  });
-
+describe('Rendering Tests', () => {
   test('Renders correct number of items when data is provided, loading states', () => {
     const { rerender } = render(
       <BrowserRouter>
         <Provider store={store}>
           <ItemsList
-            cardListData={{ ...mockCardListData, games: games20 }}
-            setGameList={mocSetGameList}
-            lsWord={''}
+            data={{ count: 1400, results: games20 }}
+            error={undefined}
+            isFetching={false}
           />
         </Provider>
       </BrowserRouter>
@@ -40,9 +27,9 @@ describe.skip('Rendering Tests', () => {
       <BrowserRouter>
         <Provider store={store}>
           <ItemsList
-            cardListData={{ ...mockCardListData, games: games12 }}
-            setGameList={mocSetGameList}
-            lsWord={''}
+            data={{ count: 1400, results: games12 }}
+            error={undefined}
+            isFetching={false}
           />
         </Provider>
       </BrowserRouter>
@@ -56,9 +43,9 @@ describe.skip('Rendering Tests', () => {
       <BrowserRouter>
         <Provider store={store}>
           <ItemsList
-            cardListData={{ ...mockCardListData, games: [] }}
-            setGameList={mocSetGameList}
-            lsWord={''}
+            data={{ count: 1400, results: [] }}
+            error={undefined}
+            isFetching={false}
           />
         </Provider>
       </BrowserRouter>
@@ -71,9 +58,9 @@ describe.skip('Rendering Tests', () => {
       <BrowserRouter>
         <Provider store={store}>
           <ItemsList
-            cardListData={{ ...mockCardListData, isLoading: false }}
-            setGameList={mocSetGameList}
-            lsWord={''}
+            data={{ count: 1400, results: [] }}
+            error={undefined}
+            isFetching={true}
           />
         </Provider>
       </BrowserRouter>
@@ -85,56 +72,14 @@ describe.skip('Rendering Tests', () => {
     });
   });
 
-  test('running api with correct parameters, search word missing', async () => {
+  test('response Unknow error', async () => {
     render(
       <BrowserRouter>
         <Provider store={store}>
           <ItemsList
-            cardListData={{ ...mockCardListData }}
-            setGameList={mocSetGameList}
-            lsWord={''}
-          />
-        </Provider>
-      </BrowserRouter>
-    );
-
-    waitFor(() => {
-      expect(mocRequestGames).toHaveBeenCalledTimes(1);
-      expect(mocRequestGames).toHaveBeenCalledWith(mocSetGameList, null);
-    });
-  });
-
-  test('running api with correct parameters, search word present', async () => {
-    render(
-      <BrowserRouter>
-        <Provider store={store}>
-          <ItemsList
-            cardListData={{ ...mockCardListData }}
-            setGameList={mocSetGameList}
-            lsWord={''}
-          />
-        </Provider>
-      </BrowserRouter>
-    );
-
-    waitFor(() => {
-      expect(mocRequestFindGames).toHaveBeenCalledTimes(1);
-      expect(mocRequestFindGames).toHaveBeenCalledWith(
-        mocSetGameList,
-        'star wars',
-        null
-      );
-    });
-  });
-
-  test('response fail', async () => {
-    render(
-      <BrowserRouter>
-        <Provider store={store}>
-          <ItemsList
-            cardListData={{ ...mockCardListData, responseOk: false }}
-            setGameList={mocSetGameList}
-            lsWord={''}
+            data={{ count: 1400, results: games20 }}
+            error={{}}
+            isFetching={false}
           />
         </Provider>
       </BrowserRouter>
@@ -142,6 +87,26 @@ describe.skip('Rendering Tests', () => {
 
     waitFor(() => {
       expect(screen.getByAltText(responseErrorMessage)).toBeInTheDocument();
+    });
+  });
+
+  test('response Error code', async () => {
+    const requestError = 'Request Error: message about error';
+
+    render(
+      <BrowserRouter>
+        <Provider store={store}>
+          <ItemsList
+            data={{ count: 1400, results: games20 }}
+            error={{ message: requestError }}
+            isFetching={false}
+          />
+        </Provider>
+      </BrowserRouter>
+    );
+
+    waitFor(() => {
+      expect(screen.getByAltText(requestError)).toBeInTheDocument();
     });
   });
 });

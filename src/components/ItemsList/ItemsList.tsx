@@ -6,13 +6,12 @@ import { Item } from '../Item/Item';
 import { notDataMessage, responseErrorMessage } from '../../const/const';
 import { type JSX } from 'react';
 import { useCardList } from '../../redux/useAppSelector';
-import { QueryStatus, type FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { type FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import type { SerializedError } from '@reduxjs/toolkit/react';
 import { getErrorInfo } from '../../utils/utils';
 
 interface Props {
   data: GamesData | undefined;
-  status: QueryStatus;
   error: FetchBaseQueryError | SerializedError | undefined;
   isFetching: boolean;
 }

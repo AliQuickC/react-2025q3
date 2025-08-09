@@ -30,12 +30,7 @@ function Results(): JSX.Element {
       <div className={'container ' + s.resultContainer}>
         <div>
           <div className={s.resultWrap}>
-            <ItemsList
-              data={data}
-              status={status}
-              error={error}
-              isFetching={isFetching}
-            />
+            <ItemsList data={data} error={error} isFetching={isFetching} />
             {item === null ? '' : <CardDetails item={item} />}
           </div>
           {status === QueryStatus.fulfilled ? (
