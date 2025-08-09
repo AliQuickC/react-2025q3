@@ -1,5 +1,5 @@
 export const FIRST_PAGE = '1';
-export const MAX_CARDS_ON_PAGE: number = 20;
+export const MAX_CARDS_ON_PAGE: number = 15;
 
 export const storeKEY = 'module3';
 export const apiKey: string = import.meta.env.VITE_API_KEY;

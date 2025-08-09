@@ -4,10 +4,13 @@ import type { RootState } from './store';
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export const useCardList = () => {
-  const { item, selectItems } = useAppSelector((state) => state.cardList);
+  const { item, selectItems, isCacheGameList, isCacheGameDetails } =
+    useAppSelector((state) => state.cardList);
 
   return {
     item,
     selectItems,
+    isCacheGameList,
+    isCacheGameDetails,
   };
 };

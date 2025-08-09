@@ -4,6 +4,8 @@ import { Loader } from '../Loader/Loader';
 import { useGetGemeDetailsQuery } from '../../redux/gameApi';
 import { getErrorInfo } from '../../utils/utils';
 import { notDataMessage } from '../../const/const';
+import { useCardList } from '../../redux/useAppSelector';
+import { useEffect } from 'react';
 
 type Props = {
   item: string;
@@ -11,8 +13,19 @@ type Props = {
 
 export default function CardDetails(props: Props) {
   const [, setDetailsParam] = useSearchParams();
+  const { isCacheGameDetails } = useCardList();
 
-  const { data, error, isLoading } = useGetGemeDetailsQuery(props.item);
+  const { data, error, isLoading, refetch } = useGetGemeDetailsQuery(
+    props.item
+  );
+
+  useEffect(() => {
+    if (isCacheGameDetails) {
+      refetch();
+    }
+    // eslint-disable-next-line react-compiler/react-compiler
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.item, refetch]);
 
   return (
     <>
