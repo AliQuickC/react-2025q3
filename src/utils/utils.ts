@@ -31,7 +31,6 @@ export function convertGameDetailResponse(
 ): GameDetail {
   return {
     id: response.id,
-    isLoading: true,
     detailData: {
       name: response.name,
       background_image: response.background_image,

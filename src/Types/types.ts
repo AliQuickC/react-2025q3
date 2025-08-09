@@ -16,8 +16,8 @@ export interface ICardListData {
 export interface ICardListState {
   item: string | null;
   selectItems: IGame[];
-  isCacheGameList: boolean;
-  isCacheGameDetails: boolean;
+  enableCacheGameList: boolean;
+  enableCacheGameDetails: boolean;
 }
 
 export type setFindWord = (findWord: string) => void;

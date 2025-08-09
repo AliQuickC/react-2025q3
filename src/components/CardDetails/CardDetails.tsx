@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import s from './CardDetails.module.sass';
 import { Loader } from '../Loader/Loader';
-import { useGetGemeDetailsQuery } from '../../redux/gameApi';
+import { useGetGameDetailsQuery } from '../../redux/gameApi';
 import { getErrorInfo } from '../../utils/utils';
 import { notDataMessage } from '../../const/const';
 import { useCardList } from '../../redux/useAppSelector';
@@ -12,10 +12,10 @@ type Props = {
 
 export default function CardDetails(props: Props) {
   const [, setDetailsParam] = useSearchParams();
-  const { isCacheGameDetails } = useCardList();
+  const { enableCacheGameDetails } = useCardList();
 
-  const { data, error, isLoading } = useGetGemeDetailsQuery(props.item, {
-    refetchOnMountOrArgChange: !isCacheGameDetails,
+  const { data, error, isLoading } = useGetGameDetailsQuery(props.item, {
+    refetchOnMountOrArgChange: !enableCacheGameDetails,
   });
 
   return (

@@ -12,7 +12,7 @@ export const gamesApi = createApi({
   reducerPath: 'gamesApi',
   baseQuery: fetchBaseQuery({ baseUrl: base_games_url }),
   endpoints: (builder) => ({
-    getGemesList: builder.query<
+    getGamesList: builder.query<
       GamesData,
       { searchTerm: string; pageNumber: string }
     >({
@@ -25,7 +25,7 @@ export const gamesApi = createApi({
         (params.searchTerm ? '&search=' + params.searchTerm : ''),
       transformResponse: (response: ResponseGames) => convertResponse(response),
     }),
-    getGemeDetails: builder.query<GameDetail, string>({
+    getGameDetails: builder.query<GameDetail, string>({
       query: (id: string) => '/' + id + '?key=' + apiKey,
       transformResponse: (response: ResponseGameDetail) =>
         convertGameDetailResponse(response),
@@ -33,4 +33,4 @@ export const gamesApi = createApi({
   }),
 });
 
-export const { useGetGemesListQuery, useGetGemeDetailsQuery } = gamesApi;
+export const { useGetGamesListQuery, useGetGameDetailsQuery } = gamesApi;

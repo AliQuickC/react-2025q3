@@ -3,7 +3,7 @@ import { useCardList } from '../../redux/useAppSelector';
 import { useActions } from '../../redux/useActions';
 
 export function CacheControl() {
-  const { isCacheGameList, isCacheGameDetails } = useCardList();
+  const { enableCacheGameList, enableCacheGameDetails } = useCardList();
   const { switchCacheGameList, switchCacheGameDetails } = useActions();
 
   return (
@@ -13,7 +13,7 @@ export function CacheControl() {
         <label className={s.checkBox}>
           <input
             type="checkbox"
-            checked={!isCacheGameList}
+            checked={!enableCacheGameList}
             onChange={() => switchCacheGameList()}
             className={s.checkBox}
           />
@@ -22,7 +22,7 @@ export function CacheControl() {
         <label className={s.checkBox}>
           <input
             type="checkbox"
-            checked={!isCacheGameDetails}
+            checked={!enableCacheGameDetails}
             onChange={() => switchCacheGameDetails()}
             className={s.checkBox}
           />

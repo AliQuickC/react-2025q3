@@ -6,30 +6,30 @@ import Pagination from '../Pagination/Pagination';
 import { SelectedItems } from '../SelectedItems/SelectedItems';
 import s from './Results.module.sass';
 import { type JSX } from 'react';
-import { useGetGemesListQuery } from '../../redux/gameApi';
+import { useGetGamesListQuery } from '../../redux/gameApi';
 import { QueryStatus } from '@reduxjs/toolkit/query';
 import { useSearchParams } from 'react-router-dom';
 
 function Results(): JSX.Element {
-  const { item, selectItems, isCacheGameList } = useCardList();
+  const { item, selectItems, enableCacheGameList } = useCardList();
 
   const [searchParams] = useSearchParams();
   const page = searchParams.get('page') || '';
   const search = searchParams.get('search') || '';
 
-  const { data, status, isFetching, error } = useGetGemesListQuery(
+  const { data, status, isFetching, error } = useGetGamesListQuery(
     {
       searchTerm: search,
       pageNumber: page,
     },
-    { refetchOnMountOrArgChange: !isCacheGameList }
+    { refetchOnMountOrArgChange: !enableCacheGameList }
   );
 
   return (
     <main className={s.main} data-testid="results-element">
-      <div className={'container ' + s.resultConteiner}>
+      <div className={'container ' + s.resultContainer}>
         <div>
-          <div className={s.rezultWrap}>
+          <div className={s.resultWrap}>
             <ItemsList
               data={data}
               status={status}
