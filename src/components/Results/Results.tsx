@@ -5,7 +5,7 @@ import ItemsList from '../ItemsList/ItemsList';
 import Pagination from '../Pagination/Pagination';
 import { SelectedItems } from '../SelectedItems/SelectedItems';
 import s from './Results.module.sass';
-import { useEffect, type JSX } from 'react';
+import { type JSX } from 'react';
 import { useGetGemesListQuery } from '../../redux/gameApi';
 import { QueryStatus } from '@reduxjs/toolkit/query';
 import { useSearchParams } from 'react-router-dom';
@@ -17,18 +17,13 @@ function Results(): JSX.Element {
   const page = searchParams.get('page') || '';
   const search = searchParams.get('search') || '';
 
-  const { data, status, isFetching, error, refetch } = useGetGemesListQuery({
-    searchTerm: search,
-    pageNumber: page,
-  });
-
-  useEffect(() => {
-    if (isCacheGameList) {
-      refetch();
-    }
-    // eslint-disable-next-line react-compiler/react-compiler
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, search, refetch]);
+  const { data, status, isFetching, error } = useGetGemesListQuery(
+    {
+      searchTerm: search,
+      pageNumber: page,
+    },
+    { refetchOnMountOrArgChange: !isCacheGameList }
+  );
 
   return (
     <main className={s.main} data-testid="results-element">

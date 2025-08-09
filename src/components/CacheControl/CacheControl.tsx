@@ -13,7 +13,7 @@ export function CacheControl() {
         <label className={s.checkBox}>
           <input
             type="checkbox"
-            checked={isCacheGameList}
+            checked={!isCacheGameList}
             onChange={() => switchCacheGameList()}
             className={s.checkBox}
           />
@@ -22,7 +22,7 @@ export function CacheControl() {
         <label className={s.checkBox}>
           <input
             type="checkbox"
-            checked={isCacheGameDetails}
+            checked={!isCacheGameDetails}
             onChange={() => switchCacheGameDetails()}
             className={s.checkBox}
           />

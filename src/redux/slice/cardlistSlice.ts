@@ -4,8 +4,8 @@ import type { ICardListState, IGame } from '../../Types/types';
 export const initialState: ICardListState = {
   item: null,
   selectItems: [],
-  isCacheGameList: false,
-  isCacheGameDetails: false,
+  isCacheGameList: true,
+  isCacheGameDetails: true,
 };
 
 export const cardListSlice = createSlice({
