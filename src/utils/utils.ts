@@ -53,7 +53,10 @@ export const getErrorInfo = (
     'error' in error && error.error ? `Error about: ${error.error} ` : '';
   const errorMessage =
     'message' in error && error.message ? `Message: ${error.message} ` : '';
-  const errorTotal = errCode + errStatus + errorString + errorMessage;
+  const errorData =
+    'data' in error && error.data ? `Message: ${error.data} ` : '';
+  const errorTotal =
+    errCode + errStatus + errorString + errorMessage + errorData;
 
   if (errorTotal.length === 0) {
     return responseErrorMessage;
