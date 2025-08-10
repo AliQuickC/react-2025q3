@@ -15,8 +15,8 @@ describe('Rendering Tests', () => {
       </BrowserRouter>
     );
 
-    expect(screen.queryByTestId('header-element')).toBeInTheDocument();
-    expect(screen.queryByTestId('results-element')).toBeInTheDocument();
-    expect(screen.queryByTestId('footer-element')).toBeInTheDocument();
+    expect(screen.getByTestId('header-element')).toBeInTheDocument();
+    expect(screen.getByTestId('results-element')).toBeInTheDocument();
+    expect(screen.getByTestId('footer-element')).toBeInTheDocument();
   });
 });

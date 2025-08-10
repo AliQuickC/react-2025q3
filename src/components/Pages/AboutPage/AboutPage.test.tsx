@@ -10,6 +10,6 @@ test('About page Render', () => {
     </BrowserRouter>
   );
 
-  expect(screen.queryByRole('link', { name: 'Home page' })).toBeInTheDocument();
-  expect(screen.queryByText(/About/i)).toBeInTheDocument();
+  expect(screen.getByRole('link', { name: 'Home page' })).toBeInTheDocument();
+  expect(screen.getByText(/About/i)).toBeInTheDocument();
 });

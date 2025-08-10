@@ -14,9 +14,10 @@ export interface ICardListData {
 }
 
 export interface ICardListState {
-  cardListData: ICardListData;
   item: string | null;
   selectItems: IGame[];
+  enableCacheGameList: boolean;
+  enableCacheGameDetails: boolean;
 }
 
 export type setFindWord = (findWord: string) => void;
@@ -59,5 +60,4 @@ export type GamesDetailData = {
 export type GameDetail = {
   detailData: GamesDetailData | null;
   id: number | null;
-  isLoading: boolean;
 };

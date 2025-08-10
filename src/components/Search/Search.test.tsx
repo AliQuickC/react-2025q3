@@ -14,11 +14,8 @@ describe('Rendering Tests', () => {
       </BrowserRouter>
     );
 
-    const searchInput = screen.queryByPlaceholderText(/find.../i);
-    const searchButton = screen.queryByRole('button');
-
-    expect(searchInput).toBeInTheDocument();
-    expect(searchButton).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/find.../i)).toBeInTheDocument();
+    expect(screen.getByRole('button')).toBeInTheDocument();
   });
 
   test('Shows empty input when no saved term exists', () => {
