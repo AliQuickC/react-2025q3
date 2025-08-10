@@ -83,8 +83,7 @@ describe('Rendering Tests', () => {
       </BrowserRouter>
     );
 
-    const icon = screen.getByText(/no select bookmark/i);
-    expect(icon).toBeInTheDocument();
+    expect(screen.getByTestId('no-select-bookmark')).toBeInTheDocument();
   });
 
   test('Renders correct select icon', () => {
@@ -96,7 +95,6 @@ describe('Rendering Tests', () => {
       </BrowserRouter>
     );
 
-    const icon = screen.getByText(/is select bookmark/i);
-    expect(icon).toBeInTheDocument();
+    expect(screen.getByTestId('is select bookmark')).toBeInTheDocument();
   });
 });

@@ -4,43 +4,8 @@ import s from './Item.module.sass';
 import { useSearchParams } from 'react-router-dom';
 import React from 'react';
 import { useActions } from '../../redux/useActions';
-
-function UnSelectIcon() {
-  return (
-    <>
-      <title>no select bookmark</title>
-      <g
-        strokeLinejoin="miter"
-        fill="#212121"
-        strokeLinecap="butt"
-        className="nc-icon-wrapper"
-      >
-        <path
-          d="M41,45,24,35,7,45V6a4,4,0,0,1,4-4H37a4,4,0,0,1,4,4Z"
-          fill="none"
-          stroke="#212121"
-          strokeLinecap="square"
-          strokeMiterlimit="10"
-          strokeWidth="2"
-        ></path>
-      </g>
-    </>
-  );
-}
-
-function SelectIcon() {
-  return (
-    <>
-      <title>is select bookmark</title>
-      <g fill="#212121" className="nc-icon-wrapper">
-        <path
-          d="M37,1H11A5.006,5.006,0,0,0,6,6V46a1,1,0,0,0,1.507.862L24,37.16l16.493,9.7A1,1,0,0,0,42,46V6A5.006,5.006,0,0,0,37,1Z"
-          fill="red"
-        ></path>
-      </g>
-    </>
-  );
-}
+import SelectIcon from './SelectedBookmarkIcon';
+import UnSelectIcon from './UnSelectedBookmarkIcon';
 
 type Props = {
   itemData: IGame;
