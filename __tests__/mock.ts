@@ -11,6 +11,8 @@ export const mockCardListData: ICardListData = {
 export const mocCardListState: ICardListState = {
   item: null,
   selectItems: [],
+  enableCacheGameList: true,
+  enableCacheGameDetails: true,
 };
 
 export const games20: IGame[] = [

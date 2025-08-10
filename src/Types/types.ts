@@ -60,5 +60,4 @@ export type GamesDetailData = {
 export type GameDetail = {
   detailData: GamesDetailData | null;
   id: number | null;
-  isLoading: boolean;
 };
