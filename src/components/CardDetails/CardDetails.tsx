@@ -5,6 +5,7 @@ import { getErrorInfo } from '../../utils/utils';
 import { notDataMessage } from '../../const/const';
 import { useCardList } from '../../redux/useAppSelector';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 
 type Props = {
   item: string;
@@ -43,10 +44,12 @@ export default function CardDetails(props: Props) {
             <Loader />
           ) : data ? (
             <div className={s.detailsData}>
-              <img
+              <Image
                 className={s.gameImage}
                 src={data.detailData?.background_image}
                 alt="game image"
+                width={400}
+                height={576}
               />
               <p>
                 <span>Name: </span>

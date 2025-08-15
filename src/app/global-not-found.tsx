@@ -2,6 +2,8 @@ import '../index.sass';
 import s from './global-not-found.module.sass';
 import type { JSX } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import NotFoundImage from './error404.jpg';
 
 export default function GlobalNotFound(): JSX.Element {
   return (
@@ -17,7 +19,12 @@ export default function GlobalNotFound(): JSX.Element {
                 Home page
               </Link>
             </div>
-            <img className={s.img404} src="./error404.jpg" alt="error404" />
+            <Image
+              className={s.img404}
+              src={NotFoundImage}
+              alt="error404"
+              priority={true}
+            />
           </div>
         </div>
       </body>
