@@ -1,3 +1,5 @@
+'use client';
+
 import s from './ErrorButton.module.sass';
 import React, { useState } from 'react';
 

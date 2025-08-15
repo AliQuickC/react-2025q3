@@ -1,3 +1,5 @@
+'use client';
+
 import s from './CacheControl.module.sass';
 import { useCardList } from '../../redux/useAppSelector';
 import { useActions } from '../../redux/useActions';

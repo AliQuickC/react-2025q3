@@ -9,6 +9,7 @@ import { useCardList } from '../../redux/useAppSelector';
 import { type FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import type { SerializedError } from '@reduxjs/toolkit/react';
 import { getErrorInfo } from '../../utils/utils';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 interface Props {
   data: GamesData | undefined;
@@ -19,7 +20,21 @@ interface Props {
 function ItemsList(props: Props): JSX.Element {
   const { selectItems } = useCardList();
 
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
   let gameItems: React.JSX.Element[] | React.JSX.Element;
+
+  const closeHandler = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    const hasItem = params.has('item');
+
+    if (hasItem) {
+      params.delete('item');
+      router.push(pathname + '?' + params);
+    }
+  };
 
   if (props.error) {
     gameItems = <div className={'error-data'}>{getErrorInfo(props.error)}</div>;
@@ -46,7 +61,11 @@ function ItemsList(props: Props): JSX.Element {
   }
 
   return (
-    <div className={s.itemsList} data-testid="item-list-element">
+    <div
+      className={s.itemsList}
+      data-testid="item-list-element"
+      onClick={closeHandler}
+    >
       <ItemHeader
         itemData={{ description: 'Game', released: 'Release date' }}
       />

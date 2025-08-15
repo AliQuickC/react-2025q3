@@ -1,17 +1,16 @@
 import s from './Footer.module.sass';
 import type { JSX } from 'react';
 import ErrorButton from '../ErrorButton/ErrorButton';
-import { NavLink } from 'react-router-dom';
+import Link from 'next/link';
 
 function Footer(): JSX.Element {
   return (
     <footer className={'footer'} data-testid="footer-element">
       <div className={`container ${s.footerContainer}`}>
         <ErrorButton />
-        <NavLink className={'app-button'} to="/about">
-          {' '}
+        <Link className={'app-button'} href="/about">
           About page
-        </NavLink>
+        </Link>
       </div>
     </footer>
   );

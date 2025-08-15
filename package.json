@@ -5,8 +5,6 @@
   "type": "module",
   "homepage": "https://aliquickc.github.io/react-2025q3",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "lint:fix": "eslint ./src --ext .tsx --fix",
     "preview": "vite preview",
@@ -15,10 +13,14 @@
     "test:watch": "vitest",
     "test:ui": "vitest --ui --api.port 5174",
     "test:coverage": "vitest run --coverage",
-    "deploy": "npm run build && gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
+    "next": "^15.4.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
@@ -30,6 +32,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
+    "@types/node": "24.2.1",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react-swc": "^3.10.2",

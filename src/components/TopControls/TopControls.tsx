@@ -1,17 +1,19 @@
+'use client';
+
 import s from './TopControls.module.sass';
-import Search from '../Search/Search';
 import type { JSX } from 'react';
 import { CacheControl } from '../CacheControl/CacheControl';
+import dynamic from 'next/dynamic';
 
-interface IProps {
-  lsWord: string;
-}
+const Search = dynamic(() => import('../Search/Search'), {
+  ssr: false,
+});
 
-function TopControls(props: IProps): JSX.Element {
+function TopControls(): JSX.Element {
   return (
     <header className={s.header} data-testid="header-element">
       <div className={`container ${s.headerContainer} `}>
-        <Search lsWord={props.lsWord} />
+        <Search />
         <CacheControl />
       </div>
     </header>

@@ -2,7 +2,7 @@ import s from './Pagination.module.sass';
 import type { JSX } from 'react';
 import { getPagesCount } from '../../utils/utils';
 import { MAX_CARDS_ON_PAGE } from '../../const/const';
-import { useSearchParams } from 'react-router-dom';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 const MAX_PAGINATION = 150;
 
@@ -12,7 +12,9 @@ interface IProps {
 }
 
 export default function Pagination(props: IProps): JSX.Element {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const paginationNumberHandler = (
     pageNumber: number,
@@ -20,13 +22,16 @@ export default function Pagination(props: IProps): JSX.Element {
   ) => {
     if (+currentPage === pageNumber) return;
 
-    const search = searchParams.get('search');
+    const params = new URLSearchParams(searchParams.toString());
+    const search = params.get('search');
 
-    if (search) {
-      setSearchParams({ page: '' + pageNumber, search: search });
-    } else {
-      setSearchParams({ page: '' + pageNumber });
-    }
+    router.push(
+      pathname +
+        '?' +
+        'page=' +
+        pageNumber +
+        (search ? '&search=' + search : '')
+    );
   };
 
   const pagesCount = getPagesCount(props.cardsTotal, MAX_CARDS_ON_PAGE);

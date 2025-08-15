@@ -1,11 +1,11 @@
 import type { JSX } from 'react';
 import type { IGame } from '../../Types/types';
 import s from './Item.module.sass';
-import { useSearchParams } from 'react-router-dom';
 import React from 'react';
 import { useActions } from '../../redux/useActions';
 import SelectIcon from './SelectedBookmarkIcon';
 import UnSelectIcon from './UnSelectedBookmarkIcon';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 type Props = {
   itemData: IGame;
@@ -13,8 +13,10 @@ type Props = {
 };
 
 export function Item(props: Props): JSX.Element {
-  const [searchParams, setSearchParams] = useSearchParams();
   const { selectItem, unSelectItem } = useActions();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const selectItemHandler = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -27,19 +29,21 @@ export function Item(props: Props): JSX.Element {
     }
   };
 
+  const cardOnClickHandler = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    const hasItem = params.has('item');
+
+    if (!hasItem) {
+      params.set('item', props.itemData.id.toString());
+      router.push(pathname + '?' + params);
+    }
+  };
+
   return (
     <div
       className={s.item + ' unselectable'}
       data-testid="card-element"
-      onClick={() => {
-        const starShipId = searchParams.get('item');
-        if (!starShipId) {
-          setSearchParams((params) => {
-            params.set('item', props.itemData.id.toString());
-            return params;
-          });
-        }
-      }}
+      onClick={cardOnClickHandler}
     >
       <div className={s.gameName}>{props.itemData.name}</div>
       <div className={s.releaseDate}>{props.itemData.released}</div>
