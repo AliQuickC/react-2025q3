@@ -1,3 +1,4 @@
+import s from './AboutPage.module.sass';
 import * as React from 'react';
 import { type JSX } from 'react';
 import Link from 'next/link';
@@ -9,7 +10,7 @@ export default function About(): JSX.Element {
         <h2>About</h2>
         <p>
           <span>Author: </span>
-          <span className={''}>Alekhin Aleksandr</span>
+          <span className={s.authorName}>Alekhin Aleksandr</span>
         </p>
         <p>
           <span>Course: </span>
@@ -21,7 +22,7 @@ export default function About(): JSX.Element {
             RS School React
           </a>
         </p>
-        <Link className={`app-button`} href="/">
+        <Link className={`${s.homeButton} app-button`} href="/">
           Home page
         </Link>
       </div>
