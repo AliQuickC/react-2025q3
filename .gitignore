@@ -31,3 +31,6 @@ coverage
 # next js
 .next
 next-env.d.ts
+
+#№next-intl
+*/en.d.json.ts

@@ -3,6 +3,10 @@
     "title": "App NextJS",
     "about": "About page"
   },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, ru {ru Russian} en {🇺🇸 English} other {Unknown}}"
+  },
   "FindPanel": {
     "placeholder": "find..."
   }

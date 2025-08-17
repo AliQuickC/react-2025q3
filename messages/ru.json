@@ -3,6 +3,10 @@
     "title": "Приложение NextJS",
     "about": "О Приложении"
   },
+    "LocaleSwitcher": {
+    "label": "Изменить язык",
+    "locale": "{locale, select, ru {ru Russian} en {🇺🇸 English} other {Unknown}}"
+  },
   "FindPanel": {
     "placeholder": "поиск..."
   }
