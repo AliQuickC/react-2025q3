@@ -1,7 +1,7 @@
 import s from './Footer.module.sass';
 import type { JSX } from 'react';
 import ErrorButton from '../ErrorButton/ErrorButton';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 
 function Footer(): JSX.Element {

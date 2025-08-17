@@ -1,7 +1,7 @@
 import s from './AboutPage.module.sass';
 import * as React from 'react';
 import { type JSX } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import LocaleSwitcher from '@/components/LocaleSwitcher/LocaleSwitcher';
 
