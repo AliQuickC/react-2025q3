@@ -1,7 +1,11 @@
+import { useTranslations } from 'next-intl';
+
 export default function UnSelectIcon() {
+  const t = useTranslations('Bookmark');
+
   return (
     <>
-      <title data-testid="no-select-bookmark">Bookmark</title>
+      <title data-testid="no-select-bookmark">{t('select')}</title>
       <g
         strokeLinejoin="miter"
         fill="#212121"

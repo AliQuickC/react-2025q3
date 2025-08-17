@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 
 export function useLocalStorage(
@@ -5,7 +7,7 @@ export function useLocalStorage(
   initialValue: string = ''
 ): [string, (value: string) => void] {
   const [lsWord, setLSWord] = useState<string>(
-    () => localStorage.getItem(key) || initialValue
+    () => window.localStorage.getItem(key) || initialValue
   );
 
   useEffect(() => {

@@ -1,36 +1,43 @@
 import { useEffect, useState, type JSX } from 'react';
 import s from './Search.module.sass';
-import { FIRST_PAGE } from '../../const/const';
-import { useSearchParams } from 'react-router-dom';
+import { FIRST_PAGE, storeKEY } from '../../const/const';
+import { usePathname, useRouter } from 'next/navigation';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { useTranslations } from 'next-intl';
 
-interface Props {
-  lsWord: string;
-}
-
-function Search(props: Props): JSX.Element {
-  const [, setSearchParams] = useSearchParams();
+function Search(): JSX.Element {
+  const [lsWord, setLSWord] = useLocalStorage(storeKEY);
   const [findWord, setFindWord] = useState<string>('');
 
+  const pathname = usePathname();
+  const router = useRouter();
+
   useEffect(() => {
-    setFindWord(props.lsWord);
-  }, [props.lsWord]);
+    setFindWord(lsWord);
+    // eslint-disable-next-line react-compiler/react-compiler
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const findHandler = () => {
     const word = findWord.trim();
 
+    setLSWord(word);
+
     if (word) {
-      setSearchParams({ page: FIRST_PAGE, search: word });
+      router.push(pathname + '?' + 'page=' + FIRST_PAGE + '&search=' + word);
     } else {
-      setSearchParams({ page: FIRST_PAGE });
+      router.push(pathname + '?' + 'page=' + FIRST_PAGE);
     }
   };
+
+  const t = useTranslations('FindPanel');
 
   return (
     <div className={s.search} data-testid="search-element">
       <input
         className={s.searchInput}
         type="text"
-        placeholder="find..."
+        placeholder={t('placeholder')}
         value={findWord}
         onChange={(event) => {
           setFindWord(event.target.value);

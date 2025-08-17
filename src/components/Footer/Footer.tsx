@@ -1,17 +1,19 @@
 import s from './Footer.module.sass';
 import type { JSX } from 'react';
 import ErrorButton from '../ErrorButton/ErrorButton';
-import { NavLink } from 'react-router-dom';
+import { Link } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 
 function Footer(): JSX.Element {
+  const t = useTranslations('FooterButtons');
+
   return (
     <footer className={'footer'} data-testid="footer-element">
       <div className={`container ${s.footerContainer}`}>
         <ErrorButton />
-        <NavLink className={'app-button'} to="/about">
-          {' '}
-          About page
-        </NavLink>
+        <Link className={'app-button'} href="/about">
+          {t('about')}
+        </Link>
       </div>
     </footer>
   );

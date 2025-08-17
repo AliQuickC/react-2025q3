@@ -1,15 +1,19 @@
+'use client';
+
 import s from './CacheControl.module.sass';
 import { useCardList } from '../../redux/useAppSelector';
 import { useActions } from '../../redux/useActions';
+import { useTranslations } from 'next-intl';
 
 export function CacheControl() {
   const { enableCacheGameList, enableCacheGameDetails } = useCardList();
   const { switchCacheGameList, switchCacheGameDetails } = useActions();
+  const t = useTranslations('CacheSwitcher');
 
   return (
     <div>
       <fieldset className={s.controlField + ' unselectable'}>
-        <legend>Disable cache in:</legend>
+        <legend>{t('label')}:</legend>
         <label className={s.checkBox}>
           <input
             type="checkbox"
@@ -17,7 +21,7 @@ export function CacheControl() {
             onChange={() => switchCacheGameList()}
             className={s.checkBox}
           />
-          Game list
+          {t('list')}
         </label>
         <label className={s.checkBox}>
           <input
@@ -26,7 +30,7 @@ export function CacheControl() {
             onChange={() => switchCacheGameDetails()}
             className={s.checkBox}
           />
-          Game details
+          {t('details')}
         </label>
       </fieldset>
     </div>

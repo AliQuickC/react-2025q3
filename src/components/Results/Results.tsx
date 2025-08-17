@@ -1,3 +1,5 @@
+'use client';
+
 import { FIRST_PAGE } from '../../const/const';
 import { useCardList } from '../../redux/useAppSelector';
 import CardDetails from '../CardDetails/CardDetails';
@@ -5,17 +7,26 @@ import ItemsList from '../ItemsList/ItemsList';
 import Pagination from '../Pagination/Pagination';
 import { SelectedItems } from '../SelectedItems/SelectedItems';
 import s from './Results.module.sass';
-import { type JSX } from 'react';
+import { useEffect, type JSX } from 'react';
 import { useGetGamesListQuery } from '../../redux/gameApi';
 import { QueryStatus } from '@reduxjs/toolkit/query';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'next/navigation';
+import { useActions } from '../../redux/useActions';
 
 function Results(): JSX.Element {
   const { item, selectItems, enableCacheGameList } = useCardList();
 
-  const [searchParams] = useSearchParams();
-  const page = searchParams.get('page') || '';
-  const search = searchParams.get('search') || '';
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams.toString());
+  const { setCardDetails } = useActions();
+
+  const search = params.get('search');
+  const page = params.get('page');
+  const selectCardId = params.get('item');
+
+  useEffect(() => {
+    setCardDetails(selectCardId);
+  }, [selectCardId, setCardDetails]);
 
   const { data, status, isFetching, error } = useGetGamesListQuery(
     {

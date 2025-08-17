@@ -2,6 +2,7 @@ import s from './SelectedItems.module.sass';
 import { useActions } from '../../redux/useActions';
 import { useCardList } from '../../redux/useAppSelector';
 import { downloadHandler } from './downloadHandler';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   selectedElements: number;
@@ -11,6 +12,8 @@ export function SelectedItems(props: Props) {
   const { unSelectAllItems } = useActions();
   const { selectItems } = useCardList();
 
+  const t = useTranslations('SelectedPanel');
+
   return (
     <div className={s.selectedItems}>
       <button
@@ -19,10 +22,10 @@ export function SelectedItems(props: Props) {
           unSelectAllItems();
         }}
       >
-        Unselect all
+        {t('unselectallbtn')}
       </button>
       <p>
-        <span>Selected elements: </span>
+        <span>{t('selected')}: </span>
         <span data-testid="select-item-count">{props.selectedElements}</span>
       </p>
       <button
@@ -31,7 +34,7 @@ export function SelectedItems(props: Props) {
           downloadHandler(selectItems);
         }}
       >
-        Download
+        {t('downloadbtn')}
       </button>
     </div>
   );

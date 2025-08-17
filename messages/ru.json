@@ -1,0 +1,50 @@
+{
+  "HomePage": {
+    "title": "Приложение NextJS",
+    "about": "О Приложении"
+  },
+  "LocaleSwitcher": {
+    "label": "Изменить язык",
+    "locale": "{locale, select, ru {ru Russian} en {🇺🇸 English} other {Unknown}}"
+  },
+  "FindPanel": {
+    "placeholder": "поиск..."
+  },
+  "CacheSwitcher": {
+    "label": "Отключить кэширование для",
+    "list": "Списка игр",
+    "details": "Деталей об игре"
+  },
+  "CardListHeader": {
+    "name": "Игра",
+    "release": "Дата выпуска"
+  },
+  "FooterButtons": {
+    "about": "О Приложении",
+    "error": "сгенерировать ошибку"
+  },
+  "AboutPage": {
+    "header": "О Приложении",
+    "author": "Автор",
+    "course": "Курс",
+    "homebtn": "Домашняя страница"
+  },
+  "NotFoundPage": {
+    "return": "вернуться",
+    "homebtn": "Домой"
+  },
+  "DetailCard": {
+    "closebtn": "закрыть",
+    "name": "Название",
+    "ganres": "Жанры"
+  },
+  "Bookmark": {
+    "select": "Пометить",
+    "unselect": "Снять пометку"
+  },
+  "SelectedPanel": {
+    "selected": "Выбрано элементов",
+    "unselectallbtn": "Отменить все",
+    "downloadbtn": "Загрузить"
+  }
+}
