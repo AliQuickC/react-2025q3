@@ -4,8 +4,11 @@ import type { JSX } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import NotFoundImage from './error404.jpg';
+import { useTranslations } from 'next-intl';
 
 export default function GlobalNotFound(): JSX.Element {
+  const t = useTranslations('NotFoundPage');
+
   return (
     <html lang="en">
       <body>
@@ -13,10 +16,10 @@ export default function GlobalNotFound(): JSX.Element {
           <div className={`container ${s.errorPageContainer}`}>
             <h2 className="visually-hidden">Error 404</h2>
             <div>
-              <span>return to: </span>
+              <span>{t('return')}: </span>
               <Link className={s.backToHomeButton} href="/">
                 {' '}
-                Home page
+                {t('homebtn')}
               </Link>
             </div>
             <Image

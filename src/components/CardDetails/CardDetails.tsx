@@ -6,6 +6,7 @@ import { notDataMessage } from '../../const/const';
 import { useCardList } from '../../redux/useAppSelector';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   item: string;
@@ -22,6 +23,8 @@ export default function CardDetails(props: Props) {
   const router = useRouter();
   const pathname = usePathname();
 
+  const t = useTranslations('DetailCard');
+
   const closeHandler = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.delete('item');
@@ -35,7 +38,7 @@ export default function CardDetails(props: Props) {
           className={s.closeButton + ' app-button'}
           onClick={closeHandler}
         >
-          close
+          {t('closebtn')}
         </button>
         <div className={s.detailsDataPanel}>
           {error ? (
@@ -52,11 +55,11 @@ export default function CardDetails(props: Props) {
                 height={576}
               />
               <p>
-                <span>Name: </span>
+                <span>{t('name')}: </span>
                 <span>{data.detailData?.name}</span>
               </p>
               <p>
-                <span>Ganres: </span>
+                <span>{t('ganres')}: </span>
                 <span>{data.detailData?.genres}</span>
               </p>
             </div>

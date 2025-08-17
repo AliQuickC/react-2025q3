@@ -9,5 +9,42 @@
   },
   "FindPanel": {
     "placeholder": "find..."
+  },
+  "CacheSwitcher": {
+    "label": "Disable cache for",
+    "list": "Game list",
+    "details": "Game details"
+  },
+  "CardListHeader": {
+    "name": "Game",
+    "release": "Release date"
+  },
+  "FooterButtons": {
+    "about": "About app",
+    "error": "generate throw"
+  },
+  "AboutPage": {
+    "header": "About app",
+    "author": "Author",
+    "course": "Course",
+    "homebtn": "Home page"
+  },
+  "NotFoundPage": {
+    "return": "return to",
+    "homebtn": "Home page"
+  },
+  "DetailCard": {
+    "closebtn": "close",
+    "name": "Name",
+    "ganres": "Ganres"
+  },
+  "Bookmark": {
+    "select": "Bookmark",
+    "unselect": "Remove from bookmarks"
+  },
+  "SelectedPanel": {
+    "selected": "Selected elements",
+    "unselectallbtn": "Unselect all",
+    "downloadbtn": "Download"
   }
 }

@@ -2,18 +2,22 @@ import s from './AboutPage.module.sass';
 import * as React from 'react';
 import { type JSX } from 'react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import LocaleSwitcher from '@/components/LocaleSwitcher/LocaleSwitcher';
 
 export default function About(): JSX.Element {
+  const t = useTranslations('AboutPage');
+
   return (
     <div>
       <div className={`container `}>
-        <h2>About</h2>
+        <h2>{t('header')}</h2>
         <p>
-          <span>Author: </span>
+          <span>{t('author')}: </span>
           <span className={s.authorName}>Alekhin Aleksandr</span>
         </p>
         <p>
-          <span>Course: </span>
+          <span>{t('course')}: </span>
           <a
             href="https://rs.school/courses/reactjs"
             target="_blank"
@@ -23,8 +27,12 @@ export default function About(): JSX.Element {
           </a>
         </p>
         <Link className={`${s.homeButton} app-button`} href="/">
-          Home page
+          {t('homebtn')}
         </Link>
+
+        <div className={s.localSwitcher}>
+          <LocaleSwitcher />
+        </div>
       </div>
     </div>
   );

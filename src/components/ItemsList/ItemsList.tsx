@@ -10,6 +10,7 @@ import { type FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import type { SerializedError } from '@reduxjs/toolkit/react';
 import { getErrorInfo } from '../../utils/utils';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   data: GamesData | undefined;
@@ -23,6 +24,8 @@ function ItemsList(props: Props): JSX.Element {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+
+  const t = useTranslations('CardListHeader');
 
   let gameItems: React.JSX.Element[] | React.JSX.Element;
 
@@ -67,7 +70,7 @@ function ItemsList(props: Props): JSX.Element {
       onClick={closeHandler}
     >
       <ItemHeader
-        itemData={{ description: 'Game', released: 'Release date' }}
+        itemData={{ description: t('name'), released: t('release') }}
       />
       {gameItems}
     </div>

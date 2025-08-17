@@ -1,10 +1,12 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import s from './ErrorButton.module.sass';
 import React, { useState } from 'react';
 
 function ErrorButton(): React.JSX.Element {
   const [isError, setIsError] = useState<boolean>(false);
+  const t = useTranslations('FooterButtons');
 
   if (isError) {
     throw new Error('Wrong!!!');
@@ -18,7 +20,7 @@ function ErrorButton(): React.JSX.Element {
           setIsError(true);
         }}
       >
-        generate throw
+        {t('error')}
       </button>
     </div>
   );
