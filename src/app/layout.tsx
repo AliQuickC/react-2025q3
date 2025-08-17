@@ -1,15 +1,10 @@
+import { ReactNode } from 'react';
 import '../index.sass';
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="en">
-      <body>
-        <div id="root">{children}</div>
-      </body>
-    </html>
-  );
+type Props = {
+  children: ReactNode;
+};
+
+export default function RootLayout({ children }: Props) {
+  return children;
 }

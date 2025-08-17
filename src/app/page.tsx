@@ -1,11 +1,5 @@
-import * as React from 'react';
-import GamesPage from '../components/Pages/GamesPage/GamesPage';
-import { Providers } from './providers';
+import { redirect } from 'next/navigation';
 
-export default function Home() {
-  return (
-    <Providers>
-      <GamesPage />
-    </Providers>
-  );
+export default function RootPage() {
+  redirect('/en');
 }

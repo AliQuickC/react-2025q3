@@ -3,6 +3,7 @@ import s from './Search.module.sass';
 import { FIRST_PAGE, storeKEY } from '../../const/const';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { useTranslations } from 'next-intl';
 
 function Search(): JSX.Element {
   const [lsWord, setLSWord] = useLocalStorage(storeKEY);
@@ -29,12 +30,14 @@ function Search(): JSX.Element {
     }
   };
 
+  const t = useTranslations('FindPanel');
+
   return (
     <div className={s.search} data-testid="search-element">
       <input
         className={s.searchInput}
         type="text"
-        placeholder="find..."
+        placeholder={t('placeholder')}
         value={findWord}
         onChange={(event) => {
           setFindWord(event.target.value);

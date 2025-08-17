@@ -1,0 +1,9 @@
+{
+  "HomePage": {
+    "title": "Приложение NextJS",
+    "about": "О Приложении"
+  },
+  "FindPanel": {
+    "placeholder": "поиск..."
+  }
+}
