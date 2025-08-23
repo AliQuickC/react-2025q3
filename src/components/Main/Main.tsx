@@ -2,8 +2,8 @@ import s from './Main.module.sass';
 import { createPortal } from 'react-dom';
 import { Modal } from '../Modal/Modal';
 import { useState, type JSX } from 'react';
-import { UncontrolledForm } from '../UncontrolledForm/UncontrolledForm';
-import { ReactHookForm } from '../ReactHookForm/ReactHookForm';
+import { UncontrolledForm } from '../Forms/UncontrolledForm';
+import { ReactHookForm } from '../Forms/ReactHookForm';
 
 type FormTypes = 'UncontrolledForm' | 'ReactHookForm';
 

@@ -8,17 +8,19 @@ type Props = {
 };
 
 export function Modal(props: Props): JSX.Element {
-  const escHandler = (event: KeyboardEvent) => {
-    if (event.code === 'Escape') {
-      props.closeHandler();
-    }
-  };
-
   useEffect(() => {
+    const escHandler = (event: KeyboardEvent) => {
+      if (event.code === 'Escape') {
+        props.closeHandler();
+      }
+    };
+
     document.addEventListener('keydown', escHandler);
     return () => {
       document.removeEventListener('keydown', escHandler);
     };
+    // eslint-disable-next-line react-compiler/react-compiler
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const modalStyles = classNames(s.modal + ' modal');
