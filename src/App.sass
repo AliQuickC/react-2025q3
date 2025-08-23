@@ -1,7 +1,17 @@
+body
+  position: relative
+  z-index: 0
+
 #root
+  position: relative
   display: flex
   flex-direction: column
   min-height: 100%
+  z-index: 1
+
+.modal
+  position: relative
+  z-index: 100
 
 .section
   text-align: center
@@ -21,10 +31,8 @@
 .logo
   height: 20px
 
-
 .header-container
   display: flex
   justify-content: start
   align-items: flex-end
   column-gap: 10px
-

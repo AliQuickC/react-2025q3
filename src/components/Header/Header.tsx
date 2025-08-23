@@ -1,6 +1,7 @@
+import type { JSX } from 'react';
 import reactLogo from './../../assets/react.svg';
 
-export function Header() {
+export function Header(): JSX.Element {
   return (
     <header className={'section header'}>
       <div className={'container header-container'}>
