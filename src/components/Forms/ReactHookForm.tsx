@@ -8,6 +8,8 @@ import type {
   FormTypes,
 } from '../../redux/slice/formDataSlice';
 import { useFormControl } from '../../redux/useAppSelector';
+import { schema } from './schema.ts';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 type Props = {
   closeHandler: () => void;
@@ -22,7 +24,7 @@ export function ReactHookForm(props: Props): JSX.Element {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormInputData>();
+  } = useForm<FormInputData>({ resolver: yupResolver(schema) });
 
   const { changeFormData } = useActions();
 
@@ -32,7 +34,7 @@ export function ReactHookForm(props: Props): JSX.Element {
     </option>
   ));
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: object) => {
     console.log('data: ', data);
   };
 
@@ -66,12 +68,6 @@ export function ReactHookForm(props: Props): JSX.Element {
                 placeholder="Name"
                 {...register('name', {
                   onChange: onChangeHandler,
-                  required: 'Not be required',
-                  minLength: { value: 2, message: 'Min length is 2' },
-                  pattern: {
-                    value: /^[А-ЯA-Z][а-яёa-z]*$/,
-                    message: 'First character must be capitalized',
-                  },
                 })}
               />
               {errors?.name && (
@@ -92,8 +88,6 @@ export function ReactHookForm(props: Props): JSX.Element {
                 value={age}
                 {...register('age', {
                   onChange: onChangeHandler,
-                  required: 'Not be required',
-                  min: { value: 0, message: 'Not be negative' },
                 })}
               />
               {errors?.age && (
@@ -113,11 +107,6 @@ export function ReactHookForm(props: Props): JSX.Element {
                 value={email}
                 {...register('email', {
                   onChange: onChangeHandler,
-                  required: 'Not be required',
-                  pattern: {
-                    value: /^\S+@\S+\.\S+$/,
-                    message: 'does not match the pattern',
-                  },
                 })}
               />
               {errors?.email && (
@@ -137,13 +126,6 @@ export function ReactHookForm(props: Props): JSX.Element {
                 value={password1}
                 {...register('password1', {
                   onChange: onChangeHandler,
-                  required: 'Not be required',
-                  minLength: { value: 6, message: 'Min length is 6' },
-                  pattern: {
-                    value:
-                      /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9]).+$/,
-                    message: 'does not match the pattern',
-                  },
                 })}
               />
               {errors?.password1 && (
@@ -162,13 +144,6 @@ export function ReactHookForm(props: Props): JSX.Element {
                 value={password2}
                 {...register('password2', {
                   onChange: onChangeHandler,
-                  required: 'Not be required',
-                  minLength: { value: 6, message: 'Min length is 6' },
-                  pattern: {
-                    value:
-                      /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9]).+$/,
-                    message: 'does not match the pattern',
-                  },
                 })}
               />
               {errors?.password2 && (
@@ -186,19 +161,26 @@ export function ReactHookForm(props: Props): JSX.Element {
               type="radio"
               id="male"
               checked={sex === 'male'}
-              required
-              name="sex"
-              onChange={onChangeHandler}
+              {...register('sex', {
+                onChange: onChangeHandler,
+                required: 'Not be required',
+              })}
             />
             <label htmlFor="female">femaile</label>
             <input
               type="radio"
               id="female"
               checked={sex === 'female'}
-              required
-              name="sex"
-              onChange={onChangeHandler}
+              {...register('sex', {
+                onChange: onChangeHandler,
+                required: 'Not be required',
+              })}
             />
+            {errors?.sex && (
+              <div className={s.errorMessage} style={{ color: 'red' }}>
+                {errors.sex.message}
+              </div>
+            )}
           </fieldset>
 
           <div className={s.inputItem}>
@@ -226,11 +208,6 @@ export function ReactHookForm(props: Props): JSX.Element {
                 value={country || 'DEFAULT'}
                 {...register('country', {
                   onChange: onChangeHandler,
-                  required: 'Not be required',
-                  pattern: {
-                    value: /^(?!DEFAULT$).+$/,
-                    message: 'Select value',
-                  },
                 })}
               >
                 <option value="DEFAULT" disabled>
