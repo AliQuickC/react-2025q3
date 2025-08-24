@@ -1,5 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
+const countryList = ['Russia', 'USA', 'UK', 'Argentina', 'Poland', 'China'];
 export type FormTypes = string | number | boolean | 'male' | 'female' | null;
 
 interface FormObject {
@@ -27,16 +28,24 @@ export type FormKeys =
 
 type FormData = Pick<FormObject, FormKeys>;
 
-export const initialState: FormData = {
-  name: '',
-  age: '',
-  email: '',
-  password1: '',
-  password2: '',
-  sex: null,
-  acceptTandC: false,
-  image: '',
-  country: '',
+export type FormControl = {
+  formData: FormData;
+  countryList: string[];
+};
+
+export const initialState: FormControl = {
+  formData: {
+    name: '',
+    age: '',
+    email: '',
+    password1: '',
+    password2: '',
+    sex: null,
+    acceptTandC: false,
+    image: '',
+    country: '',
+  },
+  countryList: countryList,
 };
 
 export const formDataSlice = createSlice({
@@ -44,16 +53,17 @@ export const formDataSlice = createSlice({
   initialState,
   reducers: {
     changeFormData: (
-      state: FormData,
+      state: FormControl,
       action: PayloadAction<{
         keyName: keyof FormData;
         value: FormTypes;
       }>
     ) => {
       const { keyName, value } = action.payload;
+      const { formData } = state;
 
-      if (keyName in state) {
-        state[keyName as FormKeys] = value as never;
+      if (keyName in formData) {
+        formData[keyName as FormKeys] = value as never;
       }
     },
   },

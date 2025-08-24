@@ -1,6 +1,6 @@
 import s from './Forms.module.sass';
 import type { ChangeEvent, FormEvent, JSX } from 'react';
-import { useFormData } from '../../redux/useAppSelector';
+import { useFormControl } from '../../redux/useAppSelector';
 import { useActions } from '../../redux/useActions';
 import type { FormKeys, FormTypes } from '../../redux/slice/formDataSlice';
 
@@ -9,12 +9,21 @@ type Props = {
 };
 
 export function UncontrolledForm(props: Props): JSX.Element {
-  const { name, age, email, password1, password2, country, sex, acceptTandC } =
-    useFormData();
+  const { formData, countryList } = useFormControl();
+  const { name, age, email, password1, password2, sex, country, acceptTandC } =
+    formData;
 
   const { changeFormData } = useActions();
 
-  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+  const countrySelect = countryList.map((item, index) => (
+    <option key={index} value={item}>
+      {item}
+    </option>
+  ));
+
+  const onChangeHandler = (
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     let value;
     if (event.target.type === 'radio') {
       value = event.target.id as FormTypes;
@@ -140,14 +149,18 @@ export function UncontrolledForm(props: Props): JSX.Element {
 
           <div className={s.inputItem}>
             <label htmlFor="country">country</label>
-            <input
-              type="text"
+            <select
               name="country"
               id="country"
               required
-              value={country}
+              value={country || 'DEFAULT'}
               onChange={onChangeHandler}
-            />
+            >
+              <option value="DEFAULT" disabled>
+                Select country
+              </option>
+              {countrySelect}
+            </select>
           </div>
         </div>
 
