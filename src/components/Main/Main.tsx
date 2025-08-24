@@ -38,14 +38,14 @@ export function Main(): JSX.Element {
               openModalHandler('UncontrolledForm');
             }}
           >
-            Uncontrolled components Form
+            With Uncontrolled components
           </button>
           <button
             onClick={() => {
               openModalHandler('ReactHookForm');
             }}
           >
-            React Hook Form
+            With React Hook
           </button>
           {isOpenModal.isOpen
             ? isOpenModal.formType === 'UncontrolledForm'

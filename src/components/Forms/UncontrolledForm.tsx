@@ -38,7 +38,7 @@ export function UncontrolledForm(props: Props): JSX.Element {
   return (
     <form onSubmit={onSubmitHandler}>
       <fieldset>
-        <legend>UncontrolledForm</legend>
+        <legend>Uncontrolled Form</legend>
         <div className={s.inputDataArea}>
           <div className={s.inputItem}>
             <label htmlFor="name">Name</label>
