@@ -37,6 +37,7 @@ export function UncontrolledForm(props: Props): JSX.Element {
   };
 
   const onSubmitHandler = (event: FormEvent<HTMLFormElement>) => {
+    console.log('event: ', event);
     event.preventDefault();
     const data = Object.fromEntries(
       new FormData(event.target as HTMLFormElement)
@@ -55,6 +56,7 @@ export function UncontrolledForm(props: Props): JSX.Element {
               type="text"
               name="name"
               id="name"
+              placeholder="Name"
               required
               pattern="^[А-ЯA-Z][а-яёa-z]*$"
               value={name}
@@ -68,6 +70,7 @@ export function UncontrolledForm(props: Props): JSX.Element {
               min="0"
               name="age"
               id="age"
+              placeholder="Age"
               required
               value={age}
               onChange={onChangeHandler}
@@ -80,6 +83,7 @@ export function UncontrolledForm(props: Props): JSX.Element {
               name="email"
               id="email"
               required
+              placeholder="Email"
               pattern="^\S+@\S+\.\S+$"
               value={email}
               onChange={onChangeHandler}
@@ -92,7 +96,9 @@ export function UncontrolledForm(props: Props): JSX.Element {
               type="password"
               name="password1"
               id="password1"
+              minLength={6}
               required
+              placeholder="password"
               value={password1}
               onChange={onChangeHandler}
             />
@@ -103,7 +109,9 @@ export function UncontrolledForm(props: Props): JSX.Element {
               type="password"
               name="password2"
               id="password2"
+              minLength={6}
               required
+              placeholder="duplicate password"
               value={password2}
               onChange={onChangeHandler}
             />
@@ -150,13 +158,13 @@ export function UncontrolledForm(props: Props): JSX.Element {
           <div className={s.inputItem}>
             <label htmlFor="country">country</label>
             <select
-              name="country"
               id="country"
+              value={country || ''}
               required
-              value={country || 'DEFAULT'}
+              name="country"
               onChange={onChangeHandler}
             >
-              <option value="DEFAULT" disabled>
+              <option value="" disabled>
                 Select country
               </option>
               {countrySelect}
@@ -164,8 +172,7 @@ export function UncontrolledForm(props: Props): JSX.Element {
           </div>
         </div>
 
-        <button type="submit">Send</button>
-        <button type="reset">Reset</button>
+        <button type="submit">Submit</button>
         <button type="button" onClick={props.closeHandler}>
           Close
         </button>

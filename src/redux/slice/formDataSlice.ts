@@ -26,10 +26,12 @@ export type FormKeys =
   | 'image'
   | 'country';
 
-type FormData = Pick<FormObject, FormKeys>;
+export type FormInputData = Pick<FormObject, FormKeys>;
 
 export type FormControl = {
-  formData: FormData;
+  formData: FormInputData;
+  formValid: boolean;
+  sendData: FormInputData | null;
   countryList: string[];
 };
 
@@ -45,6 +47,8 @@ export const initialState: FormControl = {
     image: '',
     country: '',
   },
+  formValid: false,
+  sendData: null,
   countryList: countryList,
 };
 
@@ -55,7 +59,7 @@ export const formDataSlice = createSlice({
     changeFormData: (
       state: FormControl,
       action: PayloadAction<{
-        keyName: keyof FormData;
+        keyName: keyof FormInputData;
         value: FormTypes;
       }>
     ) => {
