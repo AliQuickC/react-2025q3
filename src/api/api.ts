@@ -1,10 +1,6 @@
 export async function getData(url: string) {
   return fetch(url)
     .then((response) => response.json())
-    .then((data) => {
-      console.log('data: ', data);
-      return data;
-    })
     .catch((err) => console.error(err));
 }
 
