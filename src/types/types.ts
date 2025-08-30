@@ -11,3 +11,10 @@ export type CountryData = {
 export type Data = {
   [key: string]: { data: CountryData[]; iso_code?: string };
 };
+
+export type SortType = 'desc' | 'asc';
+
+export type State = {
+  searchTerm: string;
+  countrySort: SortType;
+};
