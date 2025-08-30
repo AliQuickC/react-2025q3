@@ -2,11 +2,12 @@ import s from './Table.module.sass';
 import { TableHeader } from '../TableRow/TableHeader';
 import type { CountryData, Data, СolumnsConfig } from '../../types/types';
 import { TableRow } from '../TableRow/TableRow';
-import type { JSX } from 'react';
+import { useContext, type JSX } from 'react';
 import {
   baseColumnList,
   columnsConfig,
   COUNTRY_COLUMN_HEADER,
+  GlobalStateContext,
   ISO_CODE_COLUMN_HEADER,
 } from '../../constant/constants';
 
@@ -38,12 +39,15 @@ function getRowCelsConfig(columns: (keyof СolumnsConfig)[]) {
 }
 
 export function Table(props: Props): JSX.Element {
-  const columns = baseColumnList.map((item) => columnsConfig[item].header);
+  const state = useContext(GlobalStateContext);
+  const columnList = baseColumnList.concat(state.additionalColumns);
+
+  const columns = columnList.map((item) => columnsConfig[item].header);
   const countries = Object.keys(props.co2data);
-  const rowCelsConfig: string[] = getRowCelsConfig(baseColumnList);
+  const rowCelsConfig: string[] = getRowCelsConfig(columnList);
 
   const rowsLayout: JSX.Element[] = countries.map((countrie, index) => {
-    const rowValues = getRowCelsValues(baseColumnList, countrie, props.co2data);
+    const rowValues = getRowCelsValues(columnList, countrie, props.co2data);
     return (
       <TableRow
         key={index}

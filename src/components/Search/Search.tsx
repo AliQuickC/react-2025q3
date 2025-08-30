@@ -3,7 +3,6 @@ import type { State } from '../../types/types';
 import { useState, type JSX } from 'react';
 
 type Props = {
-  state: State;
   setState: React.Dispatch<React.SetStateAction<State>>;
 };
 
@@ -24,12 +23,10 @@ export function Search(props: Props): JSX.Element {
       <button
         className={s.findButton}
         onClick={() => {
-          props.setState((prev) => {
-            return {
-              ...prev,
-              searchTerm: findTerm,
-            };
-          });
+          props.setState((prev) => ({
+            ...prev,
+            searchTerm: findTerm,
+          }));
         }}
         aria-label="find"
       ></button>

@@ -17,4 +17,5 @@ export type SortType = 'desc' | 'asc';
 export type State = {
   searchTerm: string;
   countrySort: SortType;
+  additionalColumns: string[];
 };

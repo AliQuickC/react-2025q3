@@ -9,12 +9,10 @@ type Props = {
 
 export function SortSelect(props: Props): JSX.Element {
   const onChangeHandler = (event: ChangeEvent<HTMLSelectElement>) => {
-    props.setState((prev) => {
-      return {
-        ...prev,
-        countrySort: event.target.value as SortType,
-      };
-    });
+    props.setState((prev) => ({
+      ...prev,
+      countrySort: event.target.value as SortType,
+    }));
   };
 
   return (
