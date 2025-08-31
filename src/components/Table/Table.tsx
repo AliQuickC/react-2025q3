@@ -15,7 +15,7 @@ type Props = {
   co2data: Data;
 };
 
-function getRowCelsValues(
+function getRowcellsValues(
   columns: (keyof СolumnsConfig)[],
   countrie: string,
   co2data: Data
@@ -34,32 +34,46 @@ function getRowCelsValues(
   });
 }
 
-function getRowCelsConfig(columns: (keyof СolumnsConfig)[]) {
-  return columns.map((columnName) => columnsConfig[columnName].celWidth);
+function getcellsConfig(columns: (keyof СolumnsConfig)[]) {
+  return columns.map((columnName) => columnsConfig[columnName].cellWidth);
+}
+
+function countriesSort(list: string[], sortDirection: boolean): string[] {
+  return sortDirection
+    ? list.sort((a, b) => b.localeCompare(a))
+    : list.sort((a, b) => a.localeCompare(b));
 }
 
 export function Table(props: Props): JSX.Element {
   const state = useContext(GlobalStateContext);
   const columnList = baseColumnList.concat(state.additionalColumns);
 
-  const columns = columnList.map((item) => columnsConfig[item].header);
-  const countries = Object.keys(props.co2data);
-  const rowCelsConfig: string[] = getRowCelsConfig(columnList);
+  const columns: string[] = columnList.map(
+    (item) => columnsConfig[item].header
+  );
+  const cellsConfig: string[] = getcellsConfig(columnList);
 
-  const rowsLayout: JSX.Element[] = countries.map((countrie, index) => {
-    const rowValues = getRowCelsValues(columnList, countrie, props.co2data);
+  const countries: string[] = Object.keys(props.co2data);
+
+  const countriesSorted = countriesSort(
+    countries,
+    state.countrySort === 'desc'
+  );
+
+  const rowsLayout: JSX.Element[] = countriesSorted.map((countrie, index) => {
+    const rowValue = getRowcellsValues(columnList, countrie, props.co2data);
     return (
       <TableRow
         key={index}
-        rowData={rowValues}
-        celsConfig={{ width: rowCelsConfig }}
+        rowData={rowValue}
+        cellsConfig={{ width: cellsConfig }}
       />
     );
   });
 
   return (
     <div className={s.table}>
-      <TableHeader columns={columns} celsConfig={{ width: rowCelsConfig }} />
+      <TableHeader columns={columns} cellsConfig={{ width: cellsConfig }} />
       <div className={s.dataWrap}>{rowsLayout}</div>
     </div>
   );

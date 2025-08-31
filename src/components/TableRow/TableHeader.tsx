@@ -2,15 +2,15 @@ import s from './TableRow.module.sass';
 
 type Props = {
   columns: string[];
-  celsConfig: { width: string[] };
+  cellsConfig: { width: string[] };
 };
 
 export function TableHeader(props: Props) {
   const tableHeaderLayout = props.columns.map((item, index) => (
     <div
       key={index}
-      className={s.cel}
-      style={{ width: props.celsConfig.width[index] }}
+      className={s.cell}
+      style={{ width: props.cellsConfig.width[index] }}
     >
       {item}
     </div>

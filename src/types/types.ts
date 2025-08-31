@@ -1,5 +1,5 @@
 export type СolumnsConfig = {
-  [key: string]: { header: string; celWidth: string };
+  [key: string]: { header: string; cellWidth: string };
 };
 
 export type CountryData = {

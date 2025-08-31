@@ -25,8 +25,8 @@ export function SortSelect(props: Props): JSX.Element {
         id="country-sort"
         onChange={onChangeHandler}
       >
-        <option value="desc">desc</option>
         <option value="asc">asc</option>
+        <option value="desc">desc</option>
       </select>
     </div>
   );
