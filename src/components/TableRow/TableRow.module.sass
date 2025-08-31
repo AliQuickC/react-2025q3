@@ -1,0 +1,23 @@
+.headerRow, .row
+  display: flex
+  flex-wrap: nowrap
+  width: fit-content
+  & > div
+    border-left: 1px solid #000
+    border-bottom: 1px solid #000
+  & > div:last-child
+    border-right: 1px solid #000
+
+.headerRow
+  background-color: #b3b3b3
+  & > div
+    justify-content: center
+    border-top: 1px solid #000
+
+.row
+  background-color: #fff
+
+.cell
+  padding: 5px
+  display: flex
+  align-items: center
