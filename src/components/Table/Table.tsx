@@ -2,7 +2,7 @@ import s from './Table.module.sass';
 import { TableHeader } from '../TableRow/TableHeader';
 import type { CountryData, Data, СolumnsConfig } from '../../types/types';
 import { TableRow } from '../TableRow/TableRow';
-import { useContext, type JSX } from 'react';
+import { useContext, useMemo, type JSX } from 'react';
 import {
   baseColumnList,
   columnsConfig,
@@ -62,15 +62,25 @@ export function Table(props: Props): JSX.Element {
   const columns: string[] = columnList.map(
     (item) => columnsConfig[item].header
   );
-  const cellsConfig: string[] = getcellsConfig(columnList);
 
-  const countries: string[] = Object.keys(props.co2data);
+  const cellsConfig: string[] = useMemo(
+    () => getcellsConfig(columnList),
+    [columnList]
+  );
 
-  const countriesFiltered = countriesFilter(countries, state.searchTerm);
+  const countries: string[] = useMemo(
+    () => Object.keys(props.co2data),
+    [props.co2data]
+  );
 
-  const countriesSorted = countriesSort(
-    countriesFiltered,
-    state.countrySort === 'desc'
+  const countriesFiltered: string[] = useMemo(
+    () => countriesFilter(countries, state.searchTerm),
+    [countries, state.searchTerm]
+  );
+
+  const countriesSorted: string[] = useMemo(
+    () => countriesSort(countriesFiltered, state.countrySort === 'desc'),
+    [countriesFiltered, state.countrySort]
   );
 
   const rowsLayout: JSX.Element[] = countriesSorted.map((countrie, index) => {
