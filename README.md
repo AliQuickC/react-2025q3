@@ -1,69 +1,35 @@
-# React + TypeScript + Vite
+# performance report
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## app performance, before memo
 
-Currently, two official plugins are available:
+#### sorting a column
+Commit Duration: 217.9ms  
+Render Duration (Table): 37.7ms  
+Flame Graph  
+![Flame Graph](https://i.postimg.cc/vDRZKXVc/sorting-column-Flame-Graph.jpg)  
+Ranked Chart  
+![Flame Graph](https://i.postimg.cc/44HtW0C4/sorting-column-Ranked-Chart.jpg)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#### searching a country
+Commit Duration: 17.6ms  
+Render Duration (Table): 3.9ms  
+Flame Graph  
+![Flame Graph](https://i.postimg.cc/25JyvzSQ/searching-country-Flame-Graph.jpg)
+Ranked Chart  
+![Ranked Chart](https://i.postimg.cc/zDTvbYZh/searching-country-Ranked-Chart.jpg)
 
-## Expanding the ESLint configuration
+#### selecting another year
+Commit Duration: 191.1ms  
+Render Duration (Table): 28.4ms  
+Flame Graph  
+![Flame Graph](https://i.postimg.cc/cLkLysYp/select-year-Flame-Graph.jpg)
+Ranked Chart  
+![Ranked Chart](https://i.postimg.cc/HLJsTf9V/select-year-Ranked-Chart.jpg)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+#### adding/removing columns
+Commit Duration: 328.4ms  
+Render Duration (Table): 29.9ms  
+Flame Graph  
+![Flame Graph](https://i.postimg.cc/ZnmTF0td/add-columns-Flame-Graph.jpg)
+Ranked Chart  
+![Ranked Chart](https://i.postimg.cc/fyvMHZDg/add-columns-Ranked-Chart.jpg)
