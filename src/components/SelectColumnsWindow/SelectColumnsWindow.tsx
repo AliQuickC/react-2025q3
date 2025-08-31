@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent } from 'react';
+import { useCallback, useState, type ChangeEvent } from 'react';
 import s from './SelectColumnsWindow.module.sass';
 import type { State } from '../../types/types';
 
@@ -22,6 +22,11 @@ export function SelectColumnsWindow(props: Props) {
       }
     });
   };
+
+  const applyHandler = useCallback(() => {
+    props.setState((prev) => ({ ...prev, additionalColumns: columns }));
+    props.setShowModal(false);
+  }, [columns, props]);
 
   return (
     <div className={s.window}>
@@ -84,13 +89,7 @@ export function SelectColumnsWindow(props: Props) {
       </fieldset>
 
       <div className={s.buttonsWrap}>
-        <button
-          className={s.applyButton}
-          onClick={() => {
-            props.setState((prev) => ({ ...prev, additionalColumns: columns }));
-            props.setShowModal(false);
-          }}
-        >
+        <button className={s.applyButton} onClick={applyHandler}>
           Apply
         </button>
         <button

@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent } from 'react';
+import { useCallback, useState, type ChangeEvent } from 'react';
 import s from './YearSelect.module.sass';
 import {
   defaultYearValue,
@@ -18,7 +18,7 @@ export function YearSelect(props: Props) {
     setYear(+event.target.value);
   };
 
-  const setYearValue = () => {
+  const setYearValue = useCallback(() => {
     if (year >= minYearValue && year <= maxYearValue) {
       props.setState((prev) => ({
         ...prev,
@@ -31,7 +31,7 @@ export function YearSelect(props: Props) {
         year: defaultYearValue,
       }));
     }
-  };
+  }, [props, year]);
 
   return (
     <div>

@@ -1,6 +1,6 @@
 import s from './SortSelect.module.sass';
 import type { SortType, State } from '../../types/types';
-import type { ChangeEvent, JSX } from 'react';
+import { useCallback, type ChangeEvent, type JSX } from 'react';
 
 type Props = {
   sort: SortType;
@@ -8,12 +8,15 @@ type Props = {
 };
 
 export function SortSelect(props: Props): JSX.Element {
-  const onChangeHandler = (event: ChangeEvent<HTMLSelectElement>) => {
-    props.setState((prev) => ({
-      ...prev,
-      countrySort: event.target.value as SortType,
-    }));
-  };
+  const onChangeHandler = useCallback(
+    (event: ChangeEvent<HTMLSelectElement>) => {
+      props.setState((prev) => ({
+        ...prev,
+        countrySort: event.target.value as SortType,
+      }));
+    },
+    []
+  );
 
   return (
     <div className={s.sortSelect}>

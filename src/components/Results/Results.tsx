@@ -7,7 +7,6 @@ const urlData = '../data/owid-co2-data.json';
 
 export function Results(): JSX.Element {
   const co2data: Data = use(fetchData(urlData));
-  console.log('co2data: ', co2data);
 
   return (
     <div>
