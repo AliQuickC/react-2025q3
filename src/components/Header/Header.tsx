@@ -6,6 +6,7 @@ import type { State } from '../../types/types';
 import { SortSelect } from '../SortSelect/SortSelect';
 import classNames from 'classnames';
 import { SelectColumnsWindow } from '../SelectColumnsWindow/SelectColumnsWindow';
+import { YearSelect } from '../YearSelect/YearSelect';
 
 type Props = {
   state: State;
@@ -24,6 +25,7 @@ export function Header(props: Props): JSX.Element {
         <img src={reactLogo} className="logo react" alt="React logo" />
         <Search setState={props.setState} />
         <SortSelect sort={props.state.countrySort} setState={props.setState} />
+        <YearSelect year={props.state.year} setState={props.setState} />
         <button
           className={s.selectColumnsBtn}
           onClick={() => {

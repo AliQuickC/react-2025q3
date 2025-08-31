@@ -4,6 +4,10 @@ import type { SortType, State, СolumnsConfig } from '../types/types';
 export const COUNTRY_COLUMN_HEADER = 'country';
 export const ISO_CODE_COLUMN_HEADER = 'iso_code';
 
+export const minYearValue = 1750;
+export const maxYearValue = 2023;
+export const defaultYearValue = 2023;
+
 export const columnsConfig: СolumnsConfig = {
   country: { header: 'country', cellWidth: '100px' },
   iso_code: { header: 'iso code', cellWidth: '50px' },
@@ -35,10 +39,11 @@ export const baseColumnList: (keyof СolumnsConfig)[] = [
   'co2_per_capita',
 ];
 
-export const initialState = {
+export const initialState: State = {
   searchTerm: '',
   countrySort: 'asc' as SortType,
   additionalColumns: [],
+  year: defaultYearValue,
 };
 
 export const GlobalStateContext = createContext<State>(initialState);

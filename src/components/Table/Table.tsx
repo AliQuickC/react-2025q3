@@ -18,10 +18,12 @@ type Props = {
 function getRowcellsValues(
   columns: (keyof СolumnsConfig)[],
   countrie: string,
+  year: number,
   co2data: Data
 ): (number | string | undefined)[] {
-  const data: CountryData =
-    co2data[countrie].data[co2data[countrie].data.length - 1];
+  const data: CountryData | undefined = co2data[countrie].data.find(
+    (item) => item.year === year
+  );
 
   return columns.map((columnName) => {
     if (columnName === COUNTRY_COLUMN_HEADER) {
@@ -29,7 +31,7 @@ function getRowcellsValues(
     } else if (columnName === ISO_CODE_COLUMN_HEADER) {
       return co2data[countrie].iso_code;
     } else {
-      return data[columnName];
+      return data ? data[columnName] : 'N/A';
     }
   });
 }
@@ -72,11 +74,16 @@ export function Table(props: Props): JSX.Element {
   );
 
   const rowsLayout: JSX.Element[] = countriesSorted.map((countrie, index) => {
-    const rowValue = getRowcellsValues(columnList, countrie, props.co2data);
+    const rowValues = getRowcellsValues(
+      columnList,
+      countrie,
+      state.year,
+      props.co2data
+    );
     return (
       <TableRow
         key={index}
-        rowData={rowValue}
+        rowData={rowValues}
         cellsConfig={{ width: cellsConfig }}
       />
     );

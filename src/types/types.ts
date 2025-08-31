@@ -18,4 +18,5 @@ export type State = {
   searchTerm: string;
   countrySort: SortType;
   additionalColumns: string[];
+  year: number;
 };

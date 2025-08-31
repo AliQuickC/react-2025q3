@@ -13,6 +13,7 @@ export function Search(props: Props): JSX.Element {
     <div className={s.search} data-testid="search-element">
       <input
         className={s.searchInput}
+        name="find"
         type="text"
         placeholder="find..."
         value={findTerm}
