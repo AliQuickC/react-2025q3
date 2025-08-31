@@ -44,6 +44,15 @@ function countriesSort(list: string[], sortDirection: boolean): string[] {
     : list.sort((a, b) => a.localeCompare(b));
 }
 
+function countriesFilter(list: string[], findWord: string): string[] {
+  if (findWord === '') {
+    return list;
+  }
+  return list.filter((item) =>
+    item.toLowerCase().includes(findWord.toLowerCase())
+  );
+}
+
 export function Table(props: Props): JSX.Element {
   const state = useContext(GlobalStateContext);
   const columnList = baseColumnList.concat(state.additionalColumns);
@@ -55,8 +64,10 @@ export function Table(props: Props): JSX.Element {
 
   const countries: string[] = Object.keys(props.co2data);
 
+  const countriesFiltered = countriesFilter(countries, state.searchTerm);
+
   const countriesSorted = countriesSort(
-    countries,
+    countriesFiltered,
     state.countrySort === 'desc'
   );
 
