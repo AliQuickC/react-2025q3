@@ -124,6 +124,7 @@ export function UncontrolledForm(props: Props): JSX.Element {
               type="radio"
               name="sex"
               id="male"
+              value="male"
               required
               checked={sex === 'male'}
               onChange={onChangeHandler}
@@ -133,6 +134,7 @@ export function UncontrolledForm(props: Props): JSX.Element {
               type="radio"
               name="sex"
               id="female"
+              value="female"
               required
               checked={sex === 'female'}
               onChange={onChangeHandler}

@@ -42,7 +42,7 @@ export function ReactHookForm(props: Props): JSX.Element {
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     let value;
-    if (event.target.type === 'radio') {
+    if (event.target.type === 'radio' && event.target.name === 'sex') {
       value = event.target.id as FormTypes;
     } else if (event.target.type === 'checkbox') {
       value = event.target.checked as FormTypes;
@@ -160,6 +160,7 @@ export function ReactHookForm(props: Props): JSX.Element {
             <input
               type="radio"
               id="male"
+              value="male"
               checked={sex === 'male'}
               {...register('sex', {
                 onChange: onChangeHandler,
@@ -170,6 +171,7 @@ export function ReactHookForm(props: Props): JSX.Element {
             <input
               type="radio"
               id="female"
+              value="female"
               checked={sex === 'female'}
               {...register('sex', {
                 onChange: onChangeHandler,

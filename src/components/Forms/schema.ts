@@ -1,4 +1,4 @@
-import { object, string, number, boolean } from 'yup';
+import { object, string, number } from 'yup';
 
 const regExpName = new RegExp(/^[А-ЯA-Z][а-яёa-z]*$/);
 const regExpEmail = new RegExp(/^\S+@\S+\.\S+$/);
@@ -28,7 +28,7 @@ export const schema = object({
     .required('Not be required')
     .min(6, 'Min length is 6')
     .matches(regExpPassword, 'does not match the pattern'),
-  sex: boolean().required('Select sex'),
+  sex: string().required('Select sex'),
   country: string()
     .required('Not be required')
     .matches(regExpCountry, 'Select value'),
