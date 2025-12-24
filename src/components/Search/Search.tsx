@@ -1,7 +1,8 @@
-import { useEffect, useState, type JSX } from 'react';
+import { useEffect, useState, type ChangeEventHandler, type JSX } from 'react';
 import s from './Search.module.sass';
 import { FIRST_PAGE } from '../../const/const';
 import { useSearchParams } from 'react-router-dom';
+import { useDebounce } from '../../hooks/useDebounce';
 
 interface Props {
   lsWord: string;
@@ -10,19 +11,30 @@ interface Props {
 function Search(props: Props): JSX.Element {
   const [, setSearchParams] = useSearchParams();
   const [findWord, setFindWord] = useState<string>('');
+  const debouncedSearchTerm = useDebounce(findWord, 1000);
 
   useEffect(() => {
     setFindWord(props.lsWord);
   }, [props.lsWord]);
 
-  const findHandler = () => {
-    const word = findWord.trim();
+  useEffect(() => {
+    const search = () => {
+      const word = findWord.trim();
 
-    if (word) {
-      setSearchParams({ page: '' + FIRST_PAGE, search: word });
-    } else {
-      setSearchParams({ page: '' + FIRST_PAGE });
-    }
+      if (word) {
+        setSearchParams({ page: '' + FIRST_PAGE, search: word });
+      } else {
+        setSearchParams({ page: '' + FIRST_PAGE });
+      }
+    };
+
+    search();
+    // eslint-disable-next-line react-compiler/react-compiler
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedSearchTerm]);
+
+  const onChangeHandler: ChangeEventHandler<HTMLInputElement> = (event) => {
+    setFindWord(event.target.value);
   };
 
   return (
@@ -32,15 +44,9 @@ function Search(props: Props): JSX.Element {
         type="text"
         placeholder="find..."
         value={findWord}
-        onChange={(event) => {
-          setFindWord(event.target.value);
-        }}
+        onChange={onChangeHandler}
       />
-      <button
-        className={s.findButton}
-        onClick={findHandler}
-        aria-label="find"
-      ></button>
+      <button className={s.findButton} aria-label="find"></button>
     </div>
   );
 }
