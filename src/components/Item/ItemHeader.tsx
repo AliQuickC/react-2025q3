@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import s from './Item.module.sass';
 
 type Props = {
@@ -7,7 +8,7 @@ type Props = {
   };
 };
 
-export function ItemHeader(props: Props) {
+export function ItemHeader(props: Props): JSX.Element {
   return (
     <div className={s.Item + ' unselectable'}>
       <div className={s.GameName}>{props.itemData.description}</div>

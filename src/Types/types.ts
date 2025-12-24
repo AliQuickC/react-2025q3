@@ -10,12 +10,13 @@ export interface IGlobalState {
   games: IGame[];
   count: number;
   responseOk: boolean;
-  findWord: string;
+  currentPage: string | null;
+  item: string | null;
 }
 
 export type SetGameList = (gamesData: GamesData, responseOk: boolean) => void;
 export type setFindWord = (findWord: string) => void;
-export type switchHaveData = (haveData: boolean) => void;
+export type onSearch = () => void;
 
 export type ResponseGames = {
   count: number;
@@ -25,7 +26,29 @@ export type ResponseGames = {
   [propName: string]: unknown;
 };
 
+type Genre = { id: number; name: string; [propName: string]: unknown };
+
+export type ResponseGameDetail = {
+  id: number;
+  name: string;
+  background_image: string;
+  genres: Genre[];
+  [propName: string]: unknown;
+};
+
 export type GamesData = {
   count: number;
   results: IGame[];
+};
+
+export type GamesDetailData = {
+  id: number;
+  name: string;
+  background_image: string;
+  genres: string;
+};
+
+export type GameDetail = {
+  detailData: GamesDetailData | null;
+  haveData: boolean;
 };

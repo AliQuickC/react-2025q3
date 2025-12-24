@@ -1,13 +1,18 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { ItemsList } from './ItemsList';
+import ItemsList from './ItemsList';
 import type { IGame } from '../../Types/types';
-import { initialState, responseErrorMessage } from '../../const/const';
+import {
+  initialState,
+  notDataMessage,
+  responseErrorMessage,
+} from '../../const/const';
 import {
   mocGlobalState,
   mocRequestFindGames,
   mocRequestGames,
 } from '../../../__tests__/mock';
+import { BrowserRouter } from 'react-router-dom';
 
 const mocSetGameList = vi.fn();
 
@@ -217,84 +222,112 @@ describe('Rendering Tests', () => {
 
   test('Renders correct number of items when data is provided, loading states', () => {
     const { rerender } = render(
-      <ItemsList
-        globalState={{ ...mocGlobalState, games: games20 }}
-        setGameList={mocSetGameList}
-      />
+      <BrowserRouter>
+        <ItemsList
+          globalState={{ ...mocGlobalState, games: games20 }}
+          setGameList={mocSetGameList}
+          lsWord={''}
+        />
+      </BrowserRouter>
     );
 
-    expect(screen.queryAllByTestId('card-element')).toHaveLength(20);
+    expect(screen.getAllByTestId('card-element')).toHaveLength(20);
 
     rerender(
-      <ItemsList
-        globalState={{ ...mocGlobalState, games: games12 }}
-        setGameList={mocSetGameList}
-      />
+      <BrowserRouter>
+        <ItemsList
+          globalState={{ ...mocGlobalState, games: games12 }}
+          setGameList={mocSetGameList}
+          lsWord={''}
+        />
+      </BrowserRouter>
     );
 
-    expect(screen.queryAllByTestId('card-element')).toHaveLength(12);
+    expect(screen.getAllByTestId('card-element')).toHaveLength(12);
   });
 
-  test('Displays "no results" message when data array is empty', () => {
-    const testMessage = 'no results';
+  test('displayed, "no results" message when data array is empty', () => {
     render(
-      <ItemsList globalState={mocGlobalState} setGameList={mocSetGameList} />
+      <BrowserRouter>
+        <ItemsList
+          globalState={{ ...mocGlobalState, games: [] }}
+          setGameList={mocSetGameList}
+          lsWord={''}
+        />
+      </BrowserRouter>
     );
-    expect(screen.queryByText(new RegExp(testMessage))).not.toBeInTheDocument();
+    expect(screen.queryByText(new RegExp(notDataMessage))).toBeInTheDocument();
   });
 
   test('Shows loading state while fetching data', () => {
     render(
-      <ItemsList globalState={initialState} setGameList={mocSetGameList} />
+      <BrowserRouter>
+        <ItemsList
+          globalState={initialState}
+          setGameList={mocSetGameList}
+          lsWord={''}
+        />
+      </BrowserRouter>
     );
 
-    const cardDetailLoader = screen.getByAltText('loader...');
-    expect(cardDetailLoader).toBeInTheDocument();
+    expect(screen.queryByAltText('loader...')).toBeInTheDocument();
 
     waitFor(() => {
-      expect(() => screen.getByAltText('loader...')).toThrow();
+      expect(screen.queryByAltText('loader...')).not.toBeInTheDocument();
     });
   });
 
   test('running api with correct parameters, search word missing', async () => {
     render(
-      <ItemsList
-        globalState={{ ...mocGlobalState, findWord: '' }}
-        setGameList={mocSetGameList}
-      />
+      <BrowserRouter>
+        <ItemsList
+          globalState={{ ...mocGlobalState }}
+          setGameList={mocSetGameList}
+          lsWord={''}
+        />
+      </BrowserRouter>
     );
 
     waitFor(() => {
-      expect(mocRequestGames).toHaveBeenCalled();
       expect(mocRequestGames).toHaveBeenCalledTimes(1);
+      expect(mocRequestGames).toHaveBeenCalledWith(mocSetGameList, null);
     });
   });
 
   test('running api with correct parameters, search word present', async () => {
     render(
-      <ItemsList
-        globalState={{ ...mocGlobalState, findWord: 'star wars' }}
-        setGameList={mocSetGameList}
-      />
+      <BrowserRouter>
+        <ItemsList
+          globalState={{ ...mocGlobalState }}
+          setGameList={mocSetGameList}
+          lsWord={''}
+        />
+      </BrowserRouter>
     );
 
     waitFor(() => {
-      expect(mocRequestFindGames).toHaveBeenCalled();
       expect(mocRequestFindGames).toHaveBeenCalledTimes(1);
+      expect(mocRequestFindGames).toHaveBeenCalledWith(
+        mocSetGameList,
+        'star wars',
+        null
+      );
     });
   });
 
   test('response fail', async () => {
     render(
-      <ItemsList
-        globalState={{ ...mocGlobalState, responseOk: false }}
-        setGameList={mocSetGameList}
-      />
+      <BrowserRouter>
+        <ItemsList
+          globalState={{ ...mocGlobalState, responseOk: false }}
+          setGameList={mocSetGameList}
+          lsWord={''}
+        />
+      </BrowserRouter>
     );
 
     waitFor(() => {
-      const errorMessage = screen.queryByAltText(responseErrorMessage);
-      expect(errorMessage).toBeInTheDocument();
+      expect(screen.queryByAltText(responseErrorMessage)).toBeInTheDocument();
     });
   });
 });

@@ -2,8 +2,9 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
 import type { IGame } from '../../Types/types';
 import { Item } from './Item';
+import { BrowserRouter } from 'react-router-dom';
 
-const mocGames: IGame[] = [
+const mockGames: IGame[] = [
   {
     id: 3498,
     name: 'Grand Theft Auto V',
@@ -31,21 +32,27 @@ const mocGames: IGame[] = [
 ];
 
 describe('Rendering Tests', () => {
-  test('Renders correct number of items when data is provided, loading states', () => {
+  test('Renders correct number of item when data is provided, loading states', () => {
     const { rerender } = render(
-      <Item key={mocGames[0].id} itemData={mocGames[0]} />
+      <BrowserRouter>
+        <Item key={mockGames[0].id} itemData={mockGames[0]} />
+      </BrowserRouter>
     );
 
-    let name = mocGames[0].name;
-    let released = mocGames[0].released;
-    expect(screen.getByText(new RegExp(name))).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(released))).toBeInTheDocument();
+    let name = mockGames[0].name;
+    let released = mockGames[0].released;
+    expect(screen.queryByText(new RegExp(name))).toBeInTheDocument();
+    expect(screen.queryByText(new RegExp(released))).toBeInTheDocument();
 
-    rerender(<Item key={mocGames[1].id} itemData={mocGames[1]} />);
+    rerender(
+      <BrowserRouter>
+        <Item key={mockGames[1].id} itemData={mockGames[1]} />
+      </BrowserRouter>
+    );
 
-    name = mocGames[1].name;
-    released = mocGames[1].released;
-    expect(screen.getByText(new RegExp(name))).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(released))).toBeInTheDocument();
+    name = mockGames[1].name;
+    released = mockGames[1].released;
+    expect(screen.queryByText(new RegExp(name))).toBeInTheDocument();
+    expect(screen.queryByText(new RegExp(released))).toBeInTheDocument();
   });
 });
